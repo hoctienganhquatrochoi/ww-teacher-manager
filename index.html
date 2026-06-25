@@ -12,9 +12,7 @@
     --primary: #4361ee;
     --primary-dark: #3451d1;
     --primary-light: #eef0fd;
-    --accent: #f72585;
     --success: #06d6a0;
-    --warning: #ffd166;
     --danger: #ef233c;
     --text: #1a1d2e;
     --text-muted: #6b7280;
@@ -28,413 +26,443 @@
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
-
-  /* ─── LAYOUT ─── */
   #app { min-height: 100vh; }
   .page { display: none; }
   .page.active { display: flex; flex-direction: column; min-height: 100vh; }
 
-  /* ─── LOGIN ─── */
-  .login-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px; background: linear-gradient(135deg,#4361ee 0%,#7209b7 100%); }
-  .login-box { background: var(--surface); border-radius: var(--radius-lg); padding: 40px 36px; width: 100%; max-width: 380px; box-shadow: var(--shadow-lg); }
-  .login-logo { text-align: center; margin-bottom: 28px; }
-  .login-logo .icon { font-size: 40px; }
-  .login-logo h1 { font-size: 18px; font-weight: 700; color: var(--primary); margin-top: 8px; line-height: 1.3; }
-  .login-logo p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-  .login-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 24px; }
-  .login-tab { flex: 1; padding: 8px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text-muted); background: transparent; border: none; transition: all .2s; }
-  .login-tab.active { background: var(--primary); color: #fff; }
-  .pass-wrap { position: relative; }
-  .pass-wrap input { padding-right: 40px !important; }
-  .pass-toggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 16px; color: var(--text-muted); padding: 2px; line-height: 1; }
-  .pass-toggle:hover { color: var(--text); }
+  /* LOGIN */
+  .login-wrap { flex:1; display:flex; align-items:center; justify-content:center; padding:24px; background:linear-gradient(135deg,#4361ee 0%,#7209b7 100%); }
+  .login-box { background:var(--surface); border-radius:var(--radius-lg); padding:40px 36px; width:100%; max-width:380px; box-shadow:var(--shadow-lg); }
+  .login-logo { text-align:center; margin-bottom:28px; }
+  .login-logo .icon { font-size:40px; }
+  .login-logo h1 { font-size:18px; font-weight:700; color:var(--primary); margin-top:8px; line-height:1.3; }
+  .login-logo p { font-size:12px; color:var(--text-muted); margin-top:4px; }
+  .login-tabs { display:flex; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; margin-bottom:24px; }
+  .login-tab { flex:1; padding:8px; text-align:center; cursor:pointer; font-size:13px; font-weight:500; color:var(--text-muted); background:transparent; border:none; transition:all .2s; }
+  .login-tab.active { background:var(--primary); color:#fff; }
+  .pass-wrap { position:relative; }
+  .pass-wrap input { padding-right:40px !important; }
+  .pass-toggle { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:16px; color:var(--text-muted); padding:2px; line-height:1; }
 
-  /* ─── FORM CONTROLS ─── */
-  .field { margin-bottom: 16px; }
-  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .4px; }
-  .field input, .field select, .field textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; color: var(--text); background: var(--surface); outline: none; transition: border-color .2s; }
-  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--primary); }
-  .field textarea { resize: vertical; min-height: 72px; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  /* FORM */
+  .field { margin-bottom:16px; }
+  .field label { display:block; font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.4px; }
+  .field input, .field select, .field textarea { width:100%; padding:10px 12px; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-size:14px; color:var(--text); background:var(--surface); outline:none; transition:border-color .2s; }
+  .field input:focus, .field select:focus { border-color:var(--primary); }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
-  /* ─── BUTTONS ─── */
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all .18s; white-space: nowrap; }
-  .btn-primary { background: var(--primary); color: #fff; }
-  .btn-primary:hover { background: var(--primary-dark); }
-  .btn-danger { background: var(--danger); color: #fff; }
-  .btn-danger:hover { background: #c8102e; }
-  .btn-ghost { background: transparent; color: var(--text-muted); border: 1.5px solid var(--border); }
-  .btn-ghost:hover { background: var(--bg); color: var(--text); }
-  .btn-success { background: var(--success); color: #fff; }
-  .btn-sm { padding: 5px 11px; font-size: 12px; }
-  .btn-icon { padding: 6px 8px; background: transparent; border: none; cursor: pointer; color: var(--text-muted); border-radius: var(--radius-sm); transition: all .15s; font-size: 16px; }
-  .btn-icon:hover { background: var(--bg); color: var(--text); }
-  .btn-icon.danger:hover { color: var(--danger); }
-  .btn-full { width: 100%; justify-content: center; padding: 12px; font-size: 15px; }
+  /* BUTTONS */
+  .btn { display:inline-flex; align-items:center; gap:6px; padding:9px 18px; border-radius:var(--radius-sm); font-size:13px; font-weight:600; cursor:pointer; border:none; transition:all .18s; white-space:nowrap; }
+  .btn-primary { background:var(--primary); color:#fff; }
+  .btn-primary:hover { background:var(--primary-dark); }
+  .btn-danger { background:var(--danger); color:#fff; }
+  .btn-ghost { background:transparent; color:var(--text-muted); border:1.5px solid var(--border); }
+  .btn-ghost:hover { background:var(--bg); color:var(--text); }
+  .btn-success { background:var(--success); color:#fff; }
+  .btn-sm { padding:5px 11px; font-size:12px; }
+  .btn-full { width:100%; justify-content:center; padding:12px; font-size:15px; }
+  .btn-icon { padding:6px 8px; background:transparent; border:none; cursor:pointer; color:var(--text-muted); border-radius:var(--radius-sm); transition:all .15s; font-size:16px; }
+  .btn-icon:hover { background:var(--bg); color:var(--text); }
+  .btn-icon.danger:hover { color:var(--danger); }
 
-  /* ─── ADMIN SHELL ─── */
-  .admin-shell { display: flex; min-height: 100vh; }
-  .sidebar { width: 220px; background: var(--text); color: #fff; display: flex; flex-direction: column; flex-shrink: 0; }
-  .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,.08); }
-  .sidebar-logo .s-icon { font-size: 26px; }
-  .sidebar-logo h2 { font-size: 13px; font-weight: 700; color: #fff; margin-top: 6px; line-height: 1.4; }
-  .sidebar-logo p { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 2px; }
-  .sidebar-nav { flex: 1; padding: 12px 0; }
-  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 20px; cursor: pointer; font-size: 13px; color: rgba(255,255,255,.65); transition: all .18s; }
-  .nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
-  .nav-item.active { background: var(--primary); color: #fff; }
-  .nav-item .ni { font-size: 17px; flex-shrink: 0; }
-  .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,.08); }
-  .sidebar-footer .logout-btn { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,.55); font-size: 12px; cursor: pointer; }
-  .sidebar-footer .logout-btn:hover { color: #fff; }
-  .admin-main { flex: 1; overflow-y: auto; }
-  .main-header { padding: 24px 28px 0; }
-  .main-header h2 { font-size: 20px; font-weight: 700; }
-  .main-header p { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
-  .main-body { padding: 20px 28px 40px; }
+  /* ADMIN SHELL */
+  .admin-shell { display:flex; min-height:100vh; }
+  .sidebar { width:220px; background:var(--text); color:#fff; display:flex; flex-direction:column; flex-shrink:0; }
+  .sidebar-logo { padding:24px 20px 20px; border-bottom:1px solid rgba(255,255,255,.08); }
+  .sidebar-logo .s-icon { font-size:26px; }
+  .sidebar-logo h2 { font-size:13px; font-weight:700; color:#fff; margin-top:6px; line-height:1.4; }
+  .sidebar-logo p { font-size:11px; color:rgba(255,255,255,.45); margin-top:2px; }
+  .sidebar-nav { flex:1; padding:12px 0; }
+  .nav-item { display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; font-size:13px; color:rgba(255,255,255,.65); transition:all .18s; }
+  .nav-item:hover { background:rgba(255,255,255,.07); color:#fff; }
+  .nav-item.active { background:var(--primary); color:#fff; }
+  .nav-item .ni { font-size:17px; flex-shrink:0; }
+  .sidebar-footer { padding:16px 20px; border-top:1px solid rgba(255,255,255,.08); }
+  .sidebar-footer .logout-btn { display:flex; align-items:center; gap:8px; color:rgba(255,255,255,.55); font-size:12px; cursor:pointer; }
+  .sidebar-footer .logout-btn:hover { color:#fff; }
+  .admin-main { flex:1; overflow-y:auto; }
+  .main-header { padding:24px 28px 0; }
+  .main-header h2 { font-size:20px; font-weight:700; }
+  .main-header p { color:var(--text-muted); font-size:13px; margin-top:4px; }
+  .main-body { padding:20px 28px 40px; }
 
-  /* ─── TEACHER SHELL ─── */
-  .teacher-shell { display: flex; flex-direction: column; min-height: 100vh; }
-  .teacher-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-sm); }
-  .teacher-header .th-brand { display: flex; align-items: center; gap: 10px; }
-  .teacher-header .th-brand .icon { font-size: 24px; }
-  .teacher-header .th-brand h2 { font-size: 15px; font-weight: 700; color: var(--primary); }
-  .teacher-header .th-right { display: flex; align-items: center; gap: 12px; }
-  .teacher-header .th-user { font-size: 13px; color: var(--text-muted); }
-  .teacher-body { flex: 1; padding: 20px; max-width: 900px; margin: 0 auto; width: 100%; }
+  /* TEACHER SHELL */
+  .teacher-shell { display:flex; flex-direction:column; min-height:100vh; }
+  .teacher-header { background:var(--surface); border-bottom:1px solid var(--border); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; box-shadow:var(--shadow-sm); }
+  .teacher-header .th-brand { display:flex; align-items:center; gap:10px; }
+  .teacher-header .th-brand .icon { font-size:24px; }
+  .teacher-header .th-brand h2 { font-size:15px; font-weight:700; color:var(--primary); }
+  .teacher-header .th-right { display:flex; align-items:center; gap:12px; }
+  .teacher-header .th-user { font-size:13px; color:var(--text-muted); }
+  .teacher-body { flex:1; padding:20px; max-width:860px; margin:0 auto; width:100%; }
 
-  /* ─── CARDS / PANELS ─── */
-  .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-  .card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .card-header h3 { font-size: 14px; font-weight: 700; }
-  .card-body { padding: 20px; }
+  /* CARDS */
+  .card { background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow-sm); }
+  .card-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .card-header h3 { font-size:14px; font-weight:700; }
+  .card-body { padding:20px; }
 
-  /* ─── STATS ─── */
-  .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
-  .stat-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px; text-align: center; }
-  .stat-card .sv { font-size: 32px; font-weight: 800; color: var(--primary); }
-  .stat-card .sl { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; }
+  /* STATS */
+  .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px; }
+  .stat-card { background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); padding:20px; text-align:center; }
+  .stat-card .sv { font-size:32px; font-weight:800; color:var(--primary); }
+  .stat-card .sl { font-size:12px; color:var(--text-muted); margin-top:4px; font-weight:600; text-transform:uppercase; letter-spacing:.4px; }
 
-  /* ─── TABLE ─── */
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; }
-  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; border-bottom: 1.5px solid var(--border); white-space: nowrap; }
-  td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: var(--bg); }
-  .badge { display: inline-block; padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-  .badge-green { background: #d1fae5; color: #065f46; }
-  .badge-red { background: #fee2e2; color: #991b1b; }
-  .badge-blue { background: var(--primary-light); color: var(--primary); }
+  /* TABLE */
+  .table-wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; }
+  th { padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; border-bottom:1.5px solid var(--border); white-space:nowrap; }
+  td { padding:10px 14px; border-bottom:1px solid var(--border); font-size:13px; vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background:var(--bg); }
+  .badge { display:inline-block; padding:3px 8px; border-radius:20px; font-size:11px; font-weight:600; }
+  .badge-green { background:#d1fae5; color:#065f46; }
+  .badge-red { background:#fee2e2; color:#991b1b; }
+  .badge-blue { background:var(--primary-light); color:var(--primary); }
 
-  /* ─── TREE (sách / unit / bài) ─── */
-  .tree { }
-  .tree-book { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; }
-  .tree-book-header { padding: 12px 16px; background: var(--bg); display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
-  .tree-book-header:hover { background: var(--primary-light); }
-  .tree-book-title { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-  .tree-book-title .chevron { font-size: 12px; transition: transform .2s; }
-  .tree-book.open .chevron { transform: rotate(90deg); }
-  .tree-book-actions { display: flex; gap: 4px; }
-  .tree-units { display: none; padding: 0 16px 12px; }
-  .tree-book.open .tree-units { display: block; }
-  .tree-unit { margin-top: 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
-  .tree-unit-header { padding: 8px 12px; background: #fafafa; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
-  .tree-unit-header:hover { background: var(--primary-light); }
-  .tree-unit-title { font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 6px; }
-  .tree-activities { display: none; }
-  .tree-unit.open .tree-activities { display: block; }
-  .activity-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; padding: 8px 12px; border-top: 1px solid var(--border); font-size: 13px; }
-  .activity-row:hover { background: var(--bg); }
-  .activity-links { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 12px; }
-  .link-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; border: none; transition: all .15s; }
-  .link-chip.play { background: #d1fae5; color: #065f46; }
-  .link-chip.play:hover { background: #a7f3d0; }
-  .link-chip.result { background: #fee2e2; color: #991b1b; }
-  .link-chip.result:hover { background: #fecaca; }
-  .activity-actions { display: flex; gap: 2px; flex-shrink: 0; }
+  /* BOOK GRID */
+  .book-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; }
+  .book-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:20px; cursor:pointer; transition:all .18s; text-align:center; }
+  .book-card:hover { border-color:var(--primary); box-shadow:var(--shadow); transform:translateY(-2px); }
+  .book-card .bc-icon { font-size:32px; margin-bottom:10px; }
+  .book-card .bc-name { font-weight:700; font-size:14px; }
+  .book-card .bc-sub { font-size:11px; color:var(--text-muted); margin-top:4px; }
 
-  /* ─── MODAL ─── */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1000; align-items: center; justify-content: center; padding: 16px; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--surface); border-radius: var(--radius-lg); width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); }
-  .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .modal-header h3 { font-size: 16px; font-weight: 700; }
-  .modal-body { padding: 20px 24px; }
-  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+  /* BREADCRUMB */
+  .breadcrumb { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--text-muted); margin-bottom:20px; flex-wrap:wrap; }
+  .breadcrumb span { cursor:pointer; }
+  .breadcrumb span:hover { color:var(--primary); text-decoration:underline; }
+  .breadcrumb .sep { color:var(--border); }
+  .breadcrumb .cur { color:var(--text); font-weight:600; cursor:default; }
+  .breadcrumb .cur:hover { text-decoration:none; }
 
-  /* ─── TEACHER CONTENT VIEW ─── */
-  .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
-  .book-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all .18s; text-align: center; }
-  .book-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-2px); }
-  .book-card .bc-icon { font-size: 36px; margin-bottom: 10px; }
-  .book-card .bc-name { font-weight: 700; font-size: 14px; }
-  .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); margin-bottom: 20px; flex-wrap: wrap; }
-  .breadcrumb span { cursor: pointer; }
-  .breadcrumb span:hover { color: var(--primary); text-decoration: underline; }
-  .breadcrumb .sep { color: var(--border); }
-  .breadcrumb .current { color: var(--text); font-weight: 600; cursor: default; }
-  .breadcrumb .current:hover { text-decoration: none; }
-  .unit-list { display: flex; flex-direction: column; gap: 8px; }
-  .unit-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .unit-item-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 600; font-size: 13px; }
-  .unit-item-header:hover { background: var(--primary-light); }
-  .unit-activities { display: none; }
-  .unit-item.open .unit-activities { display: block; }
-  .t-activity-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-top: 1px solid var(--border); gap: 12px; }
-  .t-activity-row:hover { background: var(--bg); }
-  .t-activity-name { font-size: 13px; font-weight: 500; flex: 1; }
-  .copy-btn { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; background: var(--primary); color: #fff; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; transition: all .15s; }
-  .copy-btn:hover { background: var(--primary-dark); }
-  .copy-btn.copied { background: var(--success); }
+  /* UNIT LIST (admin content editor) */
+  .unit-block { border:1px solid var(--border); border-radius:var(--radius); margin-bottom:12px; overflow:hidden; }
+  .unit-block-header { padding:11px 16px; background:var(--bg); display:flex; align-items:center; justify-content:space-between; cursor:pointer; user-select:none; }
+  .unit-block-header:hover { background:var(--primary-light); }
+  .unit-block-title { font-weight:700; font-size:13px; display:flex; align-items:center; gap:8px; }
+  .unit-chevron { font-size:11px; transition:transform .2s; }
+  .unit-block.open .unit-chevron { transform:rotate(90deg); }
+  .unit-block-body { display:none; padding:16px; }
+  .unit-block.open .unit-block-body { display:block; }
 
-  /* ─── SEARCH / FILTER ─── */
-  .search-bar { display: flex; gap: 10px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
-  .search-input { flex: 1; min-width: 180px; padding: 9px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; outline: none; }
-  .search-input:focus { border-color: var(--primary); }
+  /* ACTIVITY TYPE ROWS (inline input) */
+  .atype-row { display:grid; grid-template-columns:180px 1fr 1fr auto; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); }
+  .atype-row:last-child { border-bottom:none; }
+  .atype-label { font-size:13px; font-weight:600; color:var(--text); }
+  .atype-input { padding:7px 10px; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-size:12px; color:var(--text); outline:none; width:100%; transition:border-color .2s; }
+  .atype-input:focus { border-color:var(--primary); }
+  .atype-input.result { border-color:#fecaca; }
+  .atype-input.result:focus { border-color:var(--danger); }
+  .atype-save-btn { padding:6px 12px; background:var(--primary); color:#fff; border:none; border-radius:var(--radius-sm); font-size:12px; font-weight:600; cursor:pointer; white-space:nowrap; }
+  .atype-save-btn:hover { background:var(--primary-dark); }
+  .atype-save-btn.saved { background:var(--success); }
+  .atype-header-row { display:grid; grid-template-columns:180px 1fr 1fr auto; gap:8px; padding:6px 0 10px; border-bottom:2px solid var(--border); margin-bottom:4px; }
+  .atype-col-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; color:var(--text-muted); }
 
-  /* ─── DRAG HANDLE ─── */
-  .drag-handle { cursor: grab; color: var(--text-light); font-size: 16px; padding: 2px 4px; }
-  .drag-handle:active { cursor: grabbing; }
-  .sortable-ghost { opacity: .4; background: var(--primary-light) !important; }
+  /* TEACHER UNIT VIEW */
+  .unit-item { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:10px; overflow:hidden; }
+  .unit-item-header { padding:12px 16px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-weight:700; font-size:13px; }
+  .unit-item-header:hover { background:var(--primary-light); }
+  .unit-activities { display:none; }
+  .unit-item.open .unit-activities { display:block; }
+  .t-act-row { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-top:1px solid var(--border); gap:12px; }
+  .t-act-row:hover { background:var(--bg); }
+  .t-act-num { width:22px; height:22px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .t-act-name { font-size:13px; font-weight:500; flex:1; }
+  .copy-btn { display:inline-flex; align-items:center; gap:5px; padding:6px 14px; background:var(--primary); color:#fff; border-radius:20px; font-size:12px; font-weight:600; cursor:pointer; border:none; transition:all .15s; }
+  .copy-btn:hover { background:var(--primary-dark); }
+  .copy-btn.copied { background:var(--success); }
 
-  /* ─── MISC ─── */
-  .empty { text-align: center; padding: 40px 20px; color: var(--text-muted); }
-  .empty .ei { font-size: 40px; margin-bottom: 10px; }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
-  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text); color: #fff; padding: 12px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 600; box-shadow: var(--shadow-lg); z-index: 9999; transform: translateY(80px); opacity: 0; transition: all .3s; }
-  .toast.show { transform: translateY(0); opacity: 1; }
-  .toast.success { background: var(--success); }
-  .toast.error { background: var(--danger); }
-  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--text-muted); margin-bottom: 10px; margin-top: 20px; }
-  .section-title:first-child { margin-top: 0; }
-  .inline-edit { border: none; background: transparent; font-size: 14px; font-weight: 700; color: var(--text); outline: none; width: 100%; }
-  .inline-edit:focus { border-bottom: 2px solid var(--primary); }
-  .teacher-info-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-muted); }
-  .tab-bar { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
-  .tab-btn { padding: 10px 18px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border: none; background: none; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .18s; }
-  .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
-  .tab-pane { display: none; }
-  .tab-pane.active { display: block; }
-  .move-btn { cursor: pointer; background: none; border: none; color: var(--text-light); font-size: 14px; padding: 2px 3px; border-radius: 3px; }
-  .move-btn:hover { background: var(--bg); color: var(--text); }
-  @media (max-width: 600px) {
-    .admin-shell { flex-direction: column; }
-    .sidebar { width: 100%; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .main-body, .main-header { padding-left: 16px; padding-right: 16px; }
-    .field-row { grid-template-columns: 1fr; }
-    .book-grid { grid-template-columns: 1fr 1fr; }
+  /* COPY ALL BUTTON */
+  .copy-all-wrap { background:var(--primary-light); border:1.5px solid var(--primary); border-radius:var(--radius); padding:14px 16px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .copy-all-wrap p { font-size:13px; color:var(--primary); font-weight:600; }
+  .copy-all-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 20px; background:var(--primary); color:#fff; border-radius:var(--radius-sm); font-size:13px; font-weight:700; cursor:pointer; border:none; transition:all .15s; }
+  .copy-all-btn:hover { background:var(--primary-dark); }
+  .copy-all-btn.copied { background:var(--success); }
+
+  /* MANAGE TYPES */
+  .type-row { display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid var(--border); }
+  .type-row:last-child { border-bottom:none; }
+  .type-name { flex:1; font-size:13px; font-weight:500; }
+  .move-btn { cursor:pointer; background:none; border:none; color:var(--text-light); font-size:14px; padding:2px 4px; border-radius:3px; }
+  .move-btn:hover { background:var(--bg); color:var(--text); }
+
+  /* MODAL */
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:1000; align-items:center; justify-content:center; padding:16px; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:var(--surface); border-radius:var(--radius-lg); width:100%; max-width:520px; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg); }
+  .modal-header { padding:20px 24px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .modal-header h3 { font-size:16px; font-weight:700; }
+  .modal-body { padding:20px 24px; }
+  .modal-footer { padding:16px 24px; border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:10px; }
+
+  /* TABS */
+  .tab-bar { display:flex; border-bottom:2px solid var(--border); margin-bottom:20px; }
+  .tab-btn { padding:10px 18px; font-size:13px; font-weight:600; color:var(--text-muted); cursor:pointer; border:none; background:none; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all .18s; }
+  .tab-btn.active { color:var(--primary); border-bottom-color:var(--primary); }
+  .tab-pane { display:none; }
+  .tab-pane.active { display:block; }
+
+  /* SEARCH */
+  .search-bar { display:flex; gap:10px; margin-bottom:16px; align-items:center; flex-wrap:wrap; }
+  .search-input { flex:1; min-width:180px; padding:9px 14px; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-size:13px; outline:none; }
+  .search-input:focus { border-color:var(--primary); }
+
+  /* RESULTS VIEW */
+  .result-book { border:1px solid var(--border); border-radius:var(--radius); margin-bottom:14px; overflow:hidden; }
+  .result-book-header { padding:12px 16px; background:var(--bg); font-weight:700; font-size:14px; }
+  .result-unit { border-top:1px solid var(--border); }
+  .result-unit-header { padding:9px 16px; background:#fafafa; font-weight:600; font-size:13px; }
+  .result-act-row { display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center; padding:8px 16px; border-top:1px solid var(--border); }
+  .result-act-name { font-size:13px; }
+  .link-chip { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; cursor:pointer; border:none; text-decoration:none; transition:all .15s; }
+  .link-chip.play { background:#d1fae5; color:#065f46; }
+  .link-chip.play:hover { background:#a7f3d0; }
+  .link-chip.result { background:#fee2e2; color:#991b1b; }
+  .link-chip.result:hover { background:#fecaca; }
+
+  /* MISC */
+  .section-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--text-muted); margin-bottom:10px; }
+  .empty { text-align:center; padding:40px 20px; color:var(--text-muted); }
+  .empty .ei { font-size:40px; margin-bottom:10px; }
+  .toast { position:fixed; bottom:24px; right:24px; background:var(--text); color:#fff; padding:12px 20px; border-radius:var(--radius); font-size:13px; font-weight:600; box-shadow:var(--shadow-lg); z-index:9999; transform:translateY(80px); opacity:0; transition:all .3s; }
+  .toast.show { transform:translateY(0); opacity:1; }
+  .toast.success { background:var(--success); }
+  .toast.error { background:var(--danger); }
+  @media(max-width:600px){
+    .admin-shell{flex-direction:column}
+    .sidebar{width:100%}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .main-body,.main-header{padding-left:16px;padding-right:16px}
+    .field-row{grid-template-columns:1fr}
+    .book-grid{grid-template-columns:1fr 1fr}
+    .atype-row{grid-template-columns:1fr;gap:4px}
+    .atype-header-row{display:none}
   }
 </style>
 </head>
 <body>
 <div id="app">
-  <!-- ══ LOGIN PAGE ══ -->
-  <div id="page-login" class="page active">
-    <div class="login-wrap">
-      <div class="login-box">
-        <div class="login-logo">
-          <div class="icon">📚</div>
-          <h1>English for Kids<br>Học qua Trò Chơi</h1>
-          <p>Wordwall Teacher Manager</p>
-        </div>
-        <div class="login-tabs">
-          <button class="login-tab active" onclick="setLoginTab('admin')">Admin</button>
-          <button class="login-tab" onclick="setLoginTab('teacher')">Giáo viên</button>
-        </div>
-        <div class="field" id="field-username">
-          <label>Tên đăng nhập</label>
-          <input type="text" id="login-user" placeholder="Nhập username..." onkeydown="if(event.key==='Enter')doLogin()">
-        </div>
-        <div class="field">
-          <label>Mật khẩu</label>
-          <div class="pass-wrap">
-            <input type="password" id="login-pass" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter')doLogin()">
-            <button class="pass-toggle" type="button" onclick="togglePass('login-pass',this)">👁️</button>
-          </div>
-        </div>
-        <button class="btn btn-primary btn-full" onclick="doLogin()">Đăng nhập</button>
-        <div id="login-error" style="color:var(--danger);font-size:12px;text-align:center;margin-top:12px;display:none;"></div>
+
+<!-- LOGIN -->
+<div id="page-login" class="page active">
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-logo">
+        <div class="icon">📚</div>
+        <h1>English for Kids<br>Học qua Trò Chơi</h1>
+        <p>Wordwall Teacher Manager</p>
       </div>
+      <div class="login-tabs">
+        <button class="login-tab active" onclick="setLoginTab('admin')">Admin</button>
+        <button class="login-tab" onclick="setLoginTab('teacher')">Giáo viên</button>
+      </div>
+      <div class="field" id="field-username" style="display:none">
+        <label>Tên đăng nhập</label>
+        <input type="text" id="login-user" placeholder="Nhập username..." onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <div class="field">
+        <label>Mật khẩu</label>
+        <div class="pass-wrap">
+          <input type="password" id="login-pass" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter')doLogin()">
+          <button class="pass-toggle" type="button" onclick="togglePass('login-pass',this)">👁️</button>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="doLogin()">Đăng nhập</button>
+      <div id="login-error" style="color:var(--danger);font-size:12px;text-align:center;margin-top:12px;display:none;"></div>
     </div>
   </div>
+</div>
 
-  <!-- ══ ADMIN PAGE ══ -->
-  <div id="page-admin" class="page">
-    <div class="admin-shell">
-      <div class="sidebar">
-        <div class="sidebar-logo">
-          <div class="s-icon">📚</div>
-          <h2>English for Kids</h2>
-          <p>Admin Panel</p>
-        </div>
-        <nav class="sidebar-nav">
-          <div class="nav-item active" onclick="adminNav('dashboard')" id="nav-dashboard">
-            <span class="ni">🏠</span> Dashboard
+<!-- ADMIN -->
+<div id="page-admin" class="page">
+  <div class="admin-shell">
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <div class="s-icon">📚</div>
+        <h2>English for Kids</h2>
+        <p>Admin Panel</p>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-item active" onclick="adminNav('dashboard')" id="nav-dashboard"><span class="ni">🏠</span> Dashboard</div>
+        <div class="nav-item" onclick="adminNav('teachers')" id="nav-teachers"><span class="ni">👩‍🏫</span> Giáo viên</div>
+        <div class="nav-item" onclick="adminNav('content')" id="nav-content"><span class="ni">📖</span> Nội dung bài</div>
+        <div class="nav-item" onclick="adminNav('results')" id="nav-results"><span class="ni">📊</span> Xem kết quả</div>
+        <div class="nav-item" onclick="adminNav('types')" id="nav-types"><span class="ni">🗂️</span> Dạng bài</div>
+        <div class="nav-item" onclick="adminNav('settings')" id="nav-settings"><span class="ni">⚙️</span> Cài đặt</div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="logout-btn" onclick="doLogout()"><span>🚪</span> Đăng xuất</div>
+      </div>
+    </div>
+
+    <div class="admin-main">
+
+      <!-- DASHBOARD -->
+      <div id="sec-dashboard" class="admin-section">
+        <div class="main-header"><h2>Dashboard</h2><p>Tổng quan hệ thống</p></div>
+        <div class="main-body">
+          <div class="stats-grid">
+            <div class="stat-card"><div class="sv" id="stat-teachers">–</div><div class="sl">Giáo viên</div></div>
+            <div class="stat-card"><div class="sv" id="stat-books">–</div><div class="sl">Đầu sách</div></div>
+            <div class="stat-card"><div class="sv" id="stat-activities">–</div><div class="sl">Bài học</div></div>
           </div>
-          <div class="nav-item" onclick="adminNav('teachers')" id="nav-teachers">
-            <span class="ni">👩‍🏫</span> Giáo viên
-          </div>
-          <div class="nav-item" onclick="adminNav('content')" id="nav-content">
-            <span class="ni">📖</span> Nội dung bài
-          </div>
-          <div class="nav-item" onclick="adminNav('results')" id="nav-results">
-            <span class="ni">📊</span> Xem kết quả
-          </div>
-          <div class="nav-item" onclick="adminNav('settings')" id="nav-settings">
-            <span class="ni">⚙️</span> Cài đặt
-          </div>
-        </nav>
-        <div class="sidebar-footer">
-          <div class="logout-btn" onclick="doLogout()">
-            <span>🚪</span> Đăng xuất
+          <div class="card">
+            <div class="card-header"><h3>Giáo viên</h3></div>
+            <div class="card-body" id="dash-teachers"></div>
           </div>
         </div>
       </div>
 
-      <div class="admin-main">
-        <!-- DASHBOARD -->
-        <div id="sec-dashboard" class="admin-section">
-          <div class="main-header">
-            <h2>Dashboard</h2>
-            <p>Tổng quan hệ thống</p>
+      <!-- TEACHERS -->
+      <div id="sec-teachers" class="admin-section" style="display:none">
+        <div class="main-header"><h2>Quản lý Giáo viên</h2><p>Tạo tài khoản và quản lý đầu sách cho từng giáo viên</p></div>
+        <div class="main-body">
+          <div class="search-bar">
+            <input class="search-input" type="text" id="teacher-search" placeholder="🔍 Tìm theo tên, trường, Zalo..." oninput="renderTeacherList()">
+            <button class="btn btn-primary" onclick="openTeacherModal()">+ Thêm giáo viên</button>
           </div>
-          <div class="main-body">
-            <div class="stats-grid" id="stats-grid">
-              <div class="stat-card"><div class="sv" id="stat-teachers">–</div><div class="sl">Giáo viên</div></div>
-              <div class="stat-card"><div class="sv" id="stat-books">–</div><div class="sl">Đầu sách</div></div>
-              <div class="stat-card"><div class="sv" id="stat-activities">–</div><div class="sl">Bài học</div></div>
-            </div>
-            <div class="card">
-              <div class="card-header"><h3>Giáo viên gần đây</h3></div>
-              <div class="card-body"><div id="recent-teachers"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- TEACHERS -->
-        <div id="sec-teachers" class="admin-section" style="display:none">
-          <div class="main-header">
-            <h2>Quản lý Giáo viên</h2>
-            <p>Tạo tài khoản và phân quyền sách cho từng giáo viên</p>
-          </div>
-          <div class="main-body">
-            <div class="search-bar">
-              <input class="search-input" type="text" id="teacher-search" placeholder="🔍 Tìm theo tên, trường, Zalo..." oninput="renderTeacherList()">
-              <button class="btn btn-primary" onclick="openTeacherModal()">+ Thêm giáo viên</button>
-            </div>
-            <div class="card">
-              <div class="table-wrap"><table>
+          <div class="card">
+            <div class="table-wrap">
+              <table>
                 <thead><tr>
                   <th>Tên giáo viên</th><th>Trường</th><th>Zalo</th><th>Username</th><th>Mật khẩu</th><th>Số sách</th><th>Trạng thái</th><th></th>
                 </tr></thead>
                 <tbody id="teacher-tbody"></tbody>
-              </table></div>
+              </table>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- CONTENT -->
-        <div id="sec-content" class="admin-section" style="display:none">
-          <div class="main-header">
-            <h2>Nội dung bài học</h2>
-            <p>Chọn giáo viên để quản lý sách, unit, và bài học</p>
-          </div>
-          <div class="main-body">
+      <!-- CONTENT -->
+      <div id="sec-content" class="admin-section" style="display:none">
+        <div class="main-header"><h2>Nội dung bài học</h2><p>Chọn giáo viên để nhập link bài học</p></div>
+        <div class="main-body">
+          <div id="content-step-teachers">
             <div class="search-bar">
-              <input class="search-input" type="text" id="content-teacher-search" placeholder="🔍 Tìm giáo viên..." oninput="renderContentTeacherList()">
+              <input class="search-input" type="text" id="content-search" placeholder="🔍 Tìm giáo viên..." oninput="renderContentTeachers()">
             </div>
-            <div id="content-teacher-list" class="book-grid"></div>
-            <div id="content-editor" style="display:none">
-              <div class="breadcrumb" id="content-breadcrumb"></div>
-              <div id="content-tree"></div>
+            <div class="book-grid" id="content-teacher-grid"></div>
+          </div>
+          <div id="content-step-books" style="display:none">
+            <div class="breadcrumb" id="bc-books"></div>
+            <div style="margin-bottom:14px;display:flex;justify-content:flex-end;gap:8px;">
+              <button class="btn btn-primary btn-sm" onclick="openBookModal()">+ Thêm đầu sách</button>
             </div>
+            <div class="book-grid" id="content-book-grid"></div>
+          </div>
+          <div id="content-step-units" style="display:none">
+            <div class="breadcrumb" id="bc-units"></div>
+            <div style="margin-bottom:14px;display:flex;justify-content:flex-end;gap:8px;">
+              <button class="btn btn-primary btn-sm" onclick="openUnitModal()">+ Thêm Unit</button>
+            </div>
+            <div id="content-units-list"></div>
           </div>
         </div>
+      </div>
 
-        <!-- RESULTS -->
-        <div id="sec-results" class="admin-section" style="display:none">
-          <div class="main-header">
-            <h2>Xem kết quả</h2>
-            <p>Link kết quả Wordwall của từng giáo viên</p>
-          </div>
-          <div class="main-body">
-            <div class="field" style="max-width:320px">
-              <label>Chọn giáo viên</label>
-              <select id="result-teacher-select" onchange="renderResults()">
+      <!-- RESULTS -->
+      <div id="sec-results" class="admin-section" style="display:none">
+        <div class="main-header"><h2>Xem kết quả</h2><p>Link kết quả Wordwall theo từng giáo viên</p></div>
+        <div class="main-body">
+          <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+            <div class="field" style="min-width:220px;margin:0">
+              <label>Giáo viên</label>
+              <select id="result-teacher" onchange="renderResultBooks()">
                 <option value="">-- Chọn giáo viên --</option>
               </select>
             </div>
-            <div id="results-tree"></div>
+            <div class="field" style="min-width:220px;margin:0">
+              <label>Đầu sách</label>
+              <select id="result-book" onchange="renderResultUnits()">
+                <option value="">-- Chọn đầu sách --</option>
+              </select>
+            </div>
           </div>
+          <div id="results-view"></div>
         </div>
+      </div>
 
-        <!-- SETTINGS -->
-        <div id="sec-settings" class="admin-section" style="display:none">
-          <div class="main-header">
-            <h2>Cài đặt</h2>
-            <p>Thay đổi mật khẩu admin</p>
-          </div>
-          <div class="main-body">
-            <div class="card" style="max-width:420px">
-              <div class="card-header"><h3>Đổi mật khẩu Admin</h3></div>
-              <div class="card-body">
-                <div class="field"><label>Mật khẩu hiện tại</label><div class="pass-wrap"><input type="password" id="s-old-pass"><button class="pass-toggle" type="button" onclick="togglePass('s-old-pass',this)">👁️</button></div></div>
-                <div class="field"><label>Mật khẩu mới</label><div class="pass-wrap"><input type="password" id="s-new-pass"><button class="pass-toggle" type="button" onclick="togglePass('s-new-pass',this)">👁️</button></div></div>
-                <div class="field"><label>Xác nhận mật khẩu mới</label><div class="pass-wrap"><input type="password" id="s-confirm-pass"><button class="pass-toggle" type="button" onclick="togglePass('s-confirm-pass',this)">👁️</button></div></div>
-                <button class="btn btn-primary" onclick="changeAdminPass()">Lưu mật khẩu</button>
+      <!-- TYPES -->
+      <div id="sec-types" class="admin-section" style="display:none">
+        <div class="main-header"><h2>Quản lý dạng bài</h2><p>Danh sách dạng bài dùng chung cho tất cả giáo viên</p></div>
+        <div class="main-body">
+          <div class="card" style="max-width:500px">
+            <div class="card-header">
+              <h3>Danh sách dạng bài</h3>
+            </div>
+            <div class="card-body">
+              <div id="types-list"></div>
+              <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;gap:8px;">
+                <input type="text" id="new-type-name" placeholder="Tên dạng bài mới..." style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')addType()">
+                <button class="btn btn-primary btn-sm" onclick="addType()">+ Thêm</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- ══ TEACHER PAGE ══ -->
-  <div id="page-teacher" class="page">
-    <div class="teacher-shell">
-      <header class="teacher-header">
-        <div class="th-brand">
-          <div class="icon">📚</div>
-          <div>
-            <h2>English for Kids</h2>
+      <!-- SETTINGS -->
+      <div id="sec-settings" class="admin-section" style="display:none">
+        <div class="main-header"><h2>Cài đặt</h2><p>Đổi mật khẩu admin</p></div>
+        <div class="main-body">
+          <div class="card" style="max-width:420px">
+            <div class="card-header"><h3>Đổi mật khẩu Admin</h3></div>
+            <div class="card-body">
+              <div class="field"><label>Mật khẩu hiện tại</label><div class="pass-wrap"><input type="password" id="s-old"><button class="pass-toggle" type="button" onclick="togglePass('s-old',this)">👁️</button></div></div>
+              <div class="field"><label>Mật khẩu mới</label><div class="pass-wrap"><input type="password" id="s-new"><button class="pass-toggle" type="button" onclick="togglePass('s-new',this)">👁️</button></div></div>
+              <div class="field"><label>Xác nhận</label><div class="pass-wrap"><input type="password" id="s-confirm"><button class="pass-toggle" type="button" onclick="togglePass('s-confirm',this)">👁️</button></div></div>
+              <button class="btn btn-primary" onclick="changeAdminPass()">Lưu mật khẩu</button>
+            </div>
           </div>
         </div>
-        <div class="th-right">
-          <span class="th-user" id="teacher-username-display"></span>
-          <button class="btn btn-ghost btn-sm" onclick="openTeacherChangePass()">🔑 Đổi mật khẩu</button>
-          <button class="btn btn-ghost btn-sm" onclick="doLogout()">Đăng xuất</button>
-        </div>
-      </header>
-      <div class="teacher-body">
-        <div id="teacher-view-books">
-          <div class="section-title">📚 Sách của bạn</div>
-          <div class="book-grid" id="teacher-book-grid"></div>
-        </div>
-        <div id="teacher-view-units" style="display:none">
-          <div class="breadcrumb" id="teacher-breadcrumb"></div>
-          <div class="unit-list" id="teacher-unit-list"></div>
-        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER PAGE -->
+<div id="page-teacher" class="page">
+  <div class="teacher-shell">
+    <header class="teacher-header">
+      <div class="th-brand">
+        <div class="icon">📚</div>
+        <h2>English for Kids – Học qua Trò Chơi</h2>
+      </div>
+      <div class="th-right">
+        <span class="th-user" id="t-username-display"></span>
+        <button class="btn btn-ghost btn-sm" onclick="openModal('modal-t-pass')">🔑 Đổi mật khẩu</button>
+        <button class="btn btn-ghost btn-sm" onclick="doLogout()">Đăng xuất</button>
+      </div>
+    </header>
+    <div class="teacher-body">
+      <div id="t-step-books">
+        <div class="section-title">📚 Sách của bạn</div>
+        <div class="book-grid" id="t-book-grid"></div>
+      </div>
+      <div id="t-step-units" style="display:none">
+        <div class="breadcrumb" id="t-breadcrumb"></div>
+        <div id="t-units-list"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ MODALS ══ -->
+</div><!-- #app -->
+
+<!-- MODALS -->
 
 <!-- Teacher modal -->
 <div class="modal-overlay" id="modal-teacher">
   <div class="modal">
-    <div class="modal-header">
-      <h3 id="modal-teacher-title">Thêm giáo viên</h3>
-      <button class="btn-icon" onclick="closeModal('modal-teacher')">✕</button>
-    </div>
+    <div class="modal-header"><h3 id="mt-title">Thêm giáo viên</h3><button class="btn-icon" onclick="closeModal('modal-teacher')">✕</button></div>
     <div class="modal-body">
       <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('t-tab','tab-info',this)">Thông tin</button>
-        <button class="tab-btn" onclick="switchTab('t-tab','tab-books',this)">Phân quyền sách</button>
+        <button class="tab-btn active" onclick="switchTab('modal-teacher','tab-info',this)">Thông tin</button>
+        <button class="tab-btn" onclick="switchTab('modal-teacher','tab-books',this)">Đầu sách</button>
       </div>
       <div id="tab-info" class="tab-pane active">
         <input type="hidden" id="mt-id">
@@ -442,25 +470,19 @@
         <div class="field"><label>Trường</label><input type="text" id="mt-school" placeholder="VD: THCS Đống Đa"></div>
         <div class="field"><label>Số Zalo</label><input type="text" id="mt-zalo" placeholder="VD: 0912345678"></div>
         <div class="field-row">
-          <div class="field"><label>Username *</label><input type="text" id="mt-username" placeholder="VD: coalan"></div>
-          <div class="field"><label>Mật khẩu *</label><div class="pass-wrap"><input type="text" id="mt-password" placeholder="Nhập mật khẩu"><button class="pass-toggle" type="button" onclick="togglePass('mt-password',this)">👁️</button></div></div>
+          <div class="field"><label>Username *</label><input type="text" id="mt-username"></div>
+          <div class="field"><label>Mật khẩu *</label><div class="pass-wrap"><input type="text" id="mt-password"><button class="pass-toggle" type="button" onclick="togglePass('mt-password',this)">👁️</button></div></div>
         </div>
-        <div class="field">
-          <label>Trạng thái</label>
-          <select id="mt-active">
-            <option value="1">Hoạt động</option>
-            <option value="0">Tạm khóa</option>
-          </select>
-        </div>
+        <div class="field"><label>Trạng thái</label><select id="mt-active"><option value="1">Hoạt động</option><option value="0">Tạm khóa</option></select></div>
       </div>
       <div id="tab-books" class="tab-pane">
-        <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Tích chọn sách giáo viên này được truy cập</p>
-        <div id="mt-book-list"></div>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Đầu sách của giáo viên này</p>
+        <div id="mt-books-list"></div>
         <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
-          <div class="section-title">Thêm đầu sách mới cho GV này</div>
+          <div class="section-title">Thêm đầu sách mới</div>
           <div style="display:flex;gap:8px;">
-            <input type="text" id="mt-new-book-name" placeholder="Tên đầu sách..." style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;outline:none;">
-            <button class="btn btn-primary btn-sm" onclick="addBookForTeacher()">+ Thêm</button>
+            <input type="text" id="mt-new-book" placeholder="Tên đầu sách..." style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;outline:none;">
+            <button class="btn btn-primary btn-sm" onclick="addBookInModal()">+ Thêm</button>
           </div>
         </div>
       </div>
@@ -474,15 +496,11 @@
 
 <!-- Book modal -->
 <div class="modal-overlay" id="modal-book">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 id="modal-book-title">Thêm đầu sách</h3>
-      <button class="btn-icon" onclick="closeModal('modal-book')">✕</button>
-    </div>
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header"><h3 id="mb-title">Thêm đầu sách</h3><button class="btn-icon" onclick="closeModal('modal-book')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="mb-id">
-      <input type="hidden" id="mb-teacher-id">
-      <div class="field"><label>Tên đầu sách *</label><input type="text" id="mb-name" placeholder="VD: Family & Friends 1, Ôn thi HK1..."></div>
+      <div class="field"><label>Tên đầu sách *</label><input type="text" id="mb-name" placeholder="VD: Family & Friends 1"></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('modal-book')">Hủy</button>
@@ -493,19 +511,15 @@
 
 <!-- Unit modal -->
 <div class="modal-overlay" id="modal-unit">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 id="modal-unit-title">Thêm Unit</h3>
-      <button class="btn-icon" onclick="closeModal('modal-unit')">✕</button>
-    </div>
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header"><h3 id="mu-title">Thêm Unit</h3><button class="btn-icon" onclick="closeModal('modal-unit')">✕</button></div>
     <div class="modal-body">
       <input type="hidden" id="mu-id">
-      <input type="hidden" id="mu-book-id">
       <div class="field-row">
         <div class="field"><label>Số Unit</label><input type="number" id="mu-number" placeholder="1"></div>
-        <div class="field" style="grid-column:span 1"></div>
+        <div class="field"></div>
       </div>
-      <div class="field"><label>Tên Unit *</label><input type="text" id="mu-name" placeholder="VD: Unit 1 - School Supplies"></div>
+      <div class="field"><label>Tên Unit *</label><input type="text" id="mu-name" placeholder="VD: School Supplies"></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('modal-unit')">Hủy</button>
@@ -514,59 +528,30 @@
   </div>
 </div>
 
-<!-- Activity modal -->
-<div class="modal-overlay" id="modal-activity">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 id="modal-activity-title">Thêm bài học</h3>
-      <button class="btn-icon" onclick="closeModal('modal-activity')">✕</button>
-    </div>
-    <div class="modal-body">
-      <input type="hidden" id="ma-id">
-      <input type="hidden" id="ma-unit-id">
-      <div class="field"><label>Tên dạng bài *</label><input type="text" id="ma-name" placeholder="VD: Nghe nhắc lại học một chữ (key)"></div>
-      <div class="field"><label>Link chơi *</label><input type="url" id="ma-play" placeholder="https://wordwall.net/play/..."></div>
-      <div class="field"><label>Link kết quả</label><input type="url" id="ma-result" placeholder="https://wordwall.net/results/..."></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-activity')">Hủy</button>
-      <button class="btn btn-primary" onclick="saveActivity()">Lưu</button>
-    </div>
-  </div>
-</div>
-
-<!-- Change pass (teacher) -->
-<div class="modal-overlay" id="modal-teacher-pass">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>Đổi mật khẩu</h3>
-      <button class="btn-icon" onclick="closeModal('modal-teacher-pass')">✕</button>
-    </div>
+<!-- Teacher change pass -->
+<div class="modal-overlay" id="modal-t-pass">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-header"><h3>Đổi mật khẩu</h3><button class="btn-icon" onclick="closeModal('modal-t-pass')">✕</button></div>
     <div class="modal-body">
       <div class="field"><label>Mật khẩu hiện tại</label><div class="pass-wrap"><input type="password" id="tp-old"><button class="pass-toggle" type="button" onclick="togglePass('tp-old',this)">👁️</button></div></div>
       <div class="field"><label>Mật khẩu mới</label><div class="pass-wrap"><input type="password" id="tp-new"><button class="pass-toggle" type="button" onclick="togglePass('tp-new',this)">👁️</button></div></div>
       <div class="field"><label>Xác nhận</label><div class="pass-wrap"><input type="password" id="tp-confirm"><button class="pass-toggle" type="button" onclick="togglePass('tp-confirm',this)">👁️</button></div></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-teacher-pass')">Hủy</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-t-pass')">Hủy</button>
       <button class="btn btn-primary" onclick="saveTeacherPass()">Lưu</button>
     </div>
   </div>
 </div>
 
-<!-- Confirm delete -->
+<!-- Confirm -->
 <div class="modal-overlay" id="modal-confirm">
-  <div class="modal" style="max-width:380px">
-    <div class="modal-header">
-      <h3>Xác nhận xóa</h3>
-      <button class="btn-icon" onclick="closeModal('modal-confirm')">✕</button>
-    </div>
-    <div class="modal-body">
-      <p id="confirm-msg" style="font-size:14px;line-height:1.6;"></p>
-    </div>
+  <div class="modal" style="max-width:360px">
+    <div class="modal-header"><h3>Xác nhận xóa</h3><button class="btn-icon" onclick="closeModal('modal-confirm')">✕</button></div>
+    <div class="modal-body"><p id="confirm-msg" style="font-size:14px;line-height:1.6;"></p></div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Hủy</button>
-      <button class="btn btn-danger" id="confirm-ok-btn">Xóa</button>
+      <button class="btn btn-danger" id="confirm-ok">Xóa</button>
     </div>
   </div>
 </div>
@@ -574,279 +559,195 @@
 <div id="toast" class="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════
-// CONFIG — thay bằng Supabase project của bạn
-// ═══════════════════════════════════════════════
 const SUPABASE_URL = 'https://ybqbweywgkbfidhlcjeh.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlicWJ3ZXl3Z2tiZmlkaGxjamVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4MTU3OTAsImV4cCI6MjA5NjM5MTc5MH0.DD1sJjgbIv82fgLk3SPxpGDg7ENo9jPO0nD63UVKN9g';
 
-// ═══════════════════════════════════════════════
-// SUPABASE HELPERS
-// ═══════════════════════════════════════════════
-async function sb(method, table, opts = {}) {
+// ── SUPABASE ──
+async function sbReq(method, table, filter='', body=null, extra='') {
   let url = `${SUPABASE_URL}/rest/v1/${table}`;
-  const headers = {
-    'apikey': SUPABASE_KEY,
-    'Authorization': `Bearer ${SUPABASE_KEY}`,
-    'Content-Type': 'application/json',
-    'Prefer': method === 'POST' ? 'return=representation' : 'return=representation'
-  };
-  if (opts.select) url += `?select=${opts.select}`;
-  if (opts.filter) url += (url.includes('?') ? '&' : '?') + opts.filter;
-  if (opts.order) url += (url.includes('?') ? '&' : '?') + `order=${opts.order}`;
+  let qs = [filter, extra].filter(Boolean).join('&');
+  if (qs) url += '?' + qs;
   const res = await fetch(url, {
     method,
-    headers,
-    body: opts.body ? JSON.stringify(opts.body) : undefined
-  });
-  if (!res.ok) { const e = await res.json(); throw new Error(e.message || 'DB error'); }
-  const text = await res.text();
-  return text ? JSON.parse(text) : [];
-}
-async function sbGet(table, filter, select = '*', order = '') {
-  let f = filter || '';
-  return sb('GET', table, { filter: f, select, order });
-}
-async function sbPost(table, body) { return sb('POST', table, { body }); }
-async function sbPatch(table, filter, body) {
-  let url = `${SUPABASE_URL}/rest/v1/${table}?${filter}`;
-  const res = await fetch(url, {
-    method: 'PATCH',
     headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
-    body: JSON.stringify(body)
+    body: body ? JSON.stringify(body) : undefined
   });
-  if (!res.ok) { const e = await res.json(); throw new Error(e.message); }
-  return res.json();
+  if (!res.ok) { const e = await res.json().catch(()=>({message:'Error'})); throw new Error(e.message||'DB error'); }
+  const t = await res.text();
+  return t ? JSON.parse(t) : [];
 }
-async function sbDelete(table, filter) {
-  let url = `${SUPABASE_URL}/rest/v1/${table}?${filter}`;
-  await fetch(url, {
-    method: 'DELETE',
-    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-  });
-}
+const dbGet = (t,f='',extra='') => sbReq('GET',t,f,null,extra);
+const dbPost = (t,b) => sbReq('POST',t,'',b);
+const dbPatch = (t,f,b) => sbReq('PATCH',t,f,b);
+const dbDelete = (t,f) => sbReq('DELETE',t,f);
 
-// ═══════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════
-let currentRole = null; // 'admin' | 'teacher'
-let currentTeacher = null;
-let loginTab = 'admin';
-let allTeachers = [], allBooks = [], allUnits = [], allActivities = [];
-let contentTeacherId = null;
+// ── STATE ──
 let adminPass = 'admin123';
+let loginTab = 'admin';
+let currentTeacher = null;
+let allTeachers = [], allBooks = [], allUnits = [], allActivities = [], allTypes = [];
+let contentTeacherId = null, contentBookId = null;
 
-// ═══════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════
+// ── INIT ──
 async function initApp() {
-  await loadAdminPass();
-}
-
-async function loadAdminPass() {
   try {
-    const rows = await sbGet('app_settings', 'key=eq.wm_admin_password');
-    if (rows.length) adminPass = rows[0].value;
+    const r = await dbGet('app_settings', 'key=eq.wm_admin_password');
+    if (r.length) adminPass = r[0].value;
   } catch(e) {}
 }
 
-// ═══════════════════════════════════════════════
-// LOGIN
-// ═══════════════════════════════════════════════
+// ── LOGIN ──
 function setLoginTab(tab) {
   loginTab = tab;
   document.querySelectorAll('.login-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='admin')||(i===1&&tab==='teacher')));
   const fu = document.getElementById('field-username');
-  if (fu) fu.style.display = tab === 'admin' ? 'none' : 'block';
+  fu.style.display = tab === 'admin' ? 'none' : 'block';
   if (tab === 'admin') document.getElementById('login-user').value = 'admin';
-}
-
-function togglePass(inputId, btn) {
-  const inp = document.getElementById(inputId);
-  if (!inp) return;
-  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
-  else { inp.type = 'password'; btn.textContent = '👁️'; }
+  else document.getElementById('login-user').value = '';
 }
 
 async function doLogin() {
-  const user = document.getElementById('login-user').value.trim();
+  const user = document.getElementById('login-user').value.trim() || 'admin';
   const pass = document.getElementById('login-pass').value;
-  const errEl = document.getElementById('login-error');
-  errEl.style.display = 'none';
-
-  if (!user || !pass) { showErr('Vui lòng nhập đầy đủ thông tin'); return; }
+  const err = document.getElementById('login-error');
+  err.style.display = 'none';
+  if (!pass) { showErr('Nhập mật khẩu!'); return; }
 
   if (loginTab === 'admin') {
-    if (user === 'admin' && pass === adminPass) {
-      currentRole = 'admin';
+    if (pass === adminPass) {
       showPage('page-admin');
       await loadAllData();
       adminNav('dashboard');
-    } else {
-      showErr('Sai tài khoản hoặc mật khẩu admin');
-    }
+    } else showErr('Sai mật khẩu admin');
   } else {
+    if (!user) { showErr('Nhập username!'); return; }
     try {
-      const rows = await sbGet('wm_teachers', `username=eq.${encodeURIComponent(user)}&password=eq.${encodeURIComponent(pass)}&active=eq.true`);
+      const rows = await dbGet('wm_teachers', `username=eq.${encodeURIComponent(user)}&password=eq.${encodeURIComponent(pass)}&active=eq.true`);
       if (rows.length) {
         currentTeacher = rows[0];
-        currentRole = 'teacher';
-        document.getElementById('teacher-username-display').textContent = currentTeacher.name;
+        document.getElementById('t-username-display').textContent = currentTeacher.name;
         showPage('page-teacher');
-        await loadTeacherBooks();
-      } else {
-        showErr('Sai tài khoản hoặc mật khẩu');
-      }
-    } catch(e) { showErr('Lỗi kết nối: ' + e.message); }
+        await loadTeacherView();
+      } else showErr('Sai tài khoản hoặc mật khẩu');
+    } catch(e) { showErr('Lỗi: ' + e.message); }
   }
-
-  function showErr(msg) {
-    errEl.textContent = msg;
-    errEl.style.display = 'block';
-  }
+  function showErr(m) { err.textContent = m; err.style.display = 'block'; }
 }
 
 function doLogout() {
-  currentRole = null; currentTeacher = null;
-  document.getElementById('login-user').value = '';
+  currentTeacher = null;
   document.getElementById('login-pass').value = '';
   showPage('page-login');
 }
-
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// ═══════════════════════════════════════════════
-// LOAD DATA
-// ═══════════════════════════════════════════════
+// ── LOAD ALL ──
 async function loadAllData() {
-  try {
-    [allTeachers, allBooks, allUnits, allActivities] = await Promise.all([
-      sbGet('wm_teachers', '', '*', 'created_at.asc'),
-      sbGet('wm_books', '', '*', 'sort_order.asc,id.asc'),
-      sbGet('wm_units', '', '*', 'sort_order.asc,unit_number.asc'),
-      sbGet('wm_activities', '', '*', 'sort_order.asc,id.asc')
-    ]);
-  } catch(e) { showToast('Lỗi tải dữ liệu: ' + e.message, 'error'); }
+  [allTeachers, allBooks, allUnits, allActivities, allTypes] = await Promise.all([
+    dbGet('wm_teachers','','order=created_at.asc'),
+    dbGet('wm_books','','order=sort_order.asc,id.asc'),
+    dbGet('wm_units','','order=sort_order.asc,unit_number.asc'),
+    dbGet('wm_activities','','order=sort_order.asc,id.asc'),
+    dbGet('wm_activity_types','','order=sort_order.asc,id.asc')
+  ]);
 }
 
-// ═══════════════════════════════════════════════
-// ADMIN NAV
-// ═══════════════════════════════════════════════
+// ── ADMIN NAV ──
 function adminNav(sec) {
-  document.querySelectorAll('.admin-section').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.admin-section').forEach(s => s.style.display='none');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('sec-' + sec).style.display = 'block';
-  document.getElementById('nav-' + sec).classList.add('active');
-  if (sec === 'dashboard') renderDashboard();
-  if (sec === 'teachers') renderTeacherList();
-  if (sec === 'content') { contentTeacherId = null; renderContentTeacherList(); document.getElementById('content-teacher-list').style.display = 'grid'; document.getElementById('content-editor').style.display = 'none'; }
-  if (sec === 'results') renderResultsSelect();
-  if (sec === 'settings') {}
+  document.getElementById('sec-'+sec).style.display = 'block';
+  document.getElementById('nav-'+sec).classList.add('active');
+  if (sec==='dashboard') renderDashboard();
+  if (sec==='teachers') renderTeacherList();
+  if (sec==='content') { contentTeacherId=null; contentBookId=null; showContentStep('teachers'); renderContentTeachers(); }
+  if (sec==='results') renderResultsSetup();
+  if (sec==='types') renderTypes();
 }
 
-// ═══════════════════════════════════════════════
-// DASHBOARD
-// ═══════════════════════════════════════════════
+// ── DASHBOARD ──
 function renderDashboard() {
   document.getElementById('stat-teachers').textContent = allTeachers.filter(t=>t.active).length;
   document.getElementById('stat-books').textContent = allBooks.length;
-  document.getElementById('stat-activities').textContent = allActivities.length;
-  const recent = [...allTeachers].slice(-5).reverse();
-  document.getElementById('recent-teachers').innerHTML = recent.length ? `
-    <table><thead><tr><th>Tên</th><th>Trường</th><th>Username</th><th>Trạng thái</th></tr></thead>
-    <tbody>${recent.map(t=>`<tr>
-      <td><strong>${t.name}</strong></td>
-      <td>${t.school||'—'}</td>
-      <td><code>${t.username}</code></td>
+  document.getElementById('stat-activities').textContent = allActivities.filter(a=>a.play_link).length;
+  document.getElementById('dash-teachers').innerHTML = allTeachers.length ? `
+    <table><thead><tr><th>Tên</th><th>Trường</th><th>Username</th><th>Sách</th><th>Trạng thái</th></tr></thead>
+    <tbody>${allTeachers.map(t=>`<tr>
+      <td><strong>${t.name}</strong></td><td>${t.school||'—'}</td><td><code>${t.username}</code></td>
+      <td><span class="badge badge-blue">${allBooks.filter(b=>b.teacher_id===t.id).length}</span></td>
       <td><span class="badge ${t.active?'badge-green':'badge-red'}">${t.active?'Active':'Khóa'}</span></td>
-    </tr>`).join('')}</tbody></table>` : '<div class="empty"><div class="ei">👩‍🏫</div><p>Chưa có giáo viên nào</p></div>';
+    </tr>`).join('')}</tbody></table>` :
+    '<div class="empty"><div class="ei">👩‍🏫</div><p>Chưa có giáo viên nào</p></div>';
 }
 
-// ═══════════════════════════════════════════════
-// TEACHERS
-// ═══════════════════════════════════════════════
+// ── TEACHERS ──
 function renderTeacherList() {
   const q = (document.getElementById('teacher-search')?.value||'').toLowerCase();
-  const filtered = allTeachers.filter(t =>
-    t.name.toLowerCase().includes(q) ||
-    (t.school||'').toLowerCase().includes(q) ||
-    (t.zalo||'').includes(q)
-  );
-  const tbody = document.getElementById('teacher-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = filtered.length ? filtered.map(t => {
-    const bookCount = allBooks.filter(b => b.teacher_id === t.id).length;
+  const list = allTeachers.filter(t => t.name.toLowerCase().includes(q)||(t.school||'').toLowerCase().includes(q)||(t.zalo||'').includes(q));
+  document.getElementById('teacher-tbody').innerHTML = list.length ? list.map(t => {
+    const bc = allBooks.filter(b=>b.teacher_id===t.id).length;
     return `<tr>
-      <td><strong>${t.name}</strong></td>
-      <td>${t.school||'—'}</td>
-      <td>${t.zalo||'—'}</td>
+      <td><strong>${t.name}</strong></td><td>${t.school||'—'}</td><td>${t.zalo||'—'}</td>
       <td><code>${t.username}</code></td>
       <td><span style="font-family:monospace;font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px;">${t.password}</span></td>
-      <td><span class="badge badge-blue">${bookCount} sách</span></td>
+      <td><span class="badge badge-blue">${bc} sách</span></td>
       <td><span class="badge ${t.active?'badge-green':'badge-red'}">${t.active?'Active':'Khóa'}</span></td>
       <td>
         <button class="btn-icon" onclick="openTeacherModal(${t.id})" title="Sửa">✏️</button>
-        <button class="btn-icon danger" onclick="confirmDelete('teacher',${t.id},'${t.name.replace(/'/g,"&#39;")}')" title="Xóa">🗑️</button>
+        <button class="btn-icon danger" onclick="confirmDel('teacher',${t.id},'${esc(t.name)}')">🗑️</button>
       </td>
     </tr>`;
-  }).join('') : '<tr><td colspan="7"><div class="empty"><div class="ei">🔍</div><p>Không tìm thấy giáo viên nào</p></div></td></tr>';
+  }).join('') : '<tr><td colspan="8"><div class="empty"><p>Không tìm thấy</p></div></td></tr>';
 }
 
-async function openTeacherModal(id = null) {
-  document.getElementById('mt-id').value = id || '';
-  document.getElementById('mt-name').value = '';
-  document.getElementById('mt-school').value = '';
-  document.getElementById('mt-zalo').value = '';
-  document.getElementById('mt-username').value = '';
-  document.getElementById('mt-password').value = '';
-  document.getElementById('mt-active').value = '1';
-  document.getElementById('modal-teacher-title').textContent = id ? 'Sửa giáo viên' : 'Thêm giáo viên';
-
+async function openTeacherModal(id=null) {
+  document.getElementById('mt-id').value = id||'';
+  document.getElementById('mt-title').textContent = id ? 'Sửa giáo viên' : 'Thêm giáo viên';
   if (id) {
-    const t = allTeachers.find(x => x.id === id);
-    if (t) {
-      document.getElementById('mt-name').value = t.name;
-      document.getElementById('mt-school').value = t.school || '';
-      document.getElementById('mt-zalo').value = t.zalo || '';
-      document.getElementById('mt-username').value = t.username;
-      document.getElementById('mt-password').value = t.password;
-      document.getElementById('mt-active').value = t.active ? '1' : '0';
-    }
+    const t = allTeachers.find(x=>x.id===id);
+    document.getElementById('mt-name').value = t.name;
+    document.getElementById('mt-school').value = t.school||'';
+    document.getElementById('mt-zalo').value = t.zalo||'';
+    document.getElementById('mt-username').value = t.username;
+    document.getElementById('mt-password').value = t.password;
+    document.getElementById('mt-active').value = t.active?'1':'0';
+  } else {
+    ['mt-name','mt-school','mt-zalo','mt-username','mt-password'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('mt-active').value='1';
   }
-  renderBookCheckList(id);
-  switchTab('t-tab', 'tab-info', document.querySelector('.tab-bar .tab-btn'));
+  renderBooksInModal(id);
+  switchTab('modal-teacher','tab-info', document.querySelector('#modal-teacher .tab-btn'));
   openModal('modal-teacher');
 }
 
-function renderBookCheckList(teacherId) {
-  const container = document.getElementById('mt-book-list');
-  if (!teacherId) { container.innerHTML = '<p style="font-size:12px;color:var(--text-muted);">Lưu giáo viên trước rồi phân quyền sách.</p>'; return; }
-  const teacherBooks = allBooks.filter(b => b.teacher_id === teacherId);
-  container.innerHTML = teacherBooks.length
-    ? teacherBooks.map(b => `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);">
-        <span style="flex:1;font-size:13px;font-weight:600;">📖 ${b.name}</span>
-        <button class="btn-icon" onclick="openBookModal(${b.id},${teacherId})" title="Sửa">✏️</button>
-        <button class="btn-icon danger" onclick="confirmDelete('book',${b.id},'${b.name.replace(/'/g,"&#39;")}')" title="Xóa">🗑️</button>
-      </div>`).join('')
-    : '<p style="font-size:12px;color:var(--text-muted);">Chưa có đầu sách nào.</p>';
+function renderBooksInModal(tid) {
+  const el = document.getElementById('mt-books-list');
+  if (!tid) { el.innerHTML='<p style="font-size:12px;color:var(--text-muted);">Lưu GV trước rồi thêm sách.</p>'; return; }
+  const books = allBooks.filter(b=>b.teacher_id===tid);
+  el.innerHTML = books.length ? books.map(b=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);">
+      <span style="flex:1;font-size:13px;font-weight:600;">📖 ${b.name}</span>
+      <button class="btn-icon" onclick="openBookModal(${b.id},${tid})">✏️</button>
+      <button class="btn-icon danger" onclick="confirmDel('book',${b.id},'${esc(b.name)}')">🗑️</button>
+    </div>`).join('') : '<p style="font-size:12px;color:var(--text-muted);">Chưa có đầu sách.</p>';
 }
 
-async function addBookForTeacher() {
-  const teacherId = parseInt(document.getElementById('mt-id').value);
-  const name = document.getElementById('mt-new-book-name').value.trim();
-  if (!teacherId) { showToast('Lưu giáo viên trước!', 'error'); return; }
-  if (!name) { showToast('Nhập tên đầu sách!', 'error'); return; }
+async function addBookInModal() {
+  const tid = parseInt(document.getElementById('mt-id').value);
+  const name = document.getElementById('mt-new-book').value.trim();
+  if (!tid) { showToast('Lưu GV trước!','error'); return; }
+  if (!name) { showToast('Nhập tên sách!','error'); return; }
   try {
-    const maxOrder = allBooks.filter(b=>b.teacher_id===teacherId).reduce((m,b)=>Math.max(m,b.sort_order||0),0);
-    const rows = await sbPost('wm_books', { teacher_id: teacherId, name, sort_order: maxOrder+1 });
-    allBooks.push(rows[0]);
-    document.getElementById('mt-new-book-name').value = '';
-    renderBookCheckList(teacherId);
-    showToast('Đã thêm đầu sách!');
-  } catch(e) { showToast('Lỗi: ' + e.message, 'error'); }
+    const maxO = allBooks.filter(b=>b.teacher_id===tid).reduce((m,b)=>Math.max(m,b.sort_order||0),0);
+    const r = await dbPost('wm_books',{teacher_id:tid,name,sort_order:maxO+1});
+    allBooks.push(r[0]);
+    document.getElementById('mt-new-book').value='';
+    renderBooksInModal(tid);
+    showToast('Đã thêm sách!');
+  } catch(e) { showToast('Lỗi: '+e.message,'error'); }
 }
 
 async function saveTeacher() {
@@ -856,486 +757,531 @@ async function saveTeacher() {
   const zalo = document.getElementById('mt-zalo').value.trim();
   const username = document.getElementById('mt-username').value.trim();
   const password = document.getElementById('mt-password').value;
-  const active = document.getElementById('mt-active').value === '1';
-  if (!name || !username || !password) { showToast('Vui lòng điền tên, username và mật khẩu!', 'error'); return; }
+  const active = document.getElementById('mt-active').value==='1';
+  if (!name||!username||!password) { showToast('Điền đủ tên, username, mật khẩu!','error'); return; }
   try {
     if (id) {
-      await sbPatch('wm_teachers', `id=eq.${id}`, { name, school, zalo, username, password, active });
-      const i = allTeachers.findIndex(t => t.id == id);
-      if (i >= 0) allTeachers[i] = { ...allTeachers[i], name, school, zalo, username, password, active };
+      await dbPatch('wm_teachers',`id=eq.${id}`,{name,school,zalo,username,password,active});
+      const i=allTeachers.findIndex(t=>t.id==id); if(i>=0) allTeachers[i]={...allTeachers[i],name,school,zalo,username,password,active};
     } else {
-      const rows = await sbPost('wm_teachers', { name, school, zalo, username, password, active });
-      allTeachers.push(rows[0]);
-      document.getElementById('mt-id').value = rows[0].id;
-      renderBookCheckList(rows[0].id);
+      const r = await dbPost('wm_teachers',{name,school,zalo,username,password,active});
+      allTeachers.push(r[0]);
+      document.getElementById('mt-id').value = r[0].id;
+      renderBooksInModal(r[0].id);
     }
     renderTeacherList();
     showToast('Đã lưu giáo viên!');
-  } catch(e) { showToast('Lỗi: ' + e.message, 'error'); }
-}
-
-// ═══════════════════════════════════════════════
-// CONTENT (ADMIN)
-// ═══════════════════════════════════════════════
-function renderContentTeacherList() {
-  const q = (document.getElementById('content-teacher-search')?.value||'').toLowerCase();
-  const filtered = allTeachers.filter(t => t.name.toLowerCase().includes(q) || (t.school||'').toLowerCase().includes(q));
-  const el = document.getElementById('content-teacher-list');
-  el.innerHTML = filtered.map(t => {
-    const bc = allBooks.filter(b=>b.teacher_id===t.id).length;
-    return `<div class="book-card" onclick="openContentEditor(${t.id})">
-      <div class="bc-icon">👩‍🏫</div>
-      <div class="bc-name">${t.name}</div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">${t.school||''}</div>
-      <div style="margin-top:8px;"><span class="badge badge-blue">${bc} sách</span></div>
-    </div>`;
-  }).join('') || '<div class="empty"><div class="ei">🔍</div><p>Không tìm thấy</p></div>';
-}
-
-function openContentEditor(teacherId) {
-  contentTeacherId = teacherId;
-  document.getElementById('content-teacher-list').style.display = 'none';
-  document.getElementById('content-editor').style.display = 'block';
-  renderContentBreadcrumb();
-  renderContentTree();
-}
-
-function renderContentBreadcrumb() {
-  const t = allTeachers.find(x=>x.id===contentTeacherId);
-  document.getElementById('content-breadcrumb').innerHTML = `
-    <span onclick="backToContentList()">📋 Danh sách GV</span>
-    <span class="sep">›</span>
-    <span class="current">👩‍🏫 ${t?t.name:''}</span>`;
-}
-
-function backToContentList() {
-  contentTeacherId = null;
-  document.getElementById('content-teacher-list').style.display = 'grid';
-  document.getElementById('content-editor').style.display = 'none';
-  renderContentTeacherList();
-}
-
-function renderContentTree() {
-  const books = allBooks.filter(b => b.teacher_id === contentTeacherId);
-  const el = document.getElementById('content-tree');
-  el.innerHTML = `
-    <div style="margin-bottom:12px;display:flex;justify-content:flex-end;">
-      <button class="btn btn-primary" onclick="openBookModal(null,${contentTeacherId})">+ Thêm đầu sách</button>
-    </div>
-    <div class="tree" id="tree-books">
-    ${books.length ? books.map((b,bi) => renderBookNode(b, bi, books.length)).join('') : '<div class="empty"><div class="ei">📖</div><p>Chưa có đầu sách nào. Nhấn "Thêm đầu sách" để bắt đầu.</p></div>'}
-    </div>`;
-}
-
-function renderBookNode(b, bi, total) {
-  const units = allUnits.filter(u => u.book_id === b.id);
-  return `<div class="tree-book" id="book-${b.id}">
-    <div class="tree-book-header" onclick="toggleTree('book-${b.id}')">
-      <div class="tree-book-title">
-        <span class="chevron">▶</span>
-        📖 ${b.name}
-        <span style="font-size:11px;color:var(--text-muted);font-weight:400;">${units.length} unit</span>
-      </div>
-      <div class="tree-book-actions" onclick="event.stopPropagation()">
-        <button class="move-btn" onclick="moveItem('book',${b.id},'up')" ${bi===0?'disabled':''}>▲</button>
-        <button class="move-btn" onclick="moveItem('book',${b.id},'down')" ${bi===total-1?'disabled':''}>▼</button>
-        <button class="btn-icon" onclick="openBookModal(${b.id},${contentTeacherId})">✏️</button>
-        <button class="btn-icon danger" onclick="confirmDelete('book',${b.id},'${b.name.replace(/'/g,"&#39;")}')">🗑️</button>
-      </div>
-    </div>
-    <div class="tree-units">
-      ${units.map((u,ui)=>renderUnitNode(u,ui,units.length)).join('')}
-      <div style="margin-top:10px;">
-        <button class="btn btn-ghost btn-sm" onclick="openUnitModal(null,${b.id})">+ Thêm Unit</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-function renderUnitNode(u, ui, total) {
-  const acts = allActivities.filter(a => a.unit_id === u.id);
-  return `<div class="tree-unit" id="unit-${u.id}">
-    <div class="tree-unit-header" onclick="toggleTree('unit-${u.id}')">
-      <div class="tree-unit-title">
-        <span class="chevron" style="font-size:11px;">▶</span>
-        ${u.unit_number ? `Unit ${u.unit_number} – ` : ''}${u.unit_name}
-        <span style="font-size:11px;color:var(--text-muted);font-weight:400;">${acts.length} bài</span>
-      </div>
-      <div onclick="event.stopPropagation()" style="display:flex;gap:2px;">
-        <button class="move-btn" onclick="moveItem('unit',${u.id},'up')" ${ui===0?'disabled':''}>▲</button>
-        <button class="move-btn" onclick="moveItem('unit',${u.id},'down')" ${ui===total-1?'disabled':''}>▼</button>
-        <button class="btn-icon" onclick="openUnitModal(${u.id},${u.book_id})">✏️</button>
-        <button class="btn-icon danger" onclick="confirmDelete('unit',${u.id},'${u.unit_name.replace(/'/g,"&#39;")}')">🗑️</button>
-      </div>
-    </div>
-    <div class="tree-activities">
-      ${acts.map((a,ai)=>renderActivityRow(a,ai,acts.length)).join('')}
-      <div style="padding:8px 12px;">
-        <button class="btn btn-ghost btn-sm" onclick="openActivityModal(null,${u.id})">+ Thêm bài</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-function renderActivityRow(a, ai, total) {
-  return `<div class="activity-row" id="act-${a.id}">
-    <div>
-      <div style="font-weight:600;font-size:13px;">${a.activity_name}</div>
-      <div class="activity-links" style="margin-top:4px;">
-        ${a.play_link ? `<button class="link-chip play" onclick="window.open('${a.play_link}','_blank')">▶ Link chơi</button>` : ''}
-        ${a.result_link ? `<button class="link-chip result" onclick="window.open('${a.result_link}','_blank')">📊 Kết quả</button>` : ''}
-      </div>
-    </div>
-    <div class="activity-actions">
-      <button class="move-btn" onclick="moveItem('activity',${a.id},'up')" ${ai===0?'disabled':''}>▲</button>
-      <button class="move-btn" onclick="moveItem('activity',${a.id},'down')" ${ai===total-1?'disabled':''}>▼</button>
-      <button class="btn-icon" onclick="openActivityModal(${a.id},${a.unit_id})">✏️</button>
-      <button class="btn-icon danger" onclick="confirmDelete('activity',${a.id},'${a.activity_name.replace(/'/g,"&#39;")}')">🗑️</button>
-    </div>
-  </div>`;
-}
-
-function toggleTree(id) {
-  document.getElementById(id)?.classList.toggle('open');
-}
-
-// MOVE (up/down)
-async function moveItem(type, id, dir) {
-  const tableMap = { book: { arr: allBooks, key: 'book_id', table: 'wm_books', filter: b=>b.teacher_id===contentTeacherId },
-                     unit: { arr: allUnits, key: 'unit_id', table: 'wm_units' },
-                     activity: { arr: allActivities, key: 'unit_id', table: 'wm_activities' } };
-  const cfg = tableMap[type];
-  let item = cfg.arr.find(x=>x.id===id);
-  if (!item) return;
-
-  let siblings;
-  if (type==='book') siblings = allBooks.filter(b=>b.teacher_id===contentTeacherId);
-  else if (type==='unit') siblings = allUnits.filter(u=>u.book_id===item.book_id);
-  else siblings = allActivities.filter(a=>a.unit_id===item.unit_id);
-
-  siblings.sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));
-  const idx = siblings.findIndex(x=>x.id===id);
-  const swapIdx = dir==='up' ? idx-1 : idx+1;
-  if (swapIdx<0||swapIdx>=siblings.length) return;
-
-  const a = siblings[idx], b2 = siblings[swapIdx];
-  const ao = a.sort_order||idx+1, bo = b2.sort_order||swapIdx+1;
-  try {
-    await sbPatch(cfg.table, `id=eq.${a.id}`, { sort_order: bo });
-    await sbPatch(cfg.table, `id=eq.${b2.id}`, { sort_order: ao });
-    a.sort_order = bo; b2.sort_order = ao;
-    renderContentTree();
-    // re-open trees that were open
   } catch(e) { showToast('Lỗi: '+e.message,'error'); }
 }
 
-// BOOK MODAL
-function openBookModal(id, teacherId) {
-  document.getElementById('mb-id').value = id || '';
-  document.getElementById('mb-teacher-id').value = teacherId;
+// ── CONTENT ──
+function showContentStep(step) {
+  ['teachers','books','units'].forEach(s => {
+    document.getElementById('content-step-'+s).style.display = s===step ? 'block' : 'none';
+  });
+}
+
+function renderContentTeachers() {
+  const q = (document.getElementById('content-search')?.value||'').toLowerCase();
+  const list = allTeachers.filter(t=>t.name.toLowerCase().includes(q)||(t.school||'').toLowerCase().includes(q));
+  document.getElementById('content-teacher-grid').innerHTML = list.map(t=>`
+    <div class="book-card" onclick="openContentTeacher(${t.id})">
+      <div class="bc-icon">👩‍🏫</div>
+      <div class="bc-name">${t.name}</div>
+      <div class="bc-sub">${t.school||''}</div>
+      <div style="margin-top:8px;"><span class="badge badge-blue">${allBooks.filter(b=>b.teacher_id===t.id).length} sách</span></div>
+    </div>`).join('') || '<div class="empty" style="grid-column:1/-1"><p>Không tìm thấy</p></div>';
+}
+
+function openContentTeacher(tid) {
+  contentTeacherId = tid;
+  contentBookId = null;
+  const t = allTeachers.find(x=>x.id===tid);
+  document.getElementById('bc-books').innerHTML = `
+    <span onclick="showContentStep('teachers');renderContentTeachers()">📋 GV</span>
+    <span class="sep">›</span><span class="cur">👩‍🏫 ${t.name}</span>`;
+  renderContentBooks();
+  showContentStep('books');
+}
+
+function renderContentBooks() {
+  const books = allBooks.filter(b=>b.teacher_id===contentTeacherId);
+  document.getElementById('content-book-grid').innerHTML = books.map(b=>`
+    <div class="book-card" onclick="openContentBook(${b.id})">
+      <div class="bc-icon">📖</div>
+      <div class="bc-name">${b.name}</div>
+      <div class="bc-sub">${allUnits.filter(u=>u.book_id===b.id).length} unit</div>
+    </div>`).join('') || '<div class="empty" style="grid-column:1/-1"><div class="ei">📭</div><p>Chưa có đầu sách</p></div>';
+}
+
+function openContentBook(bid) {
+  contentBookId = bid;
+  const t = allTeachers.find(x=>x.id===contentTeacherId);
+  const b = allBooks.find(x=>x.id===bid);
+  document.getElementById('bc-units').innerHTML = `
+    <span onclick="showContentStep('teachers');renderContentTeachers()">📋 GV</span>
+    <span class="sep">›</span>
+    <span onclick="openContentTeacher(${contentTeacherId})">👩‍🏫 ${t.name}</span>
+    <span class="sep">›</span><span class="cur">📖 ${b.name}</span>`;
+  renderContentUnits();
+  showContentStep('units');
+}
+
+function renderContentUnits() {
+  const units = allUnits.filter(u=>u.book_id===contentBookId).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0)||(a.unit_number||0)-(b.unit_number||0));
+  const el = document.getElementById('content-units-list');
+  if (!units.length) { el.innerHTML='<div class="empty"><div class="ei">📭</div><p>Chưa có unit nào. Nhấn "Thêm Unit".</p></div>'; return; }
+  el.innerHTML = units.map((u,ui)=>`
+    <div class="unit-block" id="ub-${u.id}">
+      <div class="unit-block-header" onclick="toggleUnitBlock(${u.id})">
+        <div class="unit-block-title">
+          <span class="unit-chevron">▶</span>
+          ${u.unit_number?`Unit ${u.unit_number} – `:''}${u.unit_name}
+          <span style="font-size:11px;color:var(--text-muted);font-weight:400;">${allActivities.filter(a=>a.unit_id===u.id&&a.play_link).length}/${allTypes.length} bài có link</span>
+        </div>
+        <div onclick="event.stopPropagation()" style="display:flex;gap:4px;align-items:center;">
+          <button class="move-btn" onclick="moveUnit(${u.id},'up')" ${ui===0?'disabled':''}>▲</button>
+          <button class="move-btn" onclick="moveUnit(${u.id},'down')" ${ui===units.length-1?'disabled':''}>▼</button>
+          <button class="btn-icon" onclick="openUnitModal(${u.id})">✏️</button>
+          <button class="btn-icon danger" onclick="confirmDel('unit',${u.id},'${esc(u.unit_name)}')">🗑️</button>
+        </div>
+      </div>
+      <div class="unit-block-body">
+        ${renderActivityInputs(u.id)}
+      </div>
+    </div>`).join('');
+}
+
+function renderActivityInputs(unitId) {
+  return `
+    <div class="atype-header-row">
+      <div class="atype-col-label">Dạng bài</div>
+      <div class="atype-col-label">▶ Link chơi</div>
+      <div class="atype-col-label">📊 Link kết quả</div>
+      <div></div>
+    </div>
+    ${allTypes.map(type => {
+      const act = allActivities.find(a=>a.unit_id===unitId && a.type_id===type.id);
+      const actId = act ? act.id : '';
+      const playVal = act?.play_link||'';
+      const resVal = act?.result_link||'';
+      return `<div class="atype-row" id="arow-${unitId}-${type.id}">
+        <div class="atype-label">${type.name}</div>
+        <input class="atype-input" type="url" placeholder="https://wordwall.net/play/..."
+          id="play-${unitId}-${type.id}" value="${playVal}"
+          onkeydown="if(event.key==='Enter')saveActivityInline(${unitId},${type.id})">
+        <input class="atype-input result" type="url" placeholder="https://wordwall.net/results/..."
+          id="res-${unitId}-${type.id}" value="${resVal}"
+          onkeydown="if(event.key==='Enter')saveActivityInline(${unitId},${type.id})">
+        <button class="atype-save-btn" id="sbtn-${unitId}-${type.id}"
+          onclick="saveActivityInline(${unitId},${type.id})">Lưu</button>
+      </div>`;
+    }).join('')}
+    <div style="margin-top:10px;text-align:right;">
+      <button class="btn btn-primary btn-sm" onclick="saveAllInUnit(${unitId})">💾 Lưu tất cả unit này</button>
+    </div>`;
+}
+
+async function saveActivityInline(unitId, typeId) {
+  const playLink = document.getElementById(`play-${unitId}-${typeId}`).value.trim();
+  const resultLink = document.getElementById(`res-${unitId}-${typeId}`).value.trim();
+  const btn = document.getElementById(`sbtn-${unitId}-${typeId}`);
+  const existing = allActivities.find(a=>a.unit_id===unitId && a.type_id===typeId);
+  try {
+    btn.textContent = '...';
+    if (existing) {
+      await dbPatch('wm_activities',`id=eq.${existing.id}`,{play_link:playLink,result_link:resultLink});
+      existing.play_link = playLink; existing.result_link = resultLink;
+    } else {
+      const type = allTypes.find(t=>t.id===typeId);
+      const r = await dbPost('wm_activities',{unit_id:unitId,type_id:typeId,activity_name:type.name,play_link:playLink,result_link:resultLink,sort_order:type.sort_order});
+      allActivities.push(r[0]);
+    }
+    btn.textContent = '✓';
+    btn.classList.add('saved');
+    setTimeout(()=>{ btn.textContent='Lưu'; btn.classList.remove('saved'); }, 1500);
+  } catch(e) { btn.textContent='Lỗi!'; showToast('Lỗi: '+e.message,'error'); }
+}
+
+async function saveAllInUnit(unitId) {
+  for (const type of allTypes) {
+    const playLink = document.getElementById(`play-${unitId}-${type.id}`)?.value.trim()||'';
+    const resultLink = document.getElementById(`res-${unitId}-${type.id}`)?.value.trim()||'';
+    const existing = allActivities.find(a=>a.unit_id===unitId && a.type_id===type.id);
+    if (existing) {
+      await dbPatch('wm_activities',`id=eq.${existing.id}`,{play_link:playLink,result_link:resultLink});
+      existing.play_link=playLink; existing.result_link=resultLink;
+    } else if (playLink||resultLink) {
+      const r = await dbPost('wm_activities',{unit_id:unitId,type_id:type.id,activity_name:type.name,play_link:playLink,result_link:resultLink,sort_order:type.sort_order});
+      allActivities.push(r[0]);
+    }
+  }
+  showToast('Đã lưu tất cả!','success');
+  renderContentUnits();
+}
+
+function toggleUnitBlock(id) {
+  document.getElementById('ub-'+id)?.classList.toggle('open');
+}
+
+async function moveUnit(id, dir) {
+  const siblings = allUnits.filter(u=>u.book_id===contentBookId).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0)||(a.unit_number||0)-(b.unit_number||0));
+  const idx = siblings.findIndex(u=>u.id===id);
+  const si = dir==='up'?idx-1:idx+1;
+  if (si<0||si>=siblings.length) return;
+  const a=siblings[idx], b=siblings[si];
+  const ao=a.sort_order||idx+1, bo=b.sort_order||si+1;
+  await dbPatch('wm_units',`id=eq.${a.id}`,{sort_order:bo});
+  await dbPatch('wm_units',`id=eq.${b.id}`,{sort_order:ao});
+  a.sort_order=bo; b.sort_order=ao;
+  renderContentUnits();
+}
+
+function openBookModal(id=null, tid=null) {
+  document.getElementById('mb-id').value = id||'';
   document.getElementById('mb-name').value = id ? (allBooks.find(b=>b.id===id)?.name||'') : '';
-  document.getElementById('modal-book-title').textContent = id ? 'Sửa đầu sách' : 'Thêm đầu sách';
+  document.getElementById('mb-title').textContent = id ? 'Sửa đầu sách' : 'Thêm đầu sách';
   openModal('modal-book');
 }
 async function saveBook() {
   const id = document.getElementById('mb-id').value;
-  const teacherId = parseInt(document.getElementById('mb-teacher-id').value);
   const name = document.getElementById('mb-name').value.trim();
-  if (!name) { showToast('Nhập tên đầu sách!', 'error'); return; }
+  if (!name) { showToast('Nhập tên sách!','error'); return; }
   try {
     if (id) {
-      await sbPatch('wm_books', `id=eq.${id}`, { name });
-      const i = allBooks.findIndex(b=>b.id==id); if(i>=0) allBooks[i].name = name;
+      await dbPatch('wm_books',`id=eq.${id}`,{name});
+      const i=allBooks.findIndex(b=>b.id==id); if(i>=0) allBooks[i].name=name;
     } else {
-      const maxOrder = allBooks.filter(b=>b.teacher_id===teacherId).reduce((m,b)=>Math.max(m,b.sort_order||0),0);
-      const rows = await sbPost('wm_books', { teacher_id: teacherId, name, sort_order: maxOrder+1 });
-      allBooks.push(rows[0]);
+      const maxO=allBooks.filter(b=>b.teacher_id===contentTeacherId).reduce((m,b)=>Math.max(m,b.sort_order||0),0);
+      const r=await dbPost('wm_books',{teacher_id:contentTeacherId,name,sort_order:maxO+1});
+      allBooks.push(r[0]);
     }
     closeModal('modal-book');
-    renderContentTree();
+    renderContentBooks();
     showToast('Đã lưu!');
   } catch(e) { showToast('Lỗi: '+e.message,'error'); }
 }
 
-// UNIT MODAL
-function openUnitModal(id, bookId) {
-  document.getElementById('mu-id').value = id || '';
-  document.getElementById('mu-book-id').value = bookId;
+function openUnitModal(id=null) {
+  document.getElementById('mu-id').value = id||'';
   if (id) {
-    const u = allUnits.find(x=>x.id===id);
-    document.getElementById('mu-number').value = u?.unit_number||'';
-    document.getElementById('mu-name').value = u?.unit_name||'';
+    const u=allUnits.find(x=>x.id===id);
+    document.getElementById('mu-number').value=u?.unit_number||'';
+    document.getElementById('mu-name').value=u?.unit_name||'';
   } else {
-    document.getElementById('mu-number').value = '';
-    document.getElementById('mu-name').value = '';
+    document.getElementById('mu-number').value='';
+    document.getElementById('mu-name').value='';
   }
-  document.getElementById('modal-unit-title').textContent = id ? 'Sửa Unit' : 'Thêm Unit';
+  document.getElementById('mu-title').textContent = id ? 'Sửa Unit' : 'Thêm Unit';
   openModal('modal-unit');
 }
 async function saveUnit() {
   const id = document.getElementById('mu-id').value;
-  const bookId = parseInt(document.getElementById('mu-book-id').value);
   const unit_number = parseInt(document.getElementById('mu-number').value)||null;
   const unit_name = document.getElementById('mu-name').value.trim();
-  if (!unit_name) { showToast('Nhập tên unit!', 'error'); return; }
+  if (!unit_name) { showToast('Nhập tên unit!','error'); return; }
   try {
     if (id) {
-      await sbPatch('wm_units', `id=eq.${id}`, { unit_number, unit_name });
-      const i = allUnits.findIndex(u=>u.id==id); if(i>=0) { allUnits[i].unit_number=unit_number; allUnits[i].unit_name=unit_name; }
+      await dbPatch('wm_units',`id=eq.${id}`,{unit_number,unit_name});
+      const i=allUnits.findIndex(u=>u.id==id); if(i>=0){allUnits[i].unit_number=unit_number;allUnits[i].unit_name=unit_name;}
     } else {
-      const maxOrder = allUnits.filter(u=>u.book_id===bookId).reduce((m,u)=>Math.max(m,u.sort_order||0),0);
-      const rows = await sbPost('wm_units', { book_id: bookId, unit_number, unit_name, sort_order: maxOrder+1 });
-      allUnits.push(rows[0]);
+      const maxO=allUnits.filter(u=>u.book_id===contentBookId).reduce((m,u)=>Math.max(m,u.sort_order||0),0);
+      const r=await dbPost('wm_units',{book_id:contentBookId,unit_number,unit_name,sort_order:maxO+1});
+      allUnits.push(r[0]);
     }
     closeModal('modal-unit');
-    renderContentTree();
+    renderContentUnits();
     showToast('Đã lưu!');
   } catch(e) { showToast('Lỗi: '+e.message,'error'); }
 }
 
-// ACTIVITY MODAL
-function openActivityModal(id, unitId) {
-  document.getElementById('ma-id').value = id || '';
-  document.getElementById('ma-unit-id').value = unitId;
-  if (id) {
-    const a = allActivities.find(x=>x.id===id);
-    document.getElementById('ma-name').value = a?.activity_name||'';
-    document.getElementById('ma-play').value = a?.play_link||'';
-    document.getElementById('ma-result').value = a?.result_link||'';
-  } else {
-    document.getElementById('ma-name').value = '';
-    document.getElementById('ma-play').value = '';
-    document.getElementById('ma-result').value = '';
-  }
-  document.getElementById('modal-activity-title').textContent = id ? 'Sửa bài học' : 'Thêm bài học';
-  openModal('modal-activity');
+// ── RESULTS ──
+function renderResultsSetup() {
+  const sel = document.getElementById('result-teacher');
+  sel.innerHTML = '<option value="">-- Chọn giáo viên --</option>' +
+    allTeachers.map(t=>`<option value="${t.id}">${t.name}${t.school?' – '+t.school:''}</option>`).join('');
+  document.getElementById('result-book').innerHTML = '<option value="">-- Chọn đầu sách --</option>';
+  document.getElementById('results-view').innerHTML = '';
 }
-async function saveActivity() {
-  const id = document.getElementById('ma-id').value;
-  const unitId = parseInt(document.getElementById('ma-unit-id').value);
-  const activity_name = document.getElementById('ma-name').value.trim();
-  const play_link = document.getElementById('ma-play').value.trim();
-  const result_link = document.getElementById('ma-result').value.trim();
-  if (!activity_name || !play_link) { showToast('Nhập tên bài và link chơi!', 'error'); return; }
+function renderResultBooks() {
+  const tid = parseInt(document.getElementById('result-teacher').value);
+  const sel = document.getElementById('result-book');
+  document.getElementById('results-view').innerHTML='';
+  if (!tid) { sel.innerHTML='<option value="">-- Chọn đầu sách --</option>'; return; }
+  const books = allBooks.filter(b=>b.teacher_id===tid);
+  sel.innerHTML = '<option value="">-- Chọn đầu sách --</option>' + books.map(b=>`<option value="${b.id}">${b.name}</option>`).join('');
+}
+function renderResultUnits() {
+  const bid = parseInt(document.getElementById('result-book').value);
+  const el = document.getElementById('results-view');
+  if (!bid) { el.innerHTML=''; return; }
+  const book = allBooks.find(b=>b.id===bid);
+  const units = allUnits.filter(u=>u.book_id===bid).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));
+  el.innerHTML = `<div class="result-book">
+    <div class="result-book-header">📖 ${book.name}</div>
+    ${units.map(u => {
+      const acts = allActivities.filter(a=>a.unit_id===u.id);
+      return `<div class="result-unit">
+        <div class="result-unit-header">${u.unit_number?`Unit ${u.unit_number} – `:''}${u.unit_name}</div>
+        ${allTypes.map(type=>{
+          const act = acts.find(a=>a.type_id===type.id);
+          return `<div class="result-act-row">
+            <div class="result-act-name">${type.name}</div>
+            ${act?.play_link?`<a href="${act.play_link}" target="_blank" class="link-chip play">▶ Chơi</a>`:'<span style="font-size:11px;color:var(--text-light);">—</span>'}
+            ${act?.result_link?`<a href="${act.result_link}" target="_blank" class="link-chip result">📊 Kết quả</a>`:'<span style="font-size:11px;color:var(--text-light);">—</span>'}
+          </div>`;
+        }).join('')}
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+// ── TYPES ──
+function renderTypes() {
+  const el = document.getElementById('types-list');
+  el.innerHTML = allTypes.length ? allTypes.map((t,i)=>`
+    <div class="type-row" id="tr-${t.id}">
+      <span class="type-name">${t.name}</span>
+      <button class="move-btn" onclick="moveType(${t.id},'up')" ${i===0?'disabled':''}>▲</button>
+      <button class="move-btn" onclick="moveType(${t.id},'down')" ${i===allTypes.length-1?'disabled':''}>▼</button>
+      <button class="btn-icon" onclick="editTypeName(${t.id})" title="Sửa">✏️</button>
+      <button class="btn-icon danger" onclick="confirmDel('type',${t.id},'${esc(t.name)}')">🗑️</button>
+    </div>`).join('') : '<p style="color:var(--text-muted);font-size:13px;">Chưa có dạng bài nào.</p>';
+}
+
+async function addType() {
+  const name = document.getElementById('new-type-name').value.trim();
+  if (!name) return;
+  const maxO = allTypes.reduce((m,t)=>Math.max(m,t.sort_order||0),0);
   try {
-    if (id) {
-      await sbPatch('wm_activities', `id=eq.${id}`, { activity_name, play_link, result_link });
-      const i = allActivities.findIndex(a=>a.id==id);
-      if(i>=0) { allActivities[i].activity_name=activity_name; allActivities[i].play_link=play_link; allActivities[i].result_link=result_link; }
-    } else {
-      const maxOrder = allActivities.filter(a=>a.unit_id===unitId).reduce((m,a)=>Math.max(m,a.sort_order||0),0);
-      const rows = await sbPost('wm_activities', { unit_id: unitId, activity_name, play_link, result_link, sort_order: maxOrder+1 });
-      allActivities.push(rows[0]);
-    }
-    closeModal('modal-activity');
-    renderContentTree();
-    showToast('Đã lưu!');
+    const r = await dbPost('wm_activity_types',{name,sort_order:maxO+1});
+    allTypes.push(r[0]);
+    document.getElementById('new-type-name').value='';
+    renderTypes();
+    showToast('Đã thêm!');
   } catch(e) { showToast('Lỗi: '+e.message,'error'); }
 }
 
-// DELETE
-function confirmDelete(type, id, name) {
-  const labels = { teacher: 'giáo viên', book: 'đầu sách', unit: 'unit', activity: 'bài học' };
-  document.getElementById('confirm-msg').innerHTML = `Bạn có chắc muốn xóa <strong>${labels[type]}</strong>: <em>"${name}"</em>?<br><span style="color:var(--danger);font-size:12px;">Hành động này không thể hoàn tác.</span>`;
-  document.getElementById('confirm-ok-btn').onclick = () => doDelete(type, id);
+async function editTypeName(id) {
+  const t = allTypes.find(x=>x.id===id);
+  const name = prompt('Sửa tên dạng bài:', t.name);
+  if (!name||name===t.name) return;
+  try {
+    await dbPatch('wm_activity_types',`id=eq.${id}`,{name});
+    t.name=name;
+    renderTypes();
+    showToast('Đã sửa!');
+  } catch(e) { showToast('Lỗi: '+e.message,'error'); }
+}
+
+async function moveType(id, dir) {
+  const idx = allTypes.findIndex(t=>t.id===id);
+  const si = dir==='up'?idx-1:idx+1;
+  if (si<0||si>=allTypes.length) return;
+  const a=allTypes[idx], b=allTypes[si];
+  const ao=a.sort_order||idx+1, bo=b.sort_order||si+1;
+  await dbPatch('wm_activity_types',`id=eq.${a.id}`,{sort_order:bo});
+  await dbPatch('wm_activity_types',`id=eq.${b.id}`,{sort_order:ao});
+  a.sort_order=bo; b.sort_order=ao;
+  allTypes.sort((x,y)=>(x.sort_order||0)-(y.sort_order||0));
+  renderTypes();
+}
+
+// ── DELETE ──
+function confirmDel(type, id, name) {
+  const labels = {teacher:'giáo viên',book:'đầu sách',unit:'unit',type:'dạng bài'};
+  document.getElementById('confirm-msg').innerHTML = `Xóa <strong>${labels[type]}</strong>: "<em>${name}</em>"?<br><span style="color:var(--danger);font-size:12px;">Không thể hoàn tác.</span>`;
+  document.getElementById('confirm-ok').onclick = () => doDel(type, id);
   openModal('modal-confirm');
 }
-async function doDelete(type, id) {
-  const tables = { teacher: 'wm_teachers', book: 'wm_books', unit: 'wm_units', activity: 'wm_activities' };
+async function doDel(type, id) {
+  const tables = {teacher:'wm_teachers',book:'wm_books',unit:'wm_units',type:'wm_activity_types'};
   try {
-    await sbDelete(tables[type], `id=eq.${id}`);
-    if (type==='teacher') allTeachers = allTeachers.filter(x=>x.id!==id);
-    if (type==='book') allBooks = allBooks.filter(x=>x.id!==id);
-    if (type==='unit') allUnits = allUnits.filter(x=>x.id!==id);
-    if (type==='activity') allActivities = allActivities.filter(x=>x.id!==id);
+    await dbDelete(tables[type],`id=eq.${id}`);
+    if (type==='teacher') allTeachers=allTeachers.filter(x=>x.id!==id);
+    if (type==='book') allBooks=allBooks.filter(x=>x.id!==id);
+    if (type==='unit') allUnits=allUnits.filter(x=>x.id!==id);
+    if (type==='type') allTypes=allTypes.filter(x=>x.id!==id);
     closeModal('modal-confirm');
     renderTeacherList();
-    if (contentTeacherId) renderContentTree();
+    if (contentBookId) renderContentUnits();
+    if (contentTeacherId&&!contentBookId) renderContentBooks();
+    renderTypes();
     showToast('Đã xóa!');
   } catch(e) { showToast('Lỗi: '+e.message,'error'); }
 }
 
-// ═══════════════════════════════════════════════
-// RESULTS (ADMIN)
-// ═══════════════════════════════════════════════
-function renderResultsSelect() {
-  const sel = document.getElementById('result-teacher-select');
-  sel.innerHTML = '<option value="">-- Chọn giáo viên --</option>' +
-    allTeachers.map(t=>`<option value="${t.id}">${t.name}${t.school?' – '+t.school:''}</option>`).join('');
-}
-function renderResults() {
-  const tid = parseInt(document.getElementById('result-teacher-select').value);
-  const el = document.getElementById('results-tree');
-  if (!tid) { el.innerHTML=''; return; }
-  const books = allBooks.filter(b=>b.teacher_id===tid);
-  if (!books.length) { el.innerHTML='<div class="empty"><div class="ei">📭</div><p>Giáo viên này chưa có nội dung</p></div>'; return; }
-  el.innerHTML = books.map(b => {
-    const units = allUnits.filter(u=>u.book_id===b.id);
-    return `<div class="tree-book open" style="margin-bottom:12px;">
-      <div class="tree-book-header" style="cursor:default;"><div class="tree-book-title">📖 ${b.name}</div></div>
-      <div class="tree-units" style="display:block;">
-        ${units.map(u=>{
-          const acts = allActivities.filter(a=>a.unit_id===u.id);
-          return `<div style="margin-top:8px;">
-            <div style="font-weight:700;font-size:13px;padding:6px 0;border-bottom:1px solid var(--border);">${u.unit_number?`Unit ${u.unit_number} – `:''}${u.unit_name}</div>
-            ${acts.map(a=>`<div class="activity-row">
-              <div><strong>${a.activity_name}</strong></div>
-              <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                ${a.play_link?`<a href="${a.play_link}" target="_blank" class="link-chip play">▶ Link chơi</a>`:''}
-                ${a.result_link?`<a href="${a.result_link}" target="_blank" class="link-chip result">📊 Kết quả</a>`:'<span style="font-size:11px;color:var(--text-muted);">Chưa có link KQ</span>'}
-              </div>
-            </div>`).join('')}
-          </div>`;
-        }).join('')}
-      </div>
-    </div>`;
-  }).join('');
-}
-
-// ═══════════════════════════════════════════════
-// SETTINGS
-// ═══════════════════════════════════════════════
+// ── SETTINGS ──
 async function changeAdminPass() {
-  const old = document.getElementById('s-old-pass').value;
-  const nw = document.getElementById('s-new-pass').value;
-  const cf = document.getElementById('s-confirm-pass').value;
-  if (old !== adminPass) { showToast('Mật khẩu hiện tại không đúng!', 'error'); return; }
-  if (!nw || nw.length < 4) { showToast('Mật khẩu mới phải ít nhất 4 ký tự!', 'error'); return; }
-  if (nw !== cf) { showToast('Xác nhận mật khẩu không khớp!', 'error'); return; }
+  const old=document.getElementById('s-old').value;
+  const nw=document.getElementById('s-new').value;
+  const cf=document.getElementById('s-confirm').value;
+  if (old!==adminPass){showToast('Sai mật khẩu hiện tại!','error');return;}
+  if (!nw||nw.length<4){showToast('Mật khẩu mới ít nhất 4 ký tự!','error');return;}
+  if (nw!==cf){showToast('Xác nhận không khớp!','error');return;}
   try {
-    const rows = await sbGet('app_settings', 'key=eq.wm_admin_password');
-    if (rows.length) await sbPatch('app_settings', 'key=eq.wm_admin_password', { value: nw });
-    else await sbPost('app_settings', { key: 'wm_admin_password', value: nw });
-    adminPass = nw;
-    document.getElementById('s-old-pass').value = '';
-    document.getElementById('s-new-pass').value = '';
-    document.getElementById('s-confirm-pass').value = '';
-    showToast('Đã đổi mật khẩu admin!', 'success');
-  } catch(e) { showToast('Lỗi: '+e.message,'error'); }
+    const r=await dbGet('app_settings','key=eq.wm_admin_password');
+    if(r.length) await dbPatch('app_settings','key=eq.wm_admin_password',{value:nw});
+    else await dbPost('app_settings',{key:'wm_admin_password',value:nw});
+    adminPass=nw;
+    ['s-old','s-new','s-confirm'].forEach(i=>document.getElementById(i).value='');
+    showToast('Đã đổi mật khẩu!','success');
+  } catch(e){showToast('Lỗi: '+e.message,'error');}
 }
 
-// ═══════════════════════════════════════════════
-// TEACHER VIEW
-// ═══════════════════════════════════════════════
-async function loadTeacherBooks() {
-  try {
-    const books = await sbGet('wm_books', `teacher_id=eq.${currentTeacher.id}`, '*', 'sort_order.asc,id.asc');
-    const grid = document.getElementById('teacher-book-grid');
-    if (!books.length) {
-      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="ei">📭</div><p>Bạn chưa có nội dung nào. Liên hệ admin để được cấp quyền.</p></div>';
-      return;
-    }
-    grid.innerHTML = books.map(b=>`
-      <div class="book-card" onclick="openTeacherBook(${b.id},'${b.name.replace(/'/g,"&#39;")}')">
-        <div class="bc-icon">📖</div>
-        <div class="bc-name">${b.name}</div>
-      </div>`).join('');
-    document.getElementById('teacher-view-books').style.display='block';
-    document.getElementById('teacher-view-units').style.display='none';
-  } catch(e) { showToast('Lỗi tải dữ liệu: '+e.message,'error'); }
+// ── TEACHER VIEW ──
+async function loadTeacherView() {
+  const books = await dbGet('wm_books',`teacher_id=eq.${currentTeacher.id}`,'','order=sort_order.asc,id.asc');
+  const grid = document.getElementById('t-book-grid');
+  if (!books.length) {
+    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ei">📭</div><p>Bạn chưa có nội dung. Liên hệ admin.</p></div>';
+    return;
+  }
+  grid.innerHTML = books.map(b=>`
+    <div class="book-card" onclick="openTeacherBook(${b.id},'${esc(b.name)}')">
+      <div class="bc-icon">📖</div>
+      <div class="bc-name">${b.name}</div>
+    </div>`).join('');
+  document.getElementById('t-step-books').style.display='block';
+  document.getElementById('t-step-units').style.display='none';
 }
 
 async function openTeacherBook(bookId, bookName) {
-  document.getElementById('teacher-view-books').style.display='none';
-  document.getElementById('teacher-view-units').style.display='block';
-  document.getElementById('teacher-breadcrumb').innerHTML=`
-    <span onclick="loadTeacherBooks()">📚 Sách của tôi</span>
-    <span class="sep">›</span>
-    <span class="current">📖 ${bookName}</span>`;
+  document.getElementById('t-step-books').style.display='none';
+  document.getElementById('t-step-units').style.display='block';
+  document.getElementById('t-breadcrumb').innerHTML=`
+    <span onclick="loadTeacherView()">📚 Sách của tôi</span>
+    <span class="sep">›</span><span class="cur">📖 ${bookName}</span>`;
   try {
-    const units = await sbGet('wm_units', `book_id=eq.${bookId}`, '*', 'sort_order.asc,unit_number.asc');
-    const acts = await sbGet('wm_activities', `unit_id=in.(${units.map(u=>u.id).join(',')})`, 'id,unit_id,activity_name,play_link', 'sort_order.asc,id.asc');
-    const el = document.getElementById('teacher-unit-list');
+    const [units, types] = await Promise.all([
+      dbGet('wm_units',`book_id=eq.${bookId}`,'','order=sort_order.asc,unit_number.asc'),
+      dbGet('wm_activity_types','','','order=sort_order.asc')
+    ]);
+    const acts = units.length ? await dbGet('wm_activities',`unit_id=in.(${units.map(u=>u.id).join(',')})`) : [];
+    const el = document.getElementById('t-units-list');
     if (!units.length) { el.innerHTML='<div class="empty"><div class="ei">📭</div><p>Chưa có unit nào</p></div>'; return; }
-    el.innerHTML = units.map(u=>{
-      const uActs = acts.filter(a=>a.unit_id===u.id);
+    el.innerHTML = units.map((u,i)=>{
+      const uActs = acts.filter(a=>a.unit_id===u.id && a.play_link);
       return `<div class="unit-item" id="tu-${u.id}">
-        <div class="unit-item-header" onclick="document.getElementById('tu-${u.id}').classList.toggle('open')">
+        <div class="unit-item-header" onclick="toggleTeacherUnit(${u.id})">
           <span>${u.unit_number?`Unit ${u.unit_number} – `:''}${u.unit_name}</span>
           <span style="font-size:12px;color:var(--text-muted);">${uActs.length} bài ▾</span>
         </div>
         <div class="unit-activities">
-          ${uActs.map(a=>`<div class="t-activity-row">
-            <span class="t-activity-name">${a.activity_name}</span>
-            <button class="copy-btn" id="copy-${a.id}" onclick="copyLink('${a.play_link}','copy-${a.id}')">
-              📋 Copy link
+          ${uActs.length ? `
+          <div class="copy-all-wrap">
+            <p>📋 Copy tin giao bài cho cả Unit này</p>
+            <button class="copy-all-btn" id="cab-${u.id}" onclick="copyAllUnit(${u.id},'${esc(bookName)}','${esc(u.unit_number?`Unit ${u.unit_number} – ${u.unit_name}`:u.unit_name)}')">
+              📱 Copy tin giao bài
             </button>
-          </div>`).join('')}
+          </div>` : ''}
+          ${types.map((type,ti)=>{
+            const act = acts.find(a=>a.unit_id===u.id && a.type_id===type.id);
+            if (!act?.play_link) return '';
+            return `<div class="t-act-row">
+              <div class="t-act-num">${ti+1}</div>
+              <span class="t-act-name">${type.name}</span>
+              <button class="copy-btn" id="cb-${u.id}-${type.id}" onclick="copyLink('${act.play_link}','cb-${u.id}-${type.id}')">📋 Copy link</button>
+            </div>`;
+          }).join('')}
           ${!uActs.length?'<div style="padding:10px 16px;font-size:12px;color:var(--text-muted);">Chưa có bài học nào</div>':''}
         </div>
       </div>`;
     }).join('');
+    // store for copy all
+    window._tUnitsData = {units, types, acts, bookName};
   } catch(e) { showToast('Lỗi: '+e.message,'error'); }
 }
 
-function copyLink(url, btnId) {
-  if (!url) { showToast('Chưa có link!','error'); return; }
-  navigator.clipboard.writeText(url).then(()=>{
+function toggleTeacherUnit(id) {
+  document.getElementById('tu-'+id)?.classList.toggle('open');
+}
+
+function copyAllUnit(unitId, bookName, unitLabel) {
+  const d = window._tUnitsData;
+  if (!d) return;
+  const today = new Date().toLocaleDateString('vi-VN');
+  const acts = d.acts.filter(a=>a.unit_id===unitId && a.play_link);
+  const types = d.types;
+  let lines = `📚 Nội dung bài học: ${bookName} – ${unitLabel} · ${today}\n\n`;
+  let num = 1;
+  types.forEach(type=>{
+    const act = acts.find(a=>a.type_id===type.id);
+    if (act?.play_link) {
+      lines += `${num}. ${type.name}.\n${act.play_link}\n\n`;
+      num++;
+    }
+  });
+  lines = lines.trim();
+  const btnId = `cab-${unitId}`;
+  navigator.clipboard.writeText(lines).then(()=>{
     const btn = document.getElementById(btnId);
-    btn.textContent = '✅ Đã copy!';
-    btn.classList.add('copied');
-    setTimeout(()=>{ btn.textContent='📋 Copy link'; btn.classList.remove('copied'); },2000);
+    if(btn){btn.textContent='✅ Đã copy!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='📱 Copy tin giao bài';btn.classList.remove('copied');},2500);}
   }).catch(()=>{
-    const ta = document.createElement('textarea');
-    ta.value = url; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); document.body.removeChild(ta);
+    const ta=document.createElement('textarea');ta.value=lines;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    showToast('Đã copy tin giao bài!','success');
+  });
+}
+
+function copyLink(url, btnId) {
+  if (!url){showToast('Chưa có link!','error');return;}
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn=document.getElementById(btnId);
+    if(btn){btn.textContent='✅ Đã copy!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='📋 Copy link';btn.classList.remove('copied');},2000);}
+  }).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
     showToast('Đã copy!','success');
   });
 }
 
-// Teacher change password
-function openTeacherChangePass() { openModal('modal-teacher-pass'); }
+// Teacher change pass
 async function saveTeacherPass() {
-  const old = document.getElementById('tp-old').value;
-  const nw = document.getElementById('tp-new').value;
-  const cf = document.getElementById('tp-confirm').value;
-  if (old !== currentTeacher.password) { showToast('Mật khẩu hiện tại không đúng!','error'); return; }
-  if (!nw||nw.length<4) { showToast('Mật khẩu mới ít nhất 4 ký tự!','error'); return; }
-  if (nw!==cf) { showToast('Xác nhận không khớp!','error'); return; }
-  try {
-    await sbPatch('wm_teachers',`id=eq.${currentTeacher.id}`,{password:nw});
-    currentTeacher.password = nw;
-    closeModal('modal-teacher-pass');
+  const old=document.getElementById('tp-old').value;
+  const nw=document.getElementById('tp-new').value;
+  const cf=document.getElementById('tp-confirm').value;
+  if(old!==currentTeacher.password){showToast('Sai mật khẩu!','error');return;}
+  if(!nw||nw.length<4){showToast('Mật khẩu mới ít nhất 4 ký tự!','error');return;}
+  if(nw!==cf){showToast('Xác nhận không khớp!','error');return;}
+  try{
+    await dbPatch('wm_teachers',`id=eq.${currentTeacher.id}`,{password:nw});
+    currentTeacher.password=nw;
+    closeModal('modal-t-pass');
     showToast('Đã đổi mật khẩu!','success');
-  } catch(e){ showToast('Lỗi: '+e.message,'error'); }
+  }catch(e){showToast('Lỗi: '+e.message,'error');}
 }
 
-// ═══════════════════════════════════════════════
-// UI HELPERS
-// ═══════════════════════════════════════════════
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o=>{
-  o.addEventListener('click', e=>{ if(e.target===o) o.classList.remove('open'); });
-});
+// ── HELPERS ──
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 
-function switchTab(group, activeId, btn) {
-  const bar = btn.closest('.tab-bar');
-  bar.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+function switchTab(modalId, activePane, btn) {
+  const modal = document.getElementById(modalId);
+  modal.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const panes = bar.parentElement.querySelectorAll('.tab-pane');
-  panes.forEach(p=>p.classList.remove('active'));
-  document.getElementById(activeId).classList.add('active');
+  modal.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById(activePane).classList.add('active');
 }
 
-let toastTimer;
-function showToast(msg, type='success') {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show ' + type;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>{ el.classList.remove('show'); },2800);
+function togglePass(id, btn) {
+  const inp=document.getElementById(id);
+  if(!inp)return;
+  inp.type=inp.type==='password'?'text':'password';
+  btn.textContent=inp.type==='password'?'👁️':'🙈';
 }
 
-// ═══════════════════════════════════════════════
-// START
-// ═══════════════════════════════════════════════
+let toastT;
+function showToast(msg,type='success'){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className='toast show '+type;
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+function esc(s){return (s||'').replace(/'/g,"&#39;").replace(/"/g,'&quot;');}
+
+// ── START ──
 initApp();
-// Ẩn field username mặc định (tab admin)
-window.addEventListener('DOMContentLoaded', () => {
-  const fu = document.getElementById('field-username');
-  if (fu) fu.style.display = 'none';
-});
 </script>
 </body>
 </html>
