@@ -201,9 +201,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
             <div class="ch"><h3>Danh sach dang bai</h3></div>
             <div class="cb">
               <div id="db-list"></div>
-              <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--bdr);display:flex;gap:8px;">
-                <input type="text" id="db-new" placeholder="Ten dang bai moi..." style="flex:1;padding:8px 12px;border:1.5px solid var(--bdr);border-radius:6px;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')addDB()">
-                <button class="btn bp bs" onclick="addDB()">+ Them</button>
+              <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--bdr);">
+                <div style="display:flex;gap:8px;margin-bottom:8px;">
+                  <input type="text" id="db-new" placeholder="Ten dang bai moi..." style="flex:1;padding:8px 12px;border:1.5px solid var(--bdr);border-radius:6px;font-size:13px;outline:none;">
+                  <input type="text" id="db-new-cat" placeholder="Nhom (VD: Tieu hoc)..." style="width:160px;padding:8px 12px;border:1.5px solid var(--bdr);border-radius:6px;font-size:13px;outline:none;">
+                  <button class="btn bp bs" onclick="addDB()">+ Them</button>
+                </div>
               </div>
             </div>
           </div>
@@ -565,6 +568,8 @@ async function renderUnitList() {
   el.innerHTML = '<div style="padding:12px;color:var(--muted);">Dang tai...</div>';
   try {
     DBs = await db('GET', 'wm_activity_types', 'order=sort_order.asc,id.asc');
+    window._curCat = window._curCat || null;
+    console.log('DBs loaded:', DBs.length, DBs);
     var uids = Units.filter(function(u) { return u.book_id === cSK; }).map(function(u) { return u.id; });
     if (uids.length) {
       var fresh = await db('GET', 'wm_activities', 'unit_id=in.(' + uids.join(',') + ')&order=sort_order.asc,id.asc');
@@ -574,16 +579,28 @@ async function renderUnitList() {
   var units = Units.filter(function(u) { return u.book_id === cSK; });
   units.sort(function(a, b) { return (a.sort_order || 0) - (b.sort_order || 0) || (a.unit_number || 0) - (b.unit_number || 0); });
   if (!units.length) { el.innerHTML = '<div class="empty"><div class="ei">📭</div><p>Chua co unit nao.</p></div>'; return; }
-  var h = '';
+  // Build category tabs
+  var allCats2 = [];
+  DBs.forEach(function(t) { var c2 = t.category || 'Tieu hoc'; if (allCats2.indexOf(c2) < 0) allCats2.push(c2); });
+  if (!window._curCat || allCats2.indexOf(window._curCat) < 0) window._curCat = allCats2[0] || null;
+  var tabH = '<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">';
+  allCats2.forEach(function(cat) {
+    var active = cat === window._curCat ? 'background:var(--pri);color:#fff;' : 'background:var(--sur);color:var(--txt);border:1.5px solid var(--bdr);';
+    tabH += '<button style="padding:7px 18px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:none;' + active + '" data-cat="' + cat + '" onclick="setCurCat(this.getAttribute(' + "'data-cat'" + '))">' + cat + '</button>';
+  });
+  tabH += '</div>';
+  var h = tabH;
   for (var i = 0; i < units.length; i++) {
     var u = units[i];
-    var lk = Acts.filter(function(a) { return a.unit_id === u.id && a.play_link; }).length;
+    var filtDBs = window._curCat ? DBs.filter(function(t) { return (t.category||'Tieu hoc') === window._curCat; }) : DBs;
+    var filtIds = filtDBs.map(function(t) { return t.id; });
+    var lk = Acts.filter(function(a) { return a.unit_id === u.id && a.play_link && filtIds.indexOf(a.type_id) >= 0; }).length;
     var ul = (u.unit_number ? 'Unit ' + u.unit_number + ' - ' : '') + u.unit_name;
     var du = i === 0 ? ' disabled' : '';
     var dd = i === units.length - 1 ? ' disabled' : '';
     h += '<div class="ub open" id="ub-' + u.id + '">';
     h += '<div class="ubh" onclick="togUB(' + u.id + ')">';
-    h += '<div class="ubt"><span class="ubc">&#9658;</span> ' + ul + ' <span style="font-size:11px;color:var(--muted);font-weight:400;">' + lk + '/' + DBs.length + ' bai co link</span></div>';
+    h += '<div class="ubt"><span class="ubc">&#9658;</span> ' + ul + ' <span style="font-size:11px;color:var(--muted);font-weight:400;">' + lk + '/' + filtDBs.length + ' bai co link</span></div>';
     h += '<div onclick="event.stopPropagation()" style="display:flex;gap:4px;align-items:center;">';
     h += '<button class="mv" onclick="mvUnit(' + u.id + ',0)"' + du + '>&#9650;</button>';
     h += '<button class="mv" onclick="mvUnit(' + u.id + ',1)"' + dd + '>&#9660;</button>';
@@ -596,8 +613,10 @@ async function renderUnitList() {
 }
 
 function buildInputs(uid) {
+  var curCat = window._curCat;
+  var filteredDBs = curCat ? DBs.filter(function(t) { return (t.category || 'Tieu hoc') === curCat; }) : DBs;
   var h = '<div class="ah"><div class="ac">Dang bai</div><div class="ac">&#9654; Link choi</div><div class="ac">&#128202; Link KQ</div><div></div></div>';
-  DBs.forEach(function(type) {
+  filteredDBs.forEach(function(type) {
     var act = Acts.find(function(a) { return a.unit_id === uid && a.type_id === type.id; });
     var pv = (act && act.play_link) ? act.play_link : '';
     var rv = (act && act.result_link) ? act.result_link : '';
@@ -613,6 +632,8 @@ function buildInputs(uid) {
 }
 
 function togUB(id) { var el = document.getElementById('ub-' + id); if (el) el.classList.toggle('open'); }
+
+function setCurCat(cat) { window._curCat = cat; renderUnitList(); }
 
 async function mvUnit(id, dir) {
   var sib = Units.filter(function(u) { return u.book_id === cSK; });
@@ -728,20 +749,41 @@ function kqRender() {
 function renderDB() {
   var el = document.getElementById('db-list');
   if (!DBs.length) { el.innerHTML = '<p style="color:var(--muted);font-size:13px;">Chua co dang bai nao.</p>'; return; }
+  var cats = [];
+  DBs.forEach(function(t) { var cat = t.category || 'Tieu hoc'; if (cats.indexOf(cat) < 0) cats.push(cat); });
   var h = '';
-  DBs.forEach(function(t, i) {
-    h += '<div class="tyr"><span class="tyn">' + t.name + '</span>';
-    h += '<button class="mv" onclick="mvDB(' + t.id + ',0)"' + (i === 0 ? ' disabled' : '') + '>&#9650;</button>';
-    h += '<button class="mv" onclick="mvDB(' + t.id + ',1)"' + (i === DBs.length - 1 ? ' disabled' : '') + '>&#9660;</button>';
-    h += '<button class="bi" onclick="editDB(' + t.id + ')">&#9999;&#65039;</button>';
-    h += '<button class="bi d" onclick="askDel(\'db\',' + t.id + ',\'' + ss(t.name) + '\')">&#128465;&#65039;</button></div>';
+  cats.forEach(function(cat) {
+    var list = DBs.filter(function(t) { return (t.category || 'Tieu hoc') === cat; });
+    h += '<div style="margin-bottom:14px;">';
+    h += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:var(--pri);margin-bottom:6px;padding:3px 8px;background:var(--prl);border-radius:4px;display:inline-block;">' + cat + '</div>';
+    list.forEach(function(t) {
+      var ai = DBs.findIndex(function(x) { return x.id === t.id; });
+      h += '<div class="tyr"><span class="tyn">' + t.name + '</span>';
+      h += '<select onchange="setCat(' + t.id + ',this.value)" style="font-size:11px;padding:3px 6px;border:1px solid var(--bdr);border-radius:4px;outline:none;color:var(--muted);">';
+      cats.forEach(function(ct) { h += '<option value="' + ct + '"' + (ct === (t.category||'Tieu hoc') ? ' selected' : '') + '>' + ct + '</option>'; });
+      h += '</select>';
+      h += '<button class="mv" onclick="mvDB(' + t.id + ',0)"' + (ai === 0 ? ' disabled' : '') + '>&#9650;</button>';
+      h += '<button class="mv" onclick="mvDB(' + t.id + ',1)"' + (ai === DBs.length - 1 ? ' disabled' : '') + '>&#9660;</button>';
+      h += '<button class="bi" onclick="editDB(' + t.id + ')">&#9999;&#65039;</button>';
+      h += '<button class="bi d" onclick="askDel(\'db\',' + t.id + ',\'' + ss(t.name) + '\')">&#128465;&#65039;</button></div>';
+    });
+    h += '</div>';
   });
   el.innerHTML = h;
 }
+
+async function setCat(id, cat) {
+  var t = DBs.find(function(x) { return x.id === id; });
+  if (!t) return;
+  try { await dbPatch('wm_activity_types', 'id=eq.' + id, { category: cat }); t.category = cat; renderDB(); toast('Da cap nhat!'); }
+  catch (ex) { toast('Loi: ' + ex.message, 'er'); }
+}
+
 async function addDB() {
   var name = document.getElementById('db-new').value.trim(); if (!name) return;
+  var cat = document.getElementById('db-new-cat').value.trim() || 'Tieu hoc';
   var mo = DBs.reduce(function(m, t) { return Math.max(m, t.sort_order || 0); }, 0);
-  try { var r = await db('POST', 'wm_activity_types', '', { name: name, sort_order: mo + 1 }); DBs.push(r[0]); document.getElementById('db-new').value = ''; renderDB(); toast('Da them!'); }
+  try { var r = await db('POST', 'wm_activity_types', '', { name: name, category: cat, sort_order: mo + 1 }); DBs.push(r[0]); document.getElementById('db-new').value = ''; renderDB(); toast('Da them!'); }
   catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 async function editDB(id) {
