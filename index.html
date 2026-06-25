@@ -622,8 +622,8 @@ function buildInputs(uid) {
     var rv = (act && act.result_link) ? act.result_link : '';
     h += '<div class="ar">';
     h += '<div class="al">' + type.name + '</div>';
-    h += '<input class="ai" type="url" id="p-' + uid + '-' + type.id + '" value="' + pv + '" placeholder="https://wordwall.net/play/...">';
-    h += '<input class="ai air" type="url" id="r-' + uid + '-' + type.id + '" value="' + rv + '" placeholder="https://wordwall.net/results/...">';
+    h += '<input class="ai" type="url" id="p-' + uid + '-' + type.id + '" value="' + pv + '" placeholder="https://wordwall.net/play/..." onblur="saveAct(' + uid + ',' + type.id + ')" onkeydown="if(event.key===\'Enter\'){event.target.blur();}">';
+    h += '<input class="ai air" type="url" id="r-' + uid + '-' + type.id + '" value="' + rv + '" placeholder="https://wordwall.net/results/..." onblur="saveAct(' + uid + ',' + type.id + ')" onkeydown="if(event.key===\'Enter\'){event.target.blur();}">';
     h += '<button class="sb2" id="s-' + uid + '-' + type.id + '" onclick="saveAct(' + uid + ',' + type.id + ')">Luu</button>';
     h += '</div>';
   });
