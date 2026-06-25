@@ -848,10 +848,13 @@ async function renderContentUnits() {
           <button class="btn-icon danger" onclick="confirmDel('unit',${u.id},'${esc(u.unit_name)}')">🗑️</button>
         </div>
       </div>
-      <div class="unit-block-body">
-        ${renderActivityInputs(u.id)}
-      </div>
+      <div class="unit-block-body" id="ubody-${u.id}"></div>
     </div>`).join('');
+  // Render inputs sau khi allTypes đã có
+  units.forEach(u => {
+    const el2 = document.getElementById('ubody-'+u.id);
+    if (el2) el2.innerHTML = renderActivityInputs(u.id);
+  });
 }
 
 function renderActivityInputs(unitId) {
