@@ -565,8 +565,15 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 // ── SUPABASE ──
 async function sbReq(method, table, filter='', body=null, extra='') {
   let url = `${SUPABASE_URL}/rest/v1/${table}`;
-  let qs = [filter, extra].filter(Boolean).join('&');
-  if (qs) url += '?' + qs;
+  if (method === 'GET') {
+    let parts = ['select=*'];
+    if (filter) parts.push(filter);
+    if (extra) parts.push(extra);
+    url += '?' + parts.join('&');
+  } else {
+    let qs = [filter, extra].filter(Boolean).join('&');
+    if (qs) url += '?' + qs;
+  }
   const res = await fetch(url, {
     method,
     headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
