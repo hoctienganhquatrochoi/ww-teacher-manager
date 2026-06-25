@@ -827,12 +827,14 @@ function openContentBook(bid) {
   showContentStep('units');
 }
 
-function renderContentUnits() {
+async function renderContentUnits() {
+  // Reload types mới nhất
+  try { allTypes = await dbGet('wm_activity_types','','order=sort_order.asc,id.asc'); } catch(e) {}
   const units = allUnits.filter(u=>u.book_id===contentBookId).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0)||(a.unit_number||0)-(b.unit_number||0));
   const el = document.getElementById('content-units-list');
   if (!units.length) { el.innerHTML='<div class="empty"><div class="ei">📭</div><p>Chưa có unit nào. Nhấn "Thêm Unit".</p></div>'; return; }
   el.innerHTML = units.map((u,ui)=>`
-    <div class="unit-block" id="ub-${u.id}">
+    <div class="unit-block open" id="ub-${u.id}">
       <div class="unit-block-header" onclick="toggleUnitBlock(${u.id})">
         <div class="unit-block-title">
           <span class="unit-chevron">▶</span>
