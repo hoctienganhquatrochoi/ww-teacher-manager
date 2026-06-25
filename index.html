@@ -44,6 +44,10 @@
   .login-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 24px; }
   .login-tab { flex: 1; padding: 8px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text-muted); background: transparent; border: none; transition: all .2s; }
   .login-tab.active { background: var(--primary); color: #fff; }
+  .pass-wrap { position: relative; }
+  .pass-wrap input { padding-right: 40px !important; }
+  .pass-toggle { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 16px; color: var(--text-muted); padding: 2px; line-height: 1; }
+  .pass-toggle:hover { color: var(--text); }
 
   /* ─── FORM CONTROLS ─── */
   .field { margin-bottom: 16px; }
@@ -239,13 +243,16 @@
           <button class="login-tab active" onclick="setLoginTab('admin')">Admin</button>
           <button class="login-tab" onclick="setLoginTab('teacher')">Giáo viên</button>
         </div>
-        <div class="field">
+        <div class="field" id="field-username">
           <label>Tên đăng nhập</label>
           <input type="text" id="login-user" placeholder="Nhập username..." onkeydown="if(event.key==='Enter')doLogin()">
         </div>
         <div class="field">
           <label>Mật khẩu</label>
-          <input type="password" id="login-pass" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter')doLogin()">
+          <div class="pass-wrap">
+            <input type="password" id="login-pass" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter')doLogin()">
+            <button class="pass-toggle" type="button" onclick="togglePass('login-pass',this)">👁️</button>
+          </div>
         </div>
         <button class="btn btn-primary btn-full" onclick="doLogin()">Đăng nhập</button>
         <div id="login-error" style="color:var(--danger);font-size:12px;text-align:center;margin-top:12px;display:none;"></div>
@@ -320,7 +327,7 @@
             <div class="card">
               <div class="table-wrap"><table>
                 <thead><tr>
-                  <th>Tên giáo viên</th><th>Trường</th><th>Zalo</th><th>Username</th><th>Số sách</th><th>Trạng thái</th><th></th>
+                  <th>Tên giáo viên</th><th>Trường</th><th>Zalo</th><th>Username</th><th>Mật khẩu</th><th>Số sách</th><th>Trạng thái</th><th></th>
                 </tr></thead>
                 <tbody id="teacher-tbody"></tbody>
               </table></div>
@@ -373,9 +380,9 @@
             <div class="card" style="max-width:420px">
               <div class="card-header"><h3>Đổi mật khẩu Admin</h3></div>
               <div class="card-body">
-                <div class="field"><label>Mật khẩu hiện tại</label><input type="password" id="s-old-pass"></div>
-                <div class="field"><label>Mật khẩu mới</label><input type="password" id="s-new-pass"></div>
-                <div class="field"><label>Xác nhận mật khẩu mới</label><input type="password" id="s-confirm-pass"></div>
+                <div class="field"><label>Mật khẩu hiện tại</label><div class="pass-wrap"><input type="password" id="s-old-pass"><button class="pass-toggle" type="button" onclick="togglePass('s-old-pass',this)">👁️</button></div></div>
+                <div class="field"><label>Mật khẩu mới</label><div class="pass-wrap"><input type="password" id="s-new-pass"><button class="pass-toggle" type="button" onclick="togglePass('s-new-pass',this)">👁️</button></div></div>
+                <div class="field"><label>Xác nhận mật khẩu mới</label><div class="pass-wrap"><input type="password" id="s-confirm-pass"><button class="pass-toggle" type="button" onclick="togglePass('s-confirm-pass',this)">👁️</button></div></div>
                 <button class="btn btn-primary" onclick="changeAdminPass()">Lưu mật khẩu</button>
               </div>
             </div>
@@ -436,7 +443,7 @@
         <div class="field"><label>Số Zalo</label><input type="text" id="mt-zalo" placeholder="VD: 0912345678"></div>
         <div class="field-row">
           <div class="field"><label>Username *</label><input type="text" id="mt-username" placeholder="VD: coalan"></div>
-          <div class="field"><label>Mật khẩu *</label><input type="password" id="mt-password" placeholder="Nhập mật khẩu"></div>
+          <div class="field"><label>Mật khẩu *</label><div class="pass-wrap"><input type="text" id="mt-password" placeholder="Nhập mật khẩu"><button class="pass-toggle" type="button" onclick="togglePass('mt-password',this)">👁️</button></div></div>
         </div>
         <div class="field">
           <label>Trạng thái</label>
@@ -536,9 +543,9 @@
       <button class="btn-icon" onclick="closeModal('modal-teacher-pass')">✕</button>
     </div>
     <div class="modal-body">
-      <div class="field"><label>Mật khẩu hiện tại</label><input type="password" id="tp-old"></div>
-      <div class="field"><label>Mật khẩu mới</label><input type="password" id="tp-new"></div>
-      <div class="field"><label>Xác nhận</label><input type="password" id="tp-confirm"></div>
+      <div class="field"><label>Mật khẩu hiện tại</label><div class="pass-wrap"><input type="password" id="tp-old"><button class="pass-toggle" type="button" onclick="togglePass('tp-old',this)">👁️</button></div></div>
+      <div class="field"><label>Mật khẩu mới</label><div class="pass-wrap"><input type="password" id="tp-new"><button class="pass-toggle" type="button" onclick="togglePass('tp-new',this)">👁️</button></div></div>
+      <div class="field"><label>Xác nhận</label><div class="pass-wrap"><input type="password" id="tp-confirm"><button class="pass-toggle" type="button" onclick="togglePass('tp-confirm',this)">👁️</button></div></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('modal-teacher-pass')">Hủy</button>
@@ -649,6 +656,16 @@ async function loadAdminPass() {
 function setLoginTab(tab) {
   loginTab = tab;
   document.querySelectorAll('.login-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='admin')||(i===1&&tab==='teacher')));
+  const fu = document.getElementById('field-username');
+  if (fu) fu.style.display = tab === 'admin' ? 'none' : 'block';
+  if (tab === 'admin') document.getElementById('login-user').value = 'admin';
+}
+
+function togglePass(inputId, btn) {
+  const inp = document.getElementById(inputId);
+  if (!inp) return;
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
+  else { inp.type = 'password'; btn.textContent = '👁️'; }
 }
 
 async function doLogin() {
@@ -767,6 +784,7 @@ function renderTeacherList() {
       <td>${t.school||'—'}</td>
       <td>${t.zalo||'—'}</td>
       <td><code>${t.username}</code></td>
+      <td><span style="font-family:monospace;font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px;">${t.password}</span></td>
       <td><span class="badge badge-blue">${bookCount} sách</span></td>
       <td><span class="badge ${t.active?'badge-green':'badge-red'}">${t.active?'Active':'Khóa'}</span></td>
       <td>
@@ -1313,6 +1331,11 @@ function showToast(msg, type='success') {
 // START
 // ═══════════════════════════════════════════════
 initApp();
+// Ẩn field username mặc định (tab admin)
+window.addEventListener('DOMContentLoaded', () => {
+  const fu = document.getElementById('field-username');
+  if (fu) fu.style.display = 'none';
+});
 </script>
 </body>
 </html>
