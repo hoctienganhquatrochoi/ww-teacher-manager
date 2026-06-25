@@ -3,331 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wordwall Manager – English for Kids</title>
+<title>Wordwall Manager</title>
 <style>
-:root{--bg:#f7f8fc;--surface:#fff;--border:#e4e7ef;--primary:#4361ee;--primary-dark:#3451d1;--primary-light:#eef0fd;--success:#06d6a0;--danger:#ef233c;--text:#1a1d2e;--text-muted:#6b7280;--text-light:#9ca3af;--shadow-sm:0 1px 3px rgba(0,0,0,.08);--shadow:0 4px 16px rgba(0,0,0,.10);--shadow-lg:0 8px 32px rgba(0,0,0,.13);--radius:10px;--radius-sm:6px;--radius-lg:16px;}
+:root{--bg:#f7f8fc;--sur:#fff;--bdr:#e4e7ef;--pri:#4361ee;--prd:#3451d1;--prl:#eef0fd;--ok:#06d6a0;--err:#ef233c;--txt:#1a1d2e;--muted:#6b7280;--light:#9ca3af;--r:10px;--rs:6px;--rl:16px;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;}
-#app{min-height:100vh;}
-.page{display:none;}
-.page.active{display:flex;flex-direction:column;min-height:100vh;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;font-size:14px;}
+.page{display:none;} .page.active{display:flex;flex-direction:column;min-height:100vh;}
 /* LOGIN */
-.login-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#4361ee 0%,#7209b7 100%);}
-.login-box{background:var(--surface);border-radius:var(--radius-lg);padding:40px 36px;width:100%;max-width:380px;box-shadow:var(--shadow-lg);}
-.login-logo{text-align:center;margin-bottom:28px;}
-.login-logo .icon{font-size:40px;}
-.login-logo h1{font-size:18px;font-weight:700;color:var(--primary);margin-top:8px;line-height:1.3;}
-.login-logo p{font-size:12px;color:var(--text-muted);margin-top:4px;}
-.login-tabs{display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:24px;}
-.login-tab{flex:1;padding:8px;text-align:center;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-muted);background:transparent;border:none;transition:all .2s;}
-.login-tab.active{background:var(--primary);color:#fff;}
-.pass-wrap{position:relative;}
-.pass-wrap input{padding-right:40px!important;}
-.pass-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-muted);padding:2px;line-height:1;}
-/* FORM */
-.field{margin-bottom:16px;}
-.field label{display:block;font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
-.field input,.field select{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:14px;color:var(--text);background:var(--surface);outline:none;transition:border-color .2s;}
-.field input:focus,.field select:focus{border-color:var(--primary);}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .18s;white-space:nowrap;}
-.btn-primary{background:var(--primary);color:#fff;}.btn-primary:hover{background:var(--primary-dark);}
-.btn-danger{background:var(--danger);color:#fff;}
-.btn-ghost{background:transparent;color:var(--text-muted);border:1.5px solid var(--border);}.btn-ghost:hover{background:var(--bg);}
-.btn-sm{padding:5px 11px;font-size:12px;}
-.btn-full{width:100%;justify-content:center;padding:12px;font-size:15px;}
-.btn-icon{padding:6px 8px;background:transparent;border:none;cursor:pointer;color:var(--text-muted);border-radius:var(--radius-sm);transition:all .15s;font-size:16px;}
-.btn-icon:hover{background:var(--bg);}
-.btn-icon.danger:hover{color:var(--danger);}
-/* ADMIN SHELL */
-.admin-shell{display:flex;min-height:100vh;}
-.sidebar{width:220px;background:var(--text);color:#fff;display:flex;flex-direction:column;flex-shrink:0;}
-.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.08);}
-.sidebar-logo .s-icon{font-size:26px;}
-.sidebar-logo h2{font-size:13px;font-weight:700;color:#fff;margin-top:6px;line-height:1.4;}
-.sidebar-logo p{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
-.sidebar-nav{flex:1;padding:12px 0;}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;font-size:13px;color:rgba(255,255,255,.65);transition:all .18s;}
-.nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
-.nav-item.active{background:var(--primary);color:#fff;}
-.nav-item .ni{font-size:17px;flex-shrink:0;}
-.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);}
-.logout-btn{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-size:12px;cursor:pointer;}
-.logout-btn:hover{color:#fff;}
-.admin-main{flex:1;overflow-y:auto;}
-.main-header{padding:24px 28px 0;}
-.main-header h2{font-size:20px;font-weight:700;}
-.main-header p{color:var(--text-muted);font-size:13px;margin-top:4px;}
-.main-body{padding:20px 28px 40px;}
+.lw{flex:1;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#4361ee,#7209b7);}
+.lb{background:var(--sur);border-radius:var(--rl);padding:40px 36px;width:100%;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,.13);}
+.ll{text-align:center;margin-bottom:28px;} .ll .ic{font-size:40px;} .ll h1{font-size:18px;font-weight:700;color:var(--pri);margin-top:8px;line-height:1.3;} .ll p{font-size:12px;color:var(--muted);margin-top:4px;}
+.ltabs{display:flex;border:1px solid var(--bdr);border-radius:var(--rs);overflow:hidden;margin-bottom:24px;}
+.ltab{flex:1;padding:8px;text-align:center;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);background:transparent;border:none;} .ltab.active{background:var(--pri);color:#fff;}
+.pw{position:relative;} .pw input{padding-right:40px!important;} .pt{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--muted);}
+/* FIELD */
+.f{margin-bottom:16px;} .f label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+.f input,.f select{width:100%;padding:10px 12px;border:1.5px solid var(--bdr);border-radius:var(--rs);font-size:14px;color:var(--txt);background:var(--sur);outline:none;} .f input:focus,.f select:focus{border-color:var(--pri);}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:var(--rs);font-size:13px;font-weight:600;cursor:pointer;border:none;white-space:nowrap;}
+.bp{background:var(--pri);color:#fff;} .bp:hover{background:var(--prd);}
+.bd{background:var(--err);color:#fff;}
+.bg{background:transparent;color:var(--muted);border:1.5px solid var(--bdr);} .bg:hover{background:var(--bg);}
+.bs{padding:5px 11px;font-size:12px;} .bf{width:100%;justify-content:center;padding:12px;font-size:15px;}
+.bi{padding:6px 8px;background:transparent;border:none;cursor:pointer;color:var(--muted);border-radius:var(--rs);font-size:16px;} .bi:hover{background:var(--bg);} .bi.d:hover{color:var(--err);}
+/* ADMIN */
+.ash{display:flex;min-height:100vh;}
+.sb{width:220px;background:var(--txt);color:#fff;display:flex;flex-direction:column;flex-shrink:0;}
+.sbl{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.08);} .sbl .si{font-size:26px;} .sbl h2{font-size:13px;font-weight:700;color:#fff;margin-top:6px;line-height:1.4;} .sbl p{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
+.sbn{flex:1;padding:12px 0;}
+.ni{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;font-size:13px;color:rgba(255,255,255,.65);} .ni:hover{background:rgba(255,255,255,.07);color:#fff;} .ni.active{background:var(--pri);color:#fff;} .ni .ico{font-size:17px;flex-shrink:0;}
+.sbf{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);} .lob{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.55);font-size:12px;cursor:pointer;} .lob:hover{color:#fff;}
+.am{flex:1;overflow-y:auto;} .mh{padding:24px 28px 0;} .mh h2{font-size:20px;font-weight:700;} .mh p{color:var(--muted);font-size:13px;margin-top:4px;} .mb{padding:20px 28px 40px;}
 /* TEACHER SHELL */
-.teacher-shell{display:flex;flex-direction:column;min-height:100vh;}
-.teacher-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);}
-.th-brand{display:flex;align-items:center;gap:10px;}
-.th-brand .icon{font-size:24px;}
-.th-brand h2{font-size:15px;font-weight:700;color:var(--primary);}
-.th-right{display:flex;align-items:center;gap:12px;}
-.th-user{font-size:13px;color:var(--text-muted);}
-.teacher-body{flex:1;padding:20px;max-width:860px;margin:0 auto;width:100%;}
-/* CARDS */
-.card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow-sm);}
-.card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.card-header h3{font-size:14px;font-weight:700;}
-.card-body{padding:20px;}
+.tsh{display:flex;flex-direction:column;min-height:100vh;}
+.thd{background:var(--sur);border-bottom:1px solid var(--bdr);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.tbr{display:flex;align-items:center;gap:10px;} .tbr .ic{font-size:24px;} .tbr h2{font-size:15px;font-weight:700;color:var(--pri);}
+.tr2{display:flex;align-items:center;gap:12px;} .tun{font-size:13px;color:var(--muted);}
+.tbd{flex:1;padding:20px;max-width:860px;margin:0 auto;width:100%;}
+/* CARD */
+.card{background:var(--sur);border-radius:var(--r);border:1px solid var(--bdr);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.ch{padding:16px 20px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;} .ch h3{font-size:14px;font-weight:700;} .cb{padding:20px;}
 /* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
-.stat-card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:20px;text-align:center;}
-.stat-card .sv{font-size:32px;font-weight:800;color:var(--primary);}
-.stat-card .sl{font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.sc{background:var(--sur);border-radius:var(--r);border:1px solid var(--bdr);padding:20px;text-align:center;} .sc .sv{font-size:32px;font-weight:800;color:var(--pri);} .sc .sl{font-size:12px;color:var(--muted);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;}
 /* TABLE */
-.table-wrap{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;}
-th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1.5px solid var(--border);white-space:nowrap;}
-td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle;}
-tr:last-child td{border-bottom:none;}
-tr:hover td{background:var(--bg);}
-.badge{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;}
-.badge-green{background:#d1fae5;color:#065f46;}
-.badge-red{background:#fee2e2;color:#991b1b;}
-.badge-blue{background:var(--primary-light);color:var(--primary);}
-/* BOOK GRID */
-.book-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;}
-.book-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all .18s;text-align:center;}
-.book-card:hover{border-color:var(--primary);box-shadow:var(--shadow);transform:translateY(-2px);}
-.book-card .bc-icon{font-size:32px;margin-bottom:10px;}
-.book-card .bc-name{font-weight:700;font-size:14px;}
-.book-card .bc-sub{font-size:11px;color:var(--text-muted);margin-top:4px;}
+.tw{overflow-x:auto;} table{width:100%;border-collapse:collapse;} th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1.5px solid var(--bdr);white-space:nowrap;} td{padding:10px 14px;border-bottom:1px solid var(--bdr);font-size:13px;vertical-align:middle;} tr:last-child td{border-bottom:none;} tr:hover td{background:var(--bg);}
+.bdg{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;} .bg2{background:#d1fae5;color:#065f46;} .br{background:#fee2e2;color:#991b1b;} .bb{background:var(--prl);color:var(--pri);}
+/* GRID */
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;}
+.gc{background:var(--sur);border:1.5px solid var(--bdr);border-radius:var(--r);padding:20px;cursor:pointer;text-align:center;transition:all .18s;} .gc:hover{border-color:var(--pri);box-shadow:0 4px 16px rgba(0,0,0,.10);transform:translateY(-2px);}
+.gci{font-size:32px;margin-bottom:10px;} .gcn{font-weight:700;font-size:14px;} .gcs{font-size:11px;color:var(--muted);margin-top:4px;}
 /* BREADCRUMB */
-.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);margin-bottom:20px;flex-wrap:wrap;}
-.breadcrumb .bc-link{cursor:pointer;}
-.breadcrumb .bc-link:hover{color:var(--primary);text-decoration:underline;}
-.breadcrumb .sep{color:var(--border);}
-.breadcrumb .cur{color:var(--text);font-weight:600;}
+.bc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-bottom:20px;flex-wrap:wrap;}
+.bcl{cursor:pointer;} .bcl:hover{color:var(--pri);text-decoration:underline;} .bcs{color:var(--bdr);} .bcc{color:var(--txt);font-weight:600;}
 /* UNIT BLOCK */
-.unit-block{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;}
-.unit-block-header{padding:11px 16px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
-.unit-block-header:hover{background:var(--primary-light);}
-.unit-block-title{font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px;}
-.unit-chevron{font-size:11px;transition:transform .2s;}
-.unit-block.open .unit-chevron{transform:rotate(90deg);}
-.unit-block-body{display:none;padding:12px 16px;}
-.unit-block.open .unit-block-body{display:block;}
-/* ACTIVITY INPUT ROWS */
-.atype-header{display:grid;grid-template-columns:200px 1fr 1fr 60px;gap:8px;padding:6px 0 8px;border-bottom:2px solid var(--border);margin-bottom:4px;}
-.atype-col{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted);}
-.atype-row{display:grid;grid-template-columns:200px 1fr 1fr 60px;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);}
-.atype-row:last-of-type{border-bottom:none;}
-.atype-label{font-size:13px;font-weight:600;}
-.atype-input{padding:7px 10px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:12px;color:var(--text);outline:none;width:100%;}
-.atype-input:focus{border-color:var(--primary);}
-.atype-input.res{border-color:#fecaca;}
-.atype-input.res:focus{border-color:var(--danger);}
-.save-btn{padding:6px 10px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;width:100%;}
-.save-btn:hover{background:var(--primary-dark);}
-.save-btn.saved{background:var(--success);}
-/* TEACHER UNIT VIEW */
-.unit-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;}
-.unit-item-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:700;font-size:13px;}
-.unit-item-header:hover{background:var(--primary-light);}
-.unit-acts{display:none;}
-.unit-item.open .unit-acts{display:block;}
-.t-act-row{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--border);gap:12px;}
-.t-act-row:hover{background:var(--bg);}
-.t-act-num{width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.t-act-name{font-size:13px;font-weight:500;flex:1;}
-.copy-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;background:var(--primary);color:#fff;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .15s;}
-.copy-btn:hover{background:var(--primary-dark);}
-.copy-btn.copied{background:var(--success);}
-.copy-all-wrap{background:var(--primary-light);border:1.5px solid var(--primary);border-radius:var(--radius);padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-.copy-all-wrap p{font-size:13px;color:var(--primary);font-weight:600;}
-.copy-all-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--primary);color:#fff;border-radius:var(--radius-sm);font-size:13px;font-weight:700;cursor:pointer;border:none;}
-.copy-all-btn:hover{background:var(--primary-dark);}
-.copy-all-btn.copied{background:var(--success);}
+.ub{border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:12px;overflow:hidden;}
+.ubh{padding:11px 16px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;} .ubh:hover{background:var(--prl);}
+.ubt{font-weight:700;font-size:13px;display:flex;align-items:center;gap:8px;} .ubc{font-size:11px;transition:transform .2s;} .ub.open .ubc{transform:rotate(90deg);}
+.ubb{display:none;padding:12px 16px;} .ub.open .ubb{display:block;}
+/* ACTIVITY INPUTS */
+.ah{display:grid;grid-template-columns:200px 1fr 1fr 60px;gap:8px;padding:6px 0 8px;border-bottom:2px solid var(--bdr);margin-bottom:4px;}
+.ac{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);}
+.ar{display:grid;grid-template-columns:200px 1fr 1fr 60px;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--bdr);}
+.ar:last-of-type{border-bottom:none;} .al{font-size:13px;font-weight:600;}
+.ai{padding:7px 10px;border:1.5px solid var(--bdr);border-radius:var(--rs);font-size:12px;color:var(--txt);outline:none;width:100%;} .ai:focus{border-color:var(--pri);} .air{border-color:#fecaca;} .air:focus{border-color:var(--err);}
+.sb2{padding:6px 10px;background:var(--pri);color:#fff;border:none;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer;width:100%;} .sb2:hover{background:var(--prd);} .sb2.sv2{background:var(--ok);}
+/* TEACHER UNIT */
+.ui{background:var(--sur);border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:10px;overflow:hidden;}
+.uih{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:700;font-size:13px;} .uih:hover{background:var(--prl);}
+.ua{display:none;} .ui.open .ua{display:block;}
+.tar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--bdr);gap:12px;} .tar:hover{background:var(--bg);}
+.tan{width:22px;height:22px;border-radius:50%;background:var(--pri);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tam{font-size:13px;font-weight:500;flex:1;}
+.cb2{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;background:var(--pri);color:#fff;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:none;} .cb2:hover{background:var(--prd);} .cb2.cp{background:var(--ok);}
+.caw{background:var(--prl);border:1.5px solid var(--pri);border-radius:var(--r);padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.caw p{font-size:13px;color:var(--pri);font-weight:600;}
+.cab{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--pri);color:#fff;border-radius:var(--rs);font-size:13px;font-weight:700;cursor:pointer;border:none;} .cab:hover{background:var(--prd);} .cab.cp{background:var(--ok);}
 /* TYPES */
-.type-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);}
-.type-row:last-child{border-bottom:none;}
-.type-name{flex:1;font-size:13px;font-weight:500;}
-.move-btn{cursor:pointer;background:none;border:none;color:var(--text-light);font-size:14px;padding:2px 4px;border-radius:3px;}
-.move-btn:hover{background:var(--bg);color:var(--text);}
+.tyr{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bdr);} .tyr:last-child{border-bottom:none;} .tyn{flex:1;font-size:13px;font-weight:500;}
+.mv{cursor:pointer;background:none;border:none;color:var(--light);font-size:14px;padding:2px 4px;border-radius:3px;} .mv:hover{background:var(--bg);color:var(--txt);}
 /* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center;padding:16px;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(--surface);border-radius:var(--radius-lg);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);}
-.modal-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.modal-header h3{font-size:16px;font-weight:700;}
-.modal-body{padding:20px 24px;}
-.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;}
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center;padding:16px;} .mo.open{display:flex;}
+.md{background:var(--sur);border-radius:var(--rl);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.13);}
+.mdh{padding:20px 24px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;} .mdh h3{font-size:16px;font-weight:700;}
+.mdb{padding:20px 24px;} .mdf{padding:16px 24px;border-top:1px solid var(--bdr);display:flex;justify-content:flex-end;gap:10px;}
 /* TABS */
-.tab-bar{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px;}
-.tab-btn{padding:10px 18px;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .18s;}
-.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
-.tab-pane{display:none;}
-.tab-pane.active{display:block;}
+.tbr2{display:flex;border-bottom:2px solid var(--bdr);margin-bottom:20px;}
+.tbb{padding:10px 18px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;} .tbb.active{color:var(--pri);border-bottom-color:var(--pri);}
+.tp{display:none;} .tp.active{display:block;}
 /* RESULTS */
-.result-book{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;}
-.result-book-hd{padding:12px 16px;background:var(--bg);font-weight:700;font-size:14px;}
-.result-unit-hd{padding:9px 16px;background:#fafafa;font-weight:600;font-size:13px;border-top:1px solid var(--border);}
-.result-act-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:8px 16px;border-top:1px solid var(--border);}
-.link-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:all .15s;}
-.link-chip.play{background:#d1fae5;color:#065f46;}
-.link-chip.play:hover{background:#a7f3d0;}
-.link-chip.result{background:#fee2e2;color:#991b1b;}
-.link-chip.result:hover{background:#fecaca;}
+.rbk{border:1px solid var(--bdr);border-radius:var(--r);margin-bottom:14px;overflow:hidden;}
+.rbkh{padding:12px 16px;background:var(--bg);font-weight:700;font-size:14px;}
+.ruh{padding:9px 16px;background:#fafafa;font-weight:600;font-size:13px;border-top:1px solid var(--bdr);}
+.rar{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:8px 16px;border-top:1px solid var(--bdr);}
+.lc{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;border:none;text-decoration:none;}
+.lcp{background:#d1fae5;color:#065f46;} .lcp:hover{background:#a7f3d0;} .lcr{background:#fee2e2;color:#991b1b;} .lcr:hover{background:#fecaca;}
 /* MISC */
-.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin-bottom:10px;}
-.empty{text-align:center;padding:40px 20px;color:var(--text-muted);}
-.empty .ei{font-size:40px;margin-bottom:10px;}
-.search-bar{display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap;}
-.search-input{flex:1;min-width:180px;padding:9px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:13px;outline:none;}
-.search-input:focus{border-color:var(--primary);}
-.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:12px 20px;border-radius:var(--radius);font-size:13px;font-weight:600;box-shadow:var(--shadow-lg);z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;}
-.toast.show{transform:translateY(0);opacity:1;}
-.toast.success{background:var(--success);}
-.toast.error{background:var(--danger);}
-@media(max-width:600px){
-  .admin-shell{flex-direction:column;}
-  .sidebar{width:100%;}
-  .stats-grid{grid-template-columns:1fr 1fr;}
-  .main-body,.main-header{padding-left:16px;padding-right:16px;}
-  .field-row{grid-template-columns:1fr;}
-  .book-grid{grid-template-columns:1fr 1fr;}
-  .atype-header,.atype-row{grid-template-columns:1fr;}
-}
+.st{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px;}
+.empty{text-align:center;padding:40px 20px;color:var(--muted);} .empty .ei{font-size:40px;margin-bottom:10px;}
+.sb3{display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap;}
+.si2{flex:1;min-width:180px;padding:9px 14px;border:1.5px solid var(--bdr);border-radius:var(--rs);font-size:13px;outline:none;} .si2:focus{border-color:var(--pri);}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--txt);color:#fff;padding:12px 20px;border-radius:var(--r);font-size:13px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.13);z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;}
+.toast.show{transform:translateY(0);opacity:1;} .toast.ok{background:var(--ok);} .toast.er{background:var(--err);}
+@media(max-width:600px){.ash{flex-direction:column;}.sb{width:100%;}.sg{grid-template-columns:1fr 1fr;}.mb,.mh{padding-left:16px;padding-right:16px;}.fr{grid-template-columns:1fr;}.gg{grid-template-columns:1fr 1fr;}.ah,.ar{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <div id="app">
 
-<!-- LOGIN -->
-<div id="page-login" class="page active">
-  <div class="login-wrap">
-    <div class="login-box">
-      <div class="login-logo">
-        <div class="icon">📚</div>
-        <h1>English for Kids<br>Hoc qua Tro Choi</h1>
-        <p>Wordwall Teacher Manager</p>
-      </div>
-      <div class="login-tabs">
-        <button class="login-tab active" onclick="setLoginTab('admin')">Admin</button>
-        <button class="login-tab" onclick="setLoginTab('teacher')">Giao vien</button>
-      </div>
-      <div class="field" id="field-username" style="display:none">
-        <label>Ten dang nhap</label>
-        <input type="text" id="login-user" placeholder="Username..." onkeydown="if(event.key==='Enter')doLogin()">
-      </div>
-      <div class="field">
-        <label>Mat khau</label>
-        <div class="pass-wrap">
-          <input type="password" id="login-pass" placeholder="Nhap mat khau..." onkeydown="if(event.key==='Enter')doLogin()">
-          <button class="pass-toggle" type="button" onclick="togglePass('login-pass',this)">👁️</button>
-        </div>
-      </div>
-      <button class="btn btn-primary btn-full" onclick="doLogin()">Dang nhap</button>
-      <div id="login-error" style="color:var(--danger);font-size:12px;text-align:center;margin-top:12px;display:none;"></div>
+<div id="pg-login" class="page active">
+  <div class="lw"><div class="lb">
+    <div class="ll"><div class="ic">📚</div><h1>English for Kids<br>Hoc qua Tro Choi</h1><p>Wordwall Teacher Manager</p></div>
+    <div class="ltabs">
+      <button class="ltab active" onclick="setTab('admin')">Admin</button>
+      <button class="ltab" onclick="setTab('teacher')">Giao vien</button>
     </div>
-  </div>
+    <div class="f" id="fu" style="display:none"><label>Ten dang nhap</label><input type="text" id="lu" placeholder="Username..." onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="f"><label>Mat khau</label><div class="pw"><input type="password" id="lp" placeholder="Nhap mat khau..." onkeydown="if(event.key==='Enter')doLogin()"><button class="pt" onclick="tp('lp',this)">👁️</button></div></div>
+    <button class="btn bf bp" onclick="doLogin()">Dang nhap</button>
+    <div id="lerr" style="color:var(--err);font-size:12px;text-align:center;margin-top:12px;display:none;"></div>
+  </div></div>
 </div>
 
-<!-- ADMIN -->
-<div id="page-admin" class="page">
-  <div class="admin-shell">
-    <div class="sidebar">
-      <div class="sidebar-logo">
-        <div class="s-icon">📚</div>
-        <h2>English for Kids</h2>
-        <p>Admin Panel</p>
-      </div>
-      <nav class="sidebar-nav">
-        <div class="nav-item active" onclick="adminNav('dashboard')" id="nav-dashboard"><span class="ni">🏠</span> Dashboard</div>
-        <div class="nav-item" onclick="adminNav('teachers')" id="nav-teachers"><span class="ni">👩‍🏫</span> Giao vien</div>
-        <div class="nav-item" onclick="adminNav('content')" id="nav-content"><span class="ni">📖</span> Noi dung bai</div>
-        <div class="nav-item" onclick="adminNav('results')" id="nav-results"><span class="ni">📊</span> Xem ket qua</div>
-        <div class="nav-item" onclick="adminNav('types')" id="nav-types"><span class="ni">🗂️</span> Dang bai</div>
-        <div class="nav-item" onclick="adminNav('settings')" id="nav-settings"><span class="ni">⚙️</span> Cai dat</div>
+<div id="pg-admin" class="page">
+  <div class="ash">
+    <div class="sb">
+      <div class="sbl"><div class="si">📚</div><h2>English for Kids</h2><p>Admin Panel</p></div>
+      <nav class="sbn">
+        <div class="ni active" onclick="go('dash')" id="n-dash"><span class="ico">🏠</span> Dashboard</div>
+        <div class="ni" onclick="go('gv')" id="n-gv"><span class="ico">👩‍🏫</span> Giao vien</div>
+        <div class="ni" onclick="go('nd')" id="n-nd"><span class="ico">📖</span> Noi dung bai</div>
+        <div class="ni" onclick="go('kq')" id="n-kq"><span class="ico">📊</span> Xem ket qua</div>
+        <div class="ni" onclick="go('db')" id="n-db"><span class="ico">🗂️</span> Dang bai</div>
+        <div class="ni" onclick="go('cd')" id="n-cd"><span class="ico">⚙️</span> Cai dat</div>
       </nav>
-      <div class="sidebar-footer">
-        <div class="logout-btn" onclick="doLogout()"><span>🚪</span> Dang xuat</div>
-      </div>
+      <div class="sbf"><div class="lob" onclick="doLogout()"><span>🚪</span> Dang xuat</div></div>
     </div>
-    <div class="admin-main">
-      <div id="sec-dashboard" class="admin-section">
-        <div class="main-header"><h2>Dashboard</h2><p>Tong quan he thong</p></div>
-        <div class="main-body">
-          <div class="stats-grid">
-            <div class="stat-card"><div class="sv" id="stat-teachers">-</div><div class="sl">Giao vien</div></div>
-            <div class="stat-card"><div class="sv" id="stat-books">-</div><div class="sl">Dau sach</div></div>
-            <div class="stat-card"><div class="sv" id="stat-acts">-</div><div class="sl">Bai co link</div></div>
+    <div class="am">
+      <div id="s-dash" class="sec">
+        <div class="mh"><h2>Dashboard</h2><p>Tong quan he thong</p></div>
+        <div class="mb">
+          <div class="sg">
+            <div class="sc"><div class="sv" id="st-gv">-</div><div class="sl">Giao vien</div></div>
+            <div class="sc"><div class="sv" id="st-sk">-</div><div class="sl">Dau sach</div></div>
+            <div class="sc"><div class="sv" id="st-bai">-</div><div class="sl">Bai co link</div></div>
           </div>
-          <div class="card"><div class="card-header"><h3>Giao vien</h3></div><div class="card-body" id="dash-teachers"></div></div>
+          <div class="card"><div class="ch"><h3>Giao vien</h3></div><div class="cb" id="dash-gv"></div></div>
         </div>
       </div>
-      <div id="sec-teachers" class="admin-section" style="display:none">
-        <div class="main-header"><h2>Quan ly Giao vien</h2><p>Tao tai khoan va quan ly dau sach</p></div>
-        <div class="main-body">
-          <div class="search-bar">
-            <input class="search-input" type="text" id="teacher-search" placeholder="Tim theo ten, truong, Zalo..." oninput="renderTeacherList()">
-            <button class="btn btn-primary" onclick="openTeacherModal(0)">+ Them giao vien</button>
+      <div id="s-gv" class="sec" style="display:none">
+        <div class="mh"><h2>Quan ly Giao vien</h2><p>Tao tai khoan va quan ly dau sach</p></div>
+        <div class="mb">
+          <div class="sb3">
+            <input class="si2" type="text" id="gv-search" placeholder="Tim theo ten, truong, Zalo..." oninput="renderGV()">
+            <button class="btn bp" onclick="openMT(0)">+ Them giao vien</button>
           </div>
-          <div class="card"><div class="table-wrap"><table>
-            <thead><tr><th>Ten GV</th><th>Truong</th><th>Zalo</th><th>Username</th><th>Mat khau</th><th>Sach</th><th>Trang thai</th><th></th></tr></thead>
-            <tbody id="teacher-tbody"></tbody>
+          <div class="card"><div class="tw"><table>
+            <thead><tr><th>Ten GV</th><th>Truong</th><th>Zalo</th><th>Username</th><th>Mat khau</th><th>Sach</th><th>TT</th><th></th></tr></thead>
+            <tbody id="gv-tbody"></tbody>
           </table></div></div>
         </div>
       </div>
-      <div id="sec-content" class="admin-section" style="display:none">
-        <div class="main-header"><h2>Noi dung bai hoc</h2><p>Chon giao vien de nhap link bai hoc</p></div>
-        <div class="main-body">
-          <div id="step-gv">
-            <div class="search-bar"><input class="search-input" type="text" id="content-search" placeholder="Tim giao vien..." oninput="renderContentGV()"></div>
-            <div class="book-grid" id="gv-grid"></div>
+      <div id="s-nd" class="sec" style="display:none">
+        <div class="mh"><h2>Noi dung bai hoc</h2><p>Chon giao vien de nhap link</p></div>
+        <div class="mb">
+          <div id="nd-gv">
+            <div class="sb3"><input class="si2" type="text" id="nd-search" placeholder="Tim giao vien..." oninput="renderNDGV()"></div>
+            <div class="gg" id="nd-gv-grid"></div>
           </div>
-          <div id="step-sach" style="display:none">
-            <div class="breadcrumb" id="bc-sach"></div>
-            <div style="margin-bottom:12px;text-align:right;"><button class="btn btn-primary btn-sm" onclick="openBookModal(0)">+ Them dau sach</button></div>
-            <div class="book-grid" id="sach-grid"></div>
+          <div id="nd-sk" style="display:none">
+            <div class="bc" id="bc-sk"></div>
+            <div style="margin-bottom:12px;text-align:right;"><button class="btn bp bs" onclick="openMB(0)">+ Them dau sach</button></div>
+            <div class="gg" id="nd-sk-grid"></div>
           </div>
-          <div id="step-unit" style="display:none">
-            <div class="breadcrumb" id="bc-unit"></div>
-            <div style="margin-bottom:12px;text-align:right;"><button class="btn btn-primary btn-sm" onclick="openUnitModal(0)">+ Them Unit</button></div>
+          <div id="nd-unit" style="display:none">
+            <div class="bc" id="bc-unit"></div>
+            <div style="margin-bottom:12px;text-align:right;"><button class="btn bp bs" onclick="openMU(0)">+ Them Unit</button></div>
             <div id="unit-list"></div>
           </div>
         </div>
       </div>
-      <div id="sec-results" class="admin-section" style="display:none">
-        <div class="main-header"><h2>Xem ket qua</h2><p>Link ket qua Wordwall theo tung giao vien</p></div>
-        <div class="main-body">
+      <div id="s-kq" class="sec" style="display:none">
+        <div class="mh"><h2>Xem ket qua</h2><p>Link ket qua Wordwall</p></div>
+        <div class="mb">
           <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
-            <div class="field" style="min-width:220px;margin:0"><label>Giao vien</label><select id="r-gv" onchange="rLoadSach()"><option value="">-- Chon GV --</option></select></div>
-            <div class="field" style="min-width:220px;margin:0"><label>Dau sach</label><select id="r-sach" onchange="rRender()"><option value="">-- Chon sach --</option></select></div>
+            <div class="f" style="min-width:220px;margin:0"><label>Giao vien</label><select id="kq-gv" onchange="kqLoadSk()"><option value="">-- Chon GV --</option></select></div>
+            <div class="f" style="min-width:220px;margin:0"><label>Dau sach</label><select id="kq-sk" onchange="kqRender()"><option value="">-- Chon sach --</option></select></div>
           </div>
-          <div id="r-view"></div>
+          <div id="kq-view"></div>
         </div>
       </div>
-      <div id="sec-types" class="admin-section" style="display:none">
-        <div class="main-header"><h2>Quan ly dang bai</h2><p>Danh sach dang bai dung chung</p></div>
-        <div class="main-body">
+      <div id="s-db" class="sec" style="display:none">
+        <div class="mh"><h2>Quan ly dang bai</h2><p>Danh sach dang bai dung chung</p></div>
+        <div class="mb">
           <div class="card" style="max-width:500px">
-            <div class="card-header"><h3>Danh sach dang bai</h3></div>
-            <div class="card-body">
-              <div id="types-list"></div>
-              <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:flex;gap:8px;">
-                <input type="text" id="new-type-name" placeholder="Ten dang bai moi..." style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')addType()">
-                <button class="btn btn-primary btn-sm" onclick="addType()">+ Them</button>
+            <div class="ch"><h3>Danh sach dang bai</h3></div>
+            <div class="cb">
+              <div id="db-list"></div>
+              <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--bdr);display:flex;gap:8px;">
+                <input type="text" id="db-new" placeholder="Ten dang bai moi..." style="flex:1;padding:8px 12px;border:1.5px solid var(--bdr);border-radius:6px;font-size:13px;outline:none;" onkeydown="if(event.key==='Enter')addDB()">
+                <button class="btn bp bs" onclick="addDB()">+ Them</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div id="sec-settings" class="admin-section" style="display:none">
-        <div class="main-header"><h2>Cai dat</h2><p>Doi mat khau admin</p></div>
-        <div class="main-body">
+      <div id="s-cd" class="sec" style="display:none">
+        <div class="mh"><h2>Cai dat</h2><p>Doi mat khau admin</p></div>
+        <div class="mb">
           <div class="card" style="max-width:420px">
-            <div class="card-header"><h3>Doi mat khau Admin</h3></div>
-            <div class="card-body">
-              <div class="field"><label>Mat khau hien tai</label><div class="pass-wrap"><input type="password" id="s-old"><button class="pass-toggle" type="button" onclick="togglePass('s-old',this)">👁️</button></div></div>
-              <div class="field"><label>Mat khau moi</label><div class="pass-wrap"><input type="password" id="s-new"><button class="pass-toggle" type="button" onclick="togglePass('s-new',this)">👁️</button></div></div>
-              <div class="field"><label>Xac nhan</label><div class="pass-wrap"><input type="password" id="s-cf"><button class="pass-toggle" type="button" onclick="togglePass('s-cf',this)">👁️</button></div></div>
-              <button class="btn btn-primary" onclick="changeAdminPass()">Luu mat khau</button>
+            <div class="ch"><h3>Doi mat khau Admin</h3></div>
+            <div class="cb">
+              <div class="f"><label>MK hien tai</label><div class="pw"><input type="password" id="cd-old"><button class="pt" onclick="tp('cd-old',this)">👁️</button></div></div>
+              <div class="f"><label>MK moi</label><div class="pw"><input type="password" id="cd-new"><button class="pt" onclick="tp('cd-new',this)">👁️</button></div></div>
+              <div class="f"><label>Xac nhan</label><div class="pw"><input type="password" id="cd-cf"><button class="pt" onclick="tp('cd-cf',this)">👁️</button></div></div>
+              <button class="btn bp" onclick="changeAP()">Luu mat khau</button>
             </div>
           </div>
         </div>
@@ -336,21 +227,20 @@ tr:hover td{background:var(--bg);}
   </div>
 </div>
 
-<!-- TEACHER -->
-<div id="page-teacher" class="page">
-  <div class="teacher-shell">
-    <header class="teacher-header">
-      <div class="th-brand"><div class="icon">📚</div><h2>English for Kids</h2></div>
-      <div class="th-right">
-        <span class="th-user" id="t-name"></span>
-        <button class="btn btn-ghost btn-sm" onclick="openModal('modal-t-pass')">🔑 Doi mat khau</button>
-        <button class="btn btn-ghost btn-sm" onclick="doLogout()">Dang xuat</button>
+<div id="pg-teacher" class="page">
+  <div class="tsh">
+    <header class="thd">
+      <div class="tbr"><div class="ic">📚</div><h2>English for Kids</h2></div>
+      <div class="tr2">
+        <span class="tun" id="t-name"></span>
+        <button class="btn bg bs" onclick="openM('m-tp')">🔑 Doi MK</button>
+        <button class="btn bg bs" onclick="doLogout()">Dang xuat</button>
       </div>
     </header>
-    <div class="teacher-body">
-      <div id="t-step-books"><div class="section-title">📚 Sach cua ban</div><div class="book-grid" id="t-book-grid"></div></div>
-      <div id="t-step-units" style="display:none">
-        <div class="breadcrumb" id="t-bc"></div>
+    <div class="tbd">
+      <div id="t-books"><div class="st">📚 Sach cua ban</div><div class="gg" id="t-book-grid"></div></div>
+      <div id="t-units" style="display:none">
+        <div class="bc" id="t-bc"></div>
         <div id="t-unit-list"></div>
       </div>
     </div>
@@ -360,842 +250,658 @@ tr:hover td{background:var(--bg);}
 </div>
 
 <!-- MODALS -->
-<div class="modal-overlay" id="modal-teacher">
-  <div class="modal">
-    <div class="modal-header"><h3 id="mt-title">Them giao vien</h3><button class="btn-icon" onclick="closeModal('modal-teacher')">✕</button></div>
-    <div class="modal-body">
-      <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('modal-teacher','tab-info',this)">Thong tin</button>
-        <button class="tab-btn" onclick="switchTab('modal-teacher','tab-books',this)">Dau sach</button>
+<div class="mo" id="m-gv">
+  <div class="md">
+    <div class="mdh"><h3 id="mt-ttl">Them giao vien</h3><button class="bi" onclick="closeM('m-gv')">✕</button></div>
+    <div class="mdb">
+      <div class="tbr2">
+        <button class="tbb active" onclick="stab('m-gv','tp-info',this)">Thong tin</button>
+        <button class="tbb" onclick="stab('m-gv','tp-books',this)">Dau sach</button>
       </div>
-      <div id="tab-info" class="tab-pane active">
+      <div id="tp-info" class="tp active">
         <input type="hidden" id="mt-id">
-        <div class="field"><label>Ten giao vien *</label><input type="text" id="mt-name" placeholder="VD: Nguyen Thi Lan"></div>
-        <div class="field"><label>Truong</label><input type="text" id="mt-school" placeholder="VD: THCS Dong Da"></div>
-        <div class="field"><label>So Zalo</label><input type="text" id="mt-zalo" placeholder="VD: 0912345678"></div>
-        <div class="field-row">
-          <div class="field"><label>Username *</label><input type="text" id="mt-user"></div>
-          <div class="field"><label>Mat khau *</label><div class="pass-wrap"><input type="text" id="mt-pass"><button class="pass-toggle" type="button" onclick="togglePass('mt-pass',this)">👁️</button></div></div>
+        <div class="f"><label>Ten giao vien *</label><input type="text" id="mt-ten" placeholder="VD: Nguyen Thi Lan"></div>
+        <div class="f"><label>Truong</label><input type="text" id="mt-tr" placeholder="VD: THCS Dong Da"></div>
+        <div class="f"><label>So Zalo</label><input type="text" id="mt-zl" placeholder="VD: 0912345678"></div>
+        <div class="fr">
+          <div class="f"><label>Username *</label><input type="text" id="mt-un"></div>
+          <div class="f"><label>Mat khau *</label><div class="pw"><input type="text" id="mt-mk"><button class="pt" onclick="tp('mt-mk',this)">👁️</button></div></div>
         </div>
-        <div class="field"><label>Trang thai</label><select id="mt-active"><option value="1">Hoat dong</option><option value="0">Tam khoa</option></select></div>
+        <div class="f"><label>Trang thai</label><select id="mt-tt"><option value="1">Hoat dong</option><option value="0">Tam khoa</option></select></div>
       </div>
-      <div id="tab-books" class="tab-pane">
+      <div id="tp-books" class="tp">
         <div id="mt-books"></div>
-        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
-          <div class="section-title">Them dau sach moi</div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--bdr);">
+          <div class="st">Them dau sach moi</div>
           <div style="display:flex;gap:8px;">
-            <input type="text" id="mt-new-book" placeholder="Ten dau sach..." style="flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;outline:none;">
-            <button class="btn btn-primary btn-sm" onclick="addBookInModal()">+ Them</button>
+            <input type="text" id="mt-nb" placeholder="Ten dau sach..." style="flex:1;padding:8px 12px;border:1.5px solid var(--bdr);border-radius:6px;font-size:13px;outline:none;">
+            <button class="btn bp bs" onclick="addSkModal()">+ Them</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-teacher')">Huy</button>
-      <button class="btn btn-primary" onclick="saveTeacher()">Luu</button>
-    </div>
+    <div class="mdf"><button class="btn bg" onclick="closeM('m-gv')">Huy</button><button class="btn bp" onclick="saveGV()">Luu</button></div>
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-book">
-  <div class="modal" style="max-width:400px">
-    <div class="modal-header"><h3 id="mb-title">Them dau sach</h3><button class="btn-icon" onclick="closeModal('modal-book')">✕</button></div>
-    <div class="modal-body">
-      <input type="hidden" id="mb-id">
-      <div class="field"><label>Ten dau sach *</label><input type="text" id="mb-name" placeholder="VD: Family and Friends 1"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-book')">Huy</button>
-      <button class="btn btn-primary" onclick="saveBook()">Luu</button>
-    </div>
+<div class="mo" id="m-sk">
+  <div class="md" style="max-width:400px">
+    <div class="mdh"><h3 id="mb-ttl">Them dau sach</h3><button class="bi" onclick="closeM('m-sk')">✕</button></div>
+    <div class="mdb"><input type="hidden" id="mb-id"><div class="f"><label>Ten dau sach *</label><input type="text" id="mb-ten" placeholder="VD: Family and Friends 1"></div></div>
+    <div class="mdf"><button class="btn bg" onclick="closeM('m-sk')">Huy</button><button class="btn bp" onclick="saveSK()">Luu</button></div>
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-unit">
-  <div class="modal" style="max-width:420px">
-    <div class="modal-header"><h3 id="mu-title">Them Unit</h3><button class="btn-icon" onclick="closeModal('modal-unit')">✕</button></div>
-    <div class="modal-body">
+<div class="mo" id="m-unit">
+  <div class="md" style="max-width:420px">
+    <div class="mdh"><h3 id="mu-ttl">Them Unit</h3><button class="bi" onclick="closeM('m-unit')">✕</button></div>
+    <div class="mdb">
       <input type="hidden" id="mu-id">
-      <div class="field-row">
-        <div class="field"><label>So Unit</label><input type="number" id="mu-num" placeholder="1"></div>
-        <div class="field"></div>
-      </div>
-      <div class="field"><label>Ten Unit *</label><input type="text" id="mu-name" placeholder="VD: School Supplies"></div>
+      <div class="fr"><div class="f"><label>So Unit</label><input type="number" id="mu-so" placeholder="1"></div><div class="f"></div></div>
+      <div class="f"><label>Ten Unit *</label><input type="text" id="mu-ten" placeholder="VD: School Supplies"></div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-unit')">Huy</button>
-      <button class="btn btn-primary" onclick="saveUnit()">Luu</button>
-    </div>
+    <div class="mdf"><button class="btn bg" onclick="closeM('m-unit')">Huy</button><button class="btn bp" onclick="saveUnit()">Luu</button></div>
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-t-pass">
-  <div class="modal" style="max-width:380px">
-    <div class="modal-header"><h3>Doi mat khau</h3><button class="btn-icon" onclick="closeModal('modal-t-pass')">✕</button></div>
-    <div class="modal-body">
-      <div class="field"><label>Mat khau hien tai</label><div class="pass-wrap"><input type="password" id="tp-old"><button class="pass-toggle" type="button" onclick="togglePass('tp-old',this)">👁️</button></div></div>
-      <div class="field"><label>Mat khau moi</label><div class="pass-wrap"><input type="password" id="tp-new"><button class="pass-toggle" type="button" onclick="togglePass('tp-new',this)">👁️</button></div></div>
-      <div class="field"><label>Xac nhan</label><div class="pass-wrap"><input type="password" id="tp-cf"><button class="pass-toggle" type="button" onclick="togglePass('tp-cf',this)">👁️</button></div></div>
+<div class="mo" id="m-tp">
+  <div class="md" style="max-width:380px">
+    <div class="mdh"><h3>Doi mat khau</h3><button class="bi" onclick="closeM('m-tp')">✕</button></div>
+    <div class="mdb">
+      <div class="f"><label>MK hien tai</label><div class="pw"><input type="password" id="tp-old"><button class="pt" onclick="tp('tp-old',this)">👁️</button></div></div>
+      <div class="f"><label>MK moi</label><div class="pw"><input type="password" id="tp-new"><button class="pt" onclick="tp('tp-new',this)">👁️</button></div></div>
+      <div class="f"><label>Xac nhan</label><div class="pw"><input type="password" id="tp-cf"><button class="pt" onclick="tp('tp-cf',this)">👁️</button></div></div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-t-pass')">Huy</button>
-      <button class="btn btn-primary" onclick="saveTeacherPass()">Luu</button>
-    </div>
+    <div class="mdf"><button class="btn bg" onclick="closeM('m-tp')">Huy</button><button class="btn bp" onclick="saveTPass()">Luu</button></div>
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-confirm">
-  <div class="modal" style="max-width:360px">
-    <div class="modal-header"><h3>Xac nhan xoa</h3><button class="btn-icon" onclick="closeModal('modal-confirm')">✕</button></div>
-    <div class="modal-body"><p id="confirm-msg" style="font-size:14px;line-height:1.6;"></p></div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Huy</button>
-      <button class="btn btn-danger" id="confirm-ok">Xoa</button>
-    </div>
+<div class="mo" id="m-del">
+  <div class="md" style="max-width:360px">
+    <div class="mdh"><h3>Xac nhan xoa</h3><button class="bi" onclick="closeM('m-del')">✕</button></div>
+    <div class="mdb"><p id="del-msg" style="font-size:14px;line-height:1.6;"></p></div>
+    <div class="mdf"><button class="btn bg" onclick="closeM('m-del')">Huy</button><button class="btn bd" id="del-ok">Xoa</button></div>
   </div>
 </div>
 
 <div id="toast" class="toast"></div>
 
 <script>
-var SURL = 'https://ybqbweywgkbfidhlcjeh.supabase.co';
-var SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlicWJ3ZXl3Z2tiZmlkaGxjamVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4MTU3OTAsImV4cCI6MjA5NjM5MTc5MH0.DD1sJjgbIv82fgLk3SPxpGDg7ENo9jPO0nD63UVKN9g';
+var SU = 'https://ybqbweywgkbfidhlcjeh.supabase.co';
+var SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlicWJ3ZXl3Z2tiZmlkaGxjamVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA4MTU3OTAsImV4cCI6MjA5NjM5MTc5MH0.DD1sJjgbIv82fgLk3SPxpGDg7ENo9jPO0nD63UVKN9g';
 
-// DB
-async function dbQ(method, table, filter, body) {
-  var url = SURL + '/rest/v1/' + table + '?select=*';
-  if (filter) url += '&' + filter;
-  var opts = {
-    method: method,
-    headers: {'apikey': SKEY, 'Authorization': 'Bearer ' + SKEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation'}
-  };
-  if (body) opts.body = JSON.stringify(body);
-  var res = await fetch(url, opts);
-  if (!res.ok) { var e = await res.json().catch(function(){return {};}); throw new Error(e.message || 'DB error'); }
-  var t = await res.text();
-  return t ? JSON.parse(t) : [];
+async function db(m, t, f, b) {
+  var url = SU + '/rest/v1/' + t + '?select=*' + (f ? '&' + f : '');
+  var opt = { method: m, headers: { 'apikey': SK, 'Authorization': 'Bearer ' + SK, 'Content-Type': 'application/json', 'Prefer': 'return=representation' } };
+  if (b) opt.body = JSON.stringify(b);
+  var r = await fetch(url, opt);
+  if (!r.ok) { var e = await r.json().catch(function() { return {}; }); throw new Error(e.message || 'DB error'); }
+  var tx = await r.text(); return tx ? JSON.parse(tx) : [];
 }
-async function dbGet(table, filter) { return dbQ('GET', table, filter || '', null); }
-async function dbPost(table, body) { return dbQ('POST', table, '', body); }
-async function dbPatch(table, filter, body) {
-  var url = SURL + '/rest/v1/' + table + '?' + filter;
-  var res = await fetch(url, {method:'PATCH', headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY,'Content-Type':'application/json','Prefer':'return=representation'}, body:JSON.stringify(body)});
-  if (!res.ok) throw new Error('Patch error');
-  return res.json();
+async function dbPatch(t, f, b) {
+  var url = SU + '/rest/v1/' + t + '?' + f;
+  var r = await fetch(url, { method: 'PATCH', headers: { 'apikey': SK, 'Authorization': 'Bearer ' + SK, 'Content-Type': 'application/json', 'Prefer': 'return=representation' }, body: JSON.stringify(b) });
+  if (!r.ok) throw new Error('Patch error');
+  return r.json();
 }
-async function dbDel(table, filter) {
-  var url = SURL + '/rest/v1/' + table + '?' + filter;
-  await fetch(url, {method:'DELETE', headers:{'apikey':SKEY,'Authorization':'Bearer '+SKEY}});
+async function dbDel(t, f) {
+  await fetch(SU + '/rest/v1/' + t + '?' + f, { method: 'DELETE', headers: { 'apikey': SK, 'Authorization': 'Bearer ' + SK } });
 }
 
-// STATE
-var adminPass = 'admin123';
-var loginTab = 'admin';
-var curTeacher = null;
-var allTeachers = [], allBooks = [], allUnits = [], allActs = [], allTypes = [];
-var cGVid = 0, cSachId = 0;
+var AP = 'admin123', LT = 'admin', CurT = null;
+var GVs = [], SKs = [], Units = [], Acts = [], DBs = [];
+var cGV = 0, cSK = 0;
 
-// INIT
-async function initApp() {
-  try {
-    var r = await dbGet('app_settings', 'key=eq.wm_admin_password');
-    if (r.length) adminPass = r[0].value;
-  } catch(e) {}
+async function init() {
+  try { var r = await db('GET', 'app_settings', 'key=eq.wm_admin_password'); if (r.length) AP = r[0].value; } catch (e) {}
 }
 
-// LOGIN
-function setLoginTab(tab) {
-  loginTab = tab;
-  var tabs = document.querySelectorAll('.login-tab');
-  tabs[0].classList.toggle('active', tab === 'admin');
-  tabs[1].classList.toggle('active', tab === 'teacher');
-  var fu = document.getElementById('field-username');
-  fu.style.display = tab === 'admin' ? 'none' : 'block';
-  document.getElementById('login-user').value = tab === 'admin' ? 'admin' : '';
+function setTab(t) {
+  LT = t;
+  document.querySelectorAll('.ltab').forEach(function(el, i) { el.classList.toggle('active', (i === 0 && t === 'admin') || (i === 1 && t === 'teacher')); });
+  document.getElementById('fu').style.display = t === 'admin' ? 'none' : 'block';
+  document.getElementById('lu').value = t === 'admin' ? 'admin' : '';
 }
 
 async function doLogin() {
-  var user = document.getElementById('login-user').value.trim() || 'admin';
-  var pass = document.getElementById('login-pass').value;
-  var err = document.getElementById('login-error');
-  err.style.display = 'none';
-  if (!pass) { showErr('Nhap mat khau!'); return; }
-  if (loginTab === 'admin') {
-    if (pass === adminPass) {
-      showPage('page-admin');
-      await loadAll();
-      adminNav('dashboard');
-    } else showErr('Sai mat khau admin');
+  var u = document.getElementById('lu').value.trim() || 'admin';
+  var p = document.getElementById('lp').value;
+  var e = document.getElementById('lerr');
+  e.style.display = 'none';
+  if (!p) { se('Nhap mat khau!'); return; }
+  if (LT === 'admin') {
+    if (p === AP) { showPg('pg-admin'); await loadAll(); go('dash'); } else se('Sai mat khau admin');
   } else {
-    if (!user) { showErr('Nhap username!'); return; }
+    if (!u) { se('Nhap username!'); return; }
     try {
-      var rows = await dbGet('wm_teachers', 'username=eq.' + encodeURIComponent(user) + '&password=eq.' + encodeURIComponent(pass) + '&active=eq.true');
-      if (rows.length) {
-        curTeacher = rows[0];
-        document.getElementById('t-name').textContent = curTeacher.name;
-        showPage('page-teacher');
-        loadTeacherBooks();
-      } else showErr('Sai tai khoan hoac mat khau');
-    } catch(e) { showErr('Loi: ' + e.message); }
+      var rows = await db('GET', 'wm_teachers', 'username=eq.' + encodeURIComponent(u) + '&password=eq.' + encodeURIComponent(p) + '&active=eq.true');
+      if (rows.length) { CurT = rows[0]; document.getElementById('t-name').textContent = CurT.name; showPg('pg-teacher'); loadTBooks(); }
+      else se('Sai tai khoan hoac mat khau');
+    } catch (ex) { se('Loi: ' + ex.message); }
   }
-  function showErr(m) { err.textContent = m; err.style.display = 'block'; }
+  function se(m) { e.textContent = m; e.style.display = 'block'; }
 }
 
-function doLogout() {
-  curTeacher = null;
-  document.getElementById('login-pass').value = '';
-  showPage('page-login');
-}
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
-}
+function doLogout() { CurT = null; document.getElementById('lp').value = ''; showPg('pg-login'); }
+function showPg(id) { document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); }); document.getElementById(id).classList.add('active'); }
 
-// LOAD ALL
 async function loadAll() {
-  var results = await Promise.all([
-    dbGet('wm_teachers', 'order=created_at.asc'),
-    dbGet('wm_books', 'order=sort_order.asc,id.asc'),
-    dbGet('wm_units', 'order=sort_order.asc,unit_number.asc'),
-    dbGet('wm_activities', 'order=sort_order.asc,id.asc'),
-    dbGet('wm_activity_types', 'order=sort_order.asc,id.asc')
+  var rs = await Promise.all([
+    db('GET', 'wm_teachers', 'order=created_at.asc'),
+    db('GET', 'wm_books', 'order=sort_order.asc,id.asc'),
+    db('GET', 'wm_units', 'order=sort_order.asc,unit_number.asc'),
+    db('GET', 'wm_activities', 'order=sort_order.asc,id.asc'),
+    db('GET', 'wm_activity_types', 'order=sort_order.asc,id.asc')
   ]);
-  allTeachers = results[0]; allBooks = results[1]; allUnits = results[2];
-  allActs = results[3]; allTypes = results[4];
+  GVs = rs[0]; SKs = rs[1]; Units = rs[2]; Acts = rs[3]; DBs = rs[4];
 }
 
-// ADMIN NAV
-function adminNav(sec) {
-  document.querySelectorAll('.admin-section').forEach(function(s){ s.style.display = 'none'; });
-  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
-  document.getElementById('sec-' + sec).style.display = 'block';
-  document.getElementById('nav-' + sec).classList.add('active');
-  if (sec === 'dashboard') renderDash();
-  if (sec === 'teachers') renderGVList();
-  if (sec === 'content') { cGVid = 0; cSachId = 0; showStep('gv'); renderContentGV(); }
-  if (sec === 'results') rSetup();
-  if (sec === 'types') renderTypes();
+function go(sec) {
+  document.querySelectorAll('.sec').forEach(function(s) { s.style.display = 'none'; });
+  document.querySelectorAll('.ni').forEach(function(n) { n.classList.remove('active'); });
+  document.getElementById('s-' + sec).style.display = 'block';
+  document.getElementById('n-' + sec).classList.add('active');
+  if (sec === 'dash') renderDash();
+  if (sec === 'gv') renderGV();
+  if (sec === 'nd') { cGV = 0; cSK = 0; showND('gv'); renderNDGV(); }
+  if (sec === 'kq') kqSetup();
+  if (sec === 'db') renderDB();
 }
 
-// DASHBOARD
 function renderDash() {
-  document.getElementById('stat-teachers').textContent = allTeachers.filter(function(t){ return t.active; }).length;
-  document.getElementById('stat-books').textContent = allBooks.length;
-  document.getElementById('stat-acts').textContent = allActs.filter(function(a){ return a.play_link; }).length;
-  var el = document.getElementById('dash-teachers');
-  if (!allTeachers.length) { el.innerHTML = '<div class="empty"><p>Chua co giao vien nao</p></div>'; return; }
-  var html = '<table><thead><tr><th>Ten</th><th>Truong</th><th>Username</th><th>Sach</th><th>Trang thai</th></tr></thead><tbody>';
-  allTeachers.forEach(function(t) {
-    var bc = allBooks.filter(function(b){ return b.teacher_id === t.id; }).length;
-    html += '<tr><td><strong>' + t.name + '</strong></td><td>' + (t.school||'—') + '</td><td><code>' + t.username + '</code></td>';
-    html += '<td><span class="badge badge-blue">' + bc + '</span></td>';
-    html += '<td><span class="badge ' + (t.active ? 'badge-green' : 'badge-red') + '">' + (t.active ? 'Active' : 'Khoa') + '</span></td></tr>';
+  document.getElementById('st-gv').textContent = GVs.filter(function(t) { return t.active; }).length;
+  document.getElementById('st-sk').textContent = SKs.length;
+  document.getElementById('st-bai').textContent = Acts.filter(function(a) { return a.play_link; }).length;
+  var el = document.getElementById('dash-gv');
+  if (!GVs.length) { el.innerHTML = '<div class="empty"><p>Chua co giao vien</p></div>'; return; }
+  var h = '<table><thead><tr><th>Ten</th><th>Truong</th><th>Username</th><th>Sach</th><th>TT</th></tr></thead><tbody>';
+  GVs.forEach(function(t) {
+    var bc = SKs.filter(function(b) { return b.teacher_id === t.id; }).length;
+    h += '<tr><td><strong>' + t.name + '</strong></td><td>' + (t.school || '-') + '</td><td><code>' + t.username + '</code></td>';
+    h += '<td><span class="bdg bb">' + bc + '</span></td><td><span class="bdg ' + (t.active ? 'bg2' : 'br') + '">' + (t.active ? 'Active' : 'Khoa') + '</span></td></tr>';
   });
-  html += '</tbody></table>';
-  el.innerHTML = html;
+  el.innerHTML = h + '</tbody></table>';
 }
 
-// TEACHERS
-function renderGVList() {
-  var q = (document.getElementById('teacher-search') ? document.getElementById('teacher-search').value : '').toLowerCase();
-  var list = allTeachers.filter(function(t){ return t.name.toLowerCase().indexOf(q) >= 0 || (t.school||'').toLowerCase().indexOf(q) >= 0 || (t.zalo||'').indexOf(q) >= 0; });
-  var el = document.getElementById('teacher-tbody');
+function renderGV() {
+  var q = (document.getElementById('gv-search') ? document.getElementById('gv-search').value : '').toLowerCase();
+  var list = GVs.filter(function(t) { return t.name.toLowerCase().indexOf(q) >= 0 || (t.school || '').toLowerCase().indexOf(q) >= 0 || (t.zalo || '').indexOf(q) >= 0; });
+  var el = document.getElementById('gv-tbody');
   if (!list.length) { el.innerHTML = '<tr><td colspan="8"><div class="empty"><p>Khong tim thay</p></div></td></tr>'; return; }
-  var html = '';
+  var h = '';
   list.forEach(function(t) {
-    var bc = allBooks.filter(function(b){ return b.teacher_id === t.id; }).length;
-    html += '<tr>';
-    html += '<td><strong>' + t.name + '</strong></td>';
-    html += '<td>' + (t.school||'—') + '</td>';
-    html += '<td>' + (t.zalo||'—') + '</td>';
-    html += '<td><code>' + t.username + '</code></td>';
-    html += '<td><span style="font-family:monospace;font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px;">' + t.password + '</span></td>';
-    html += '<td><span class="badge badge-blue">' + bc + ' sach</span></td>';
-    html += '<td><span class="badge ' + (t.active ? 'badge-green' : 'badge-red') + '">' + (t.active ? 'Active' : 'Khoa') + '</span></td>';
-    html += '<td><button class="btn-icon" onclick="openTeacherModal(' + t.id + ')">✏️</button><button class="btn-icon danger" onclick="confirmDel(\'teacher\',' + t.id + ',\'' + safeStr(t.name) + '\')">🗑️</button></td>';
-    html += '</tr>';
+    var bc = SKs.filter(function(b) { return b.teacher_id === t.id; }).length;
+    h += '<tr><td><strong>' + t.name + '</strong></td><td>' + (t.school || '-') + '</td><td>' + (t.zalo || '-') + '</td>';
+    h += '<td><code>' + t.username + '</code></td>';
+    h += '<td><span style="font-family:monospace;font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px;">' + t.password + '</span></td>';
+    h += '<td><span class="bdg bb">' + bc + ' sach</span></td>';
+    h += '<td><span class="bdg ' + (t.active ? 'bg2' : 'br') + '">' + (t.active ? 'Active' : 'Khoa') + '</span></td>';
+    h += '<td><button class="bi" onclick="openMT(' + t.id + ')">✏️</button><button class="bi d" onclick="askDel(\'gv\',' + t.id + ',\'' + ss(t.name) + '\')">🗑️</button></td></tr>';
   });
-  el.innerHTML = html;
+  el.innerHTML = h;
 }
 
-function openTeacherModal(id) {
+function openMT(id) {
   document.getElementById('mt-id').value = id || '';
-  document.getElementById('mt-title').textContent = id ? 'Sua giao vien' : 'Them giao vien';
+  document.getElementById('mt-ttl').textContent = id ? 'Sua giao vien' : 'Them giao vien';
   if (id) {
-    var t = allTeachers.find(function(x){ return x.id === id; });
-    document.getElementById('mt-name').value = t.name;
-    document.getElementById('mt-school').value = t.school || '';
-    document.getElementById('mt-zalo').value = t.zalo || '';
-    document.getElementById('mt-user').value = t.username;
-    document.getElementById('mt-pass').value = t.password;
-    document.getElementById('mt-active').value = t.active ? '1' : '0';
+    var t = GVs.find(function(x) { return x.id === id; });
+    document.getElementById('mt-ten').value = t.name;
+    document.getElementById('mt-tr').value = t.school || '';
+    document.getElementById('mt-zl').value = t.zalo || '';
+    document.getElementById('mt-un').value = t.username;
+    document.getElementById('mt-mk').value = t.password;
+    document.getElementById('mt-tt').value = t.active ? '1' : '0';
   } else {
-    ['mt-name','mt-school','mt-zalo','mt-user','mt-pass'].forEach(function(i){ document.getElementById(i).value = ''; });
-    document.getElementById('mt-active').value = '1';
+    ['mt-ten', 'mt-tr', 'mt-zl', 'mt-un', 'mt-mk'].forEach(function(i) { document.getElementById(i).value = ''; });
+    document.getElementById('mt-tt').value = '1';
   }
-  renderBooksInModal(id);
-  switchTab('modal-teacher', 'tab-info', document.querySelector('#modal-teacher .tab-btn'));
-  openModal('modal-teacher');
+  renderBkModal(id);
+  stab('m-gv', 'tp-info', document.querySelector('#m-gv .tbb'));
+  openM('m-gv');
 }
 
-function renderBooksInModal(tid) {
+function renderBkModal(tid) {
   var el = document.getElementById('mt-books');
-  if (!tid) { el.innerHTML = '<p style="font-size:12px;color:var(--text-muted);">Luu GV truoc roi them sach.</p>'; return; }
-  var books = allBooks.filter(function(b){ return b.teacher_id === tid; });
-  if (!books.length) { el.innerHTML = '<p style="font-size:12px;color:var(--text-muted);">Chua co dau sach.</p>'; return; }
-  var html = '';
-  books.forEach(function(b) {
-    html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);">';
-    html += '<span style="flex:1;font-size:13px;font-weight:600;">📖 ' + b.name + '</span>';
-    html += '<button class="btn-icon" onclick="openBookModal(' + b.id + ')">✏️</button>';
-    html += '<button class="btn-icon danger" onclick="confirmDel(\'book\',' + b.id + ',\'' + safeStr(b.name) + '\')">🗑️</button>';
-    html += '</div>';
+  if (!tid) { el.innerHTML = '<p style="font-size:12px;color:var(--muted);">Luu GV truoc roi them sach.</p>'; return; }
+  var bks = SKs.filter(function(b) { return b.teacher_id === tid; });
+  if (!bks.length) { el.innerHTML = '<p style="font-size:12px;color:var(--muted);">Chua co dau sach.</p>'; return; }
+  var h = '';
+  bks.forEach(function(b) {
+    h += '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--bdr);">';
+    h += '<span style="flex:1;font-size:13px;font-weight:600;">📖 ' + b.name + '</span>';
+    h += '<button class="bi" onclick="openMB(' + b.id + ')">✏️</button>';
+    h += '<button class="bi d" onclick="askDel(\'sk\',' + b.id + ',\'' + ss(b.name) + '\')">🗑️</button></div>';
   });
-  el.innerHTML = html;
+  el.innerHTML = h;
 }
 
-async function addBookInModal() {
+async function addSkModal() {
   var tid = parseInt(document.getElementById('mt-id').value);
-  var name = document.getElementById('mt-new-book').value.trim();
-  if (!tid) { showToast('Luu GV truoc!', 'error'); return; }
-  if (!name) { showToast('Nhap ten sach!', 'error'); return; }
+  var name = document.getElementById('mt-nb').value.trim();
+  if (!tid) { toast('Luu GV truoc!', 'er'); return; }
+  if (!name) { toast('Nhap ten sach!', 'er'); return; }
   try {
-    var maxO = allBooks.filter(function(b){ return b.teacher_id === tid; }).reduce(function(m,b){ return Math.max(m, b.sort_order||0); }, 0);
-    var r = await dbPost('wm_books', {teacher_id: tid, name: name, sort_order: maxO+1});
-    allBooks.push(r[0]);
-    document.getElementById('mt-new-book').value = '';
-    renderBooksInModal(tid);
-    showToast('Da them sach!');
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+    var mo = SKs.filter(function(b) { return b.teacher_id === tid; }).reduce(function(m, b) { return Math.max(m, b.sort_order || 0); }, 0);
+    var r = await db('POST', 'wm_books', '', { teacher_id: tid, name: name, sort_order: mo + 1 });
+    SKs.push(r[0]);
+    document.getElementById('mt-nb').value = '';
+    renderBkModal(tid);
+    toast('Da them sach!');
+  } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-async function saveTeacher() {
+async function saveGV() {
   var id = document.getElementById('mt-id').value;
-  var name = document.getElementById('mt-name').value.trim();
-  var school = document.getElementById('mt-school').value.trim();
-  var zalo = document.getElementById('mt-zalo').value.trim();
-  var username = document.getElementById('mt-user').value.trim();
-  var password = document.getElementById('mt-pass').value;
-  var active = document.getElementById('mt-active').value === '1';
-  if (!name || !username || !password) { showToast('Dien du ten, username, mat khau!', 'error'); return; }
+  var name = document.getElementById('mt-ten').value.trim();
+  var school = document.getElementById('mt-tr').value.trim();
+  var zalo = document.getElementById('mt-zl').value.trim();
+  var username = document.getElementById('mt-un').value.trim();
+  var password = document.getElementById('mt-mk').value;
+  var active = document.getElementById('mt-tt').value === '1';
+  if (!name || !username || !password) { toast('Dien du ten, username, mat khau!', 'er'); return; }
   try {
     if (id) {
-      await dbPatch('wm_teachers', 'id=eq.' + id, {name:name, school:school, zalo:zalo, username:username, password:password, active:active});
-      var i = allTeachers.findIndex(function(t){ return t.id == id; });
-      if (i >= 0) allTeachers[i] = Object.assign({}, allTeachers[i], {name:name,school:school,zalo:zalo,username:username,password:password,active:active});
+      await dbPatch('wm_teachers', 'id=eq.' + id, { name: name, school: school, zalo: zalo, username: username, password: password, active: active });
+      var i = GVs.findIndex(function(t) { return t.id == id; });
+      if (i >= 0) GVs[i] = Object.assign({}, GVs[i], { name: name, school: school, zalo: zalo, username: username, password: password, active: active });
     } else {
-      var r = await dbPost('wm_teachers', {name:name, school:school, zalo:zalo, username:username, password:password, active:active});
-      allTeachers.push(r[0]);
+      var r = await db('POST', 'wm_teachers', '', { name: name, school: school, zalo: zalo, username: username, password: password, active: active });
+      GVs.push(r[0]);
       document.getElementById('mt-id').value = r[0].id;
-      renderBooksInModal(r[0].id);
+      renderBkModal(r[0].id);
     }
-    renderGVList();
-    showToast('Da luu giao vien!');
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+    renderGV(); toast('Da luu!');
+  } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-// CONTENT
-function showStep(step) {
-  ['gv','sach','unit'].forEach(function(s){
-    document.getElementById('step-' + s).style.display = s === step ? 'block' : 'none';
-  });
+function showND(step) {
+  ['gv', 'sk', 'unit'].forEach(function(s) { document.getElementById('nd-' + s).style.display = s === step ? 'block' : 'none'; });
 }
 
-function renderContentGV() {
-  var q = (document.getElementById('content-search') ? document.getElementById('content-search').value : '').toLowerCase();
-  var list = allTeachers.filter(function(t){ return t.name.toLowerCase().indexOf(q) >= 0 || (t.school||'').toLowerCase().indexOf(q) >= 0; });
-  var html = '';
+function renderNDGV() {
+  var q = (document.getElementById('nd-search') ? document.getElementById('nd-search').value : '').toLowerCase();
+  var list = GVs.filter(function(t) { return t.name.toLowerCase().indexOf(q) >= 0 || (t.school || '').toLowerCase().indexOf(q) >= 0; });
+  var h = '';
   list.forEach(function(t) {
-    var bc = allBooks.filter(function(b){ return b.teacher_id === t.id; }).length;
-    html += '<div class="book-card" onclick="openGV(' + t.id + ')">';
-    html += '<div class="bc-icon">👩‍🏫</div><div class="bc-name">' + t.name + '</div>';
-    html += '<div class="bc-sub">' + (t.school||'') + '</div>';
-    html += '<div style="margin-top:8px;"><span class="badge badge-blue">' + bc + ' sach</span></div></div>';
+    var bc = SKs.filter(function(b) { return b.teacher_id === t.id; }).length;
+    h += '<div class="gc" onclick="ndOpenGV(' + t.id + ')">';
+    h += '<div class="gci">👩‍🏫</div><div class="gcn">' + t.name + '</div><div class="gcs">' + (t.school || '') + '</div>';
+    h += '<div style="margin-top:8px;"><span class="bdg bb">' + bc + ' sach</span></div></div>';
   });
-  document.getElementById('gv-grid').innerHTML = html || '<div class="empty" style="grid-column:1/-1"><p>Khong tim thay</p></div>';
+  document.getElementById('nd-gv-grid').innerHTML = h || '<div class="empty" style="grid-column:1/-1"><p>Khong tim thay</p></div>';
 }
 
-function openGV(tid) {
-  cGVid = tid; cSachId = 0;
-  var t = allTeachers.find(function(x){ return x.id === tid; });
-  document.getElementById('bc-sach').innerHTML = '<span class="bc-link" onclick="showStep(\'gv\');renderContentGV()">GV</span><span class="sep"> › </span><span class="cur">👩‍🏫 ' + t.name + '</span>';
-  renderSachGrid();
-  showStep('sach');
+function ndOpenGV(tid) {
+  cGV = tid; cSK = 0;
+  var t = GVs.find(function(x) { return x.id === tid; });
+  document.getElementById('bc-sk').innerHTML = '<span class="bcl" onclick="showND(\'gv\');renderNDGV()">GV</span><span class="bcs"> › </span><span class="bcc">👩‍🏫 ' + t.name + '</span>';
+  renderNDSK(); showND('sk');
 }
 
-function renderSachGrid() {
-  var books = allBooks.filter(function(b){ return b.teacher_id === cGVid; });
-  var html = '';
-  books.forEach(function(b) {
-    var uc = allUnits.filter(function(u){ return u.book_id === b.id; }).length;
-    html += '<div class="book-card" onclick="openSach(' + b.id + ')">';
-    html += '<div class="bc-icon">📖</div><div class="bc-name">' + b.name + '</div>';
-    html += '<div class="bc-sub">' + uc + ' unit</div></div>';
+function renderNDSK() {
+  var bks = SKs.filter(function(b) { return b.teacher_id === cGV; });
+  var h = '';
+  bks.forEach(function(b) {
+    var uc = Units.filter(function(u) { return u.book_id === b.id; }).length;
+    h += '<div class="gc" onclick="ndOpenSK(' + b.id + ')"><div class="gci">📖</div><div class="gcn">' + b.name + '</div><div class="gcs">' + uc + ' unit</div></div>';
   });
-  document.getElementById('sach-grid').innerHTML = html || '<div class="empty" style="grid-column:1/-1"><div class="ei">📭</div><p>Chua co dau sach</p></div>';
+  document.getElementById('nd-sk-grid').innerHTML = h || '<div class="empty" style="grid-column:1/-1"><div class="ei">📭</div><p>Chua co dau sach</p></div>';
 }
 
-function openSach(bid) {
-  cSachId = bid;
-  var t = allTeachers.find(function(x){ return x.id === cGVid; });
-  var b = allBooks.find(function(x){ return x.id === bid; });
+function ndOpenSK(bid) {
+  cSK = bid;
+  var t = GVs.find(function(x) { return x.id === cGV; });
+  var b = SKs.find(function(x) { return x.id === bid; });
   document.getElementById('bc-unit').innerHTML =
-    '<span class="bc-link" onclick="showStep(\'gv\');renderContentGV()">GV</span><span class="sep"> › </span>' +
-    '<span class="bc-link" onclick="openGV(' + cGVid + ')">👩‍🏫 ' + t.name + '</span><span class="sep"> › </span>' +
-    '<span class="cur">📖 ' + b.name + '</span>';
-  renderUnitList();
-  showStep('unit');
+    '<span class="bcl" onclick="showND(\'gv\');renderNDGV()">GV</span><span class="bcs"> › </span>' +
+    '<span class="bcl" onclick="ndOpenGV(' + cGV + ')">👩‍🏫 ' + t.name + '</span><span class="bcs"> › </span>' +
+    '<span class="bcc">📖 ' + b.name + '</span>';
+  renderUnitList(); showND('unit');
 }
 
 async function renderUnitList() {
   var el = document.getElementById('unit-list');
-  el.innerHTML = '<div style="padding:12px;color:var(--text-muted);">Dang tai...</div>';
-  // Reload types and activities fresh
+  el.innerHTML = '<div style="padding:12px;color:var(--muted);">Dang tai...</div>';
   try {
-    allTypes = await dbGet('wm_activity_types', 'order=sort_order.asc,id.asc');
-    var unitIds = allUnits.filter(function(u){ return u.book_id === cSachId; }).map(function(u){ return u.id; });
-    if (unitIds.length) {
-      var fresh = await dbGet('wm_activities', 'unit_id=in.(' + unitIds.join(',') + ')&order=sort_order.asc,id.asc');
-      fresh.forEach(function(a) {
-        var i = allActs.findIndex(function(x){ return x.id === a.id; });
-        if (i >= 0) allActs[i] = a; else allActs.push(a);
-      });
+    DBs = await db('GET', 'wm_activity_types', 'order=sort_order.asc,id.asc');
+    var uids = Units.filter(function(u) { return u.book_id === cSK; }).map(function(u) { return u.id; });
+    if (uids.length) {
+      var fresh = await db('GET', 'wm_activities', 'unit_id=in.(' + uids.join(',') + ')&order=sort_order.asc,id.asc');
+      fresh.forEach(function(a) { var i = Acts.findIndex(function(x) { return x.id === a.id; }); if (i >= 0) Acts[i] = a; else Acts.push(a); });
     }
-  } catch(e) {}
-
-  var units = allUnits.filter(function(u){ return u.book_id === cSachId; });
-  units.sort(function(a,b){ return (a.sort_order||0)-(b.sort_order||0)||(a.unit_number||0)-(b.unit_number||0); });
-
+  } catch (ex) {}
+  var units = Units.filter(function(u) { return u.book_id === cSK; });
+  units.sort(function(a, b) { return (a.sort_order || 0) - (b.sort_order || 0) || (a.unit_number || 0) - (b.unit_number || 0); });
   if (!units.length) { el.innerHTML = '<div class="empty"><div class="ei">📭</div><p>Chua co unit nao.</p></div>'; return; }
-
-  var html = '';
-  for (var ui = 0; ui < units.length; ui++) {
-    var u = units[ui];
-    var linked = allActs.filter(function(a){ return a.unit_id === u.id && a.play_link; }).length;
-    var uLabel = (u.unit_number ? 'Unit ' + u.unit_number + ' - ' : '') + u.unit_name;
-    var disUp = ui === 0 ? ' disabled' : '';
-    var disDown = ui === units.length-1 ? ' disabled' : '';
-    html += '<div class="unit-block open" id="ub-' + u.id + '">';
-    html += '<div class="unit-block-header" onclick="toggleUB(' + u.id + ')">';
-    html += '<div class="unit-block-title"><span class="unit-chevron">&#9658;</span> ' + uLabel;
-    html += ' <span style="font-size:11px;color:var(--text-muted);font-weight:400;">' + linked + '/' + allTypes.length + ' bai co link</span></div>';
-    html += '<div onclick="event.stopPropagation()" style="display:flex;gap:4px;align-items:center;">';
-    html += '<button class="move-btn" onclick="mvUnit(' + u.id + ',0)"' + disUp + '>&#9650;</button>';
-    html += '<button class="move-btn" onclick="mvUnit(' + u.id + ',1)"' + disDown + '>&#9660;</button>';
-    html += '<button class="btn-icon" onclick="openUnitModal(' + u.id + ')">&#9999;&#65039;</button>';
-    html += '<button class="btn-icon danger" onclick="confirmDel(\'unit\',' + u.id + ',\'' + safeStr(u.unit_name) + '\')">&#128465;&#65039;</button>';
-    html += '</div></div>';
-    html += '<div class="unit-block-body">' + buildActivityInputs(u.id) + '</div>';
-    html += '</div>';
+  var h = '';
+  for (var i = 0; i < units.length; i++) {
+    var u = units[i];
+    var lk = Acts.filter(function(a) { return a.unit_id === u.id && a.play_link; }).length;
+    var ul = (u.unit_number ? 'Unit ' + u.unit_number + ' - ' : '') + u.unit_name;
+    var du = i === 0 ? ' disabled' : '';
+    var dd = i === units.length - 1 ? ' disabled' : '';
+    h += '<div class="ub open" id="ub-' + u.id + '">';
+    h += '<div class="ubh" onclick="togUB(' + u.id + ')">';
+    h += '<div class="ubt"><span class="ubc">&#9658;</span> ' + ul + ' <span style="font-size:11px;color:var(--muted);font-weight:400;">' + lk + '/' + DBs.length + ' bai co link</span></div>';
+    h += '<div onclick="event.stopPropagation()" style="display:flex;gap:4px;align-items:center;">';
+    h += '<button class="mv" onclick="mvUnit(' + u.id + ',0)"' + du + '>&#9650;</button>';
+    h += '<button class="mv" onclick="mvUnit(' + u.id + ',1)"' + dd + '>&#9660;</button>';
+    h += '<button class="bi" onclick="openMU(' + u.id + ')">&#9999;&#65039;</button>';
+    h += '<button class="bi d" onclick="askDel(\'unit\',' + u.id + ',\'' + ss(u.unit_name) + '\')">&#128465;&#65039;</button>';
+    h += '</div></div>';
+    h += '<div class="ubb">' + buildInputs(u.id) + '</div></div>';
   }
-  el.innerHTML = html;
+  el.innerHTML = h;
 }
 
-function buildActivityInputs(unitId) {
-  var h = '<div class="atype-header">';
-  h += '<div class="atype-col">Dang bai</div>';
-  h += '<div class="atype-col">&#9654; Link choi</div>';
-  h += '<div class="atype-col">&#128202; Link ket qua</div>';
-  h += '<div></div></div>';
-  allTypes.forEach(function(type) {
-    var act = allActs.find(function(a){ return a.unit_id === unitId && a.type_id === type.id; });
+function buildInputs(uid) {
+  var h = '<div class="ah"><div class="ac">Dang bai</div><div class="ac">&#9654; Link choi</div><div class="ac">&#128202; Link KQ</div><div></div></div>';
+  DBs.forEach(function(type) {
+    var act = Acts.find(function(a) { return a.unit_id === uid && a.type_id === type.id; });
     var pv = (act && act.play_link) ? act.play_link : '';
     var rv = (act && act.result_link) ? act.result_link : '';
-    var pid = 'p-' + unitId + '-' + type.id;
-    var rid = 'r-' + unitId + '-' + type.id;
-    var sbid = 's-' + unitId + '-' + type.id;
-    h += '<div class="atype-row">';
-    h += '<div class="atype-label">' + type.name + '</div>';
-    h += '<input class="atype-input" type="url" id="' + pid + '" value="' + pv + '" placeholder="https://wordwall.net/play/...">';
-    h += '<input class="atype-input res" type="url" id="' + rid + '" value="' + rv + '" placeholder="https://wordwall.net/results/...">';
-    h += '<button class="save-btn" id="' + sbid + '" onclick="saveAct(' + unitId + ',' + type.id + ')">Luu</button>';
+    h += '<div class="ar">';
+    h += '<div class="al">' + type.name + '</div>';
+    h += '<input class="ai" type="url" id="p-' + uid + '-' + type.id + '" value="' + pv + '" placeholder="https://wordwall.net/play/...">';
+    h += '<input class="ai air" type="url" id="r-' + uid + '-' + type.id + '" value="' + rv + '" placeholder="https://wordwall.net/results/...">';
+    h += '<button class="sb2" id="s-' + uid + '-' + type.id + '" onclick="saveAct(' + uid + ',' + type.id + ')">Luu</button>';
     h += '</div>';
   });
-  h += '<div style="margin-top:10px;text-align:right;">';
-  h += '<button class="btn btn-primary btn-sm" onclick="saveAllUnit(' + unitId + ')">&#128190; Luu tat ca unit</button>';
-  h += '</div>';
+  h += '<div style="margin-top:10px;text-align:right;"><button class="btn bp bs" onclick="saveAll(' + uid + ')">&#128190; Luu tat ca</button></div>';
   return h;
 }
 
-function toggleUB(id) { document.getElementById('ub-'+id) && document.getElementById('ub-'+id).classList.toggle('open'); }
+function togUB(id) { var el = document.getElementById('ub-' + id); if (el) el.classList.toggle('open'); }
 
 async function mvUnit(id, dir) {
-  var siblings = allUnits.filter(function(u){ return u.book_id === cSachId; });
-  siblings.sort(function(a,b){ return (a.sort_order||0)-(b.sort_order||0)||(a.unit_number||0)-(b.unit_number||0); });
-  var idx = siblings.findIndex(function(u){ return u.id === id; });
-  var si = dir === 0 ? idx-1 : idx+1;
-  if (si < 0 || si >= siblings.length) return;
-  var a = siblings[idx], b = siblings[si];
-  var ao = a.sort_order||idx+1, bo = b.sort_order||si+1;
-  try {
-    await dbPatch('wm_units', 'id=eq.' + a.id, {sort_order: bo});
-    await dbPatch('wm_units', 'id=eq.' + b.id, {sort_order: ao});
-    a.sort_order = bo; b.sort_order = ao;
-    renderUnitList();
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+  var sib = Units.filter(function(u) { return u.book_id === cSK; });
+  sib.sort(function(a, b) { return (a.sort_order || 0) - (b.sort_order || 0) || (a.unit_number || 0) - (b.unit_number || 0); });
+  var idx = sib.findIndex(function(u) { return u.id === id; });
+  var si = dir === 0 ? idx - 1 : idx + 1;
+  if (si < 0 || si >= sib.length) return;
+  var a = sib[idx], b = sib[si], ao = a.sort_order || idx + 1, bo = b.sort_order || si + 1;
+  try { await dbPatch('wm_units', 'id=eq.' + a.id, { sort_order: bo }); await dbPatch('wm_units', 'id=eq.' + b.id, { sort_order: ao }); a.sort_order = bo; b.sort_order = ao; renderUnitList(); }
+  catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-async function saveAct(unitId, typeId) {
-  var pv = document.getElementById('p-'+unitId+'-'+typeId).value.trim();
-  var rv = document.getElementById('r-'+unitId+'-'+typeId).value.trim();
-  var btn = document.getElementById('s-'+unitId+'-'+typeId);
-  var existing = allActs.find(function(a){ return a.unit_id === unitId && a.type_id === typeId; });
+async function saveAct(uid, tid) {
+  var pv = document.getElementById('p-' + uid + '-' + tid).value.trim();
+  var rv = document.getElementById('r-' + uid + '-' + tid).value.trim();
+  var btn = document.getElementById('s-' + uid + '-' + tid);
+  var ex = Acts.find(function(a) { return a.unit_id === uid && a.type_id === tid; });
   try {
     btn.textContent = '...';
-    if (existing) {
-      await dbPatch('wm_activities', 'id=eq.' + existing.id, {play_link: pv, result_link: rv});
-      existing.play_link = pv; existing.result_link = rv;
-    } else {
-      var type = allTypes.find(function(t){ return t.id === typeId; });
-      var r = await dbPost('wm_activities', {unit_id: unitId, type_id: typeId, activity_name: type.name, play_link: pv, result_link: rv, sort_order: type.sort_order||0});
-      allActs.push(r[0]);
-    }
-    btn.textContent = '✓'; btn.classList.add('saved');
-    setTimeout(function(){ btn.textContent = 'Luu'; btn.classList.remove('saved'); }, 1500);
-  } catch(e) { btn.textContent = 'Loi!'; showToast('Loi: ' + e.message, 'error'); }
+    if (ex) { await dbPatch('wm_activities', 'id=eq.' + ex.id, { play_link: pv, result_link: rv }); ex.play_link = pv; ex.result_link = rv; }
+    else { var type = DBs.find(function(t) { return t.id === tid; }); var r = await db('POST', 'wm_activities', '', { unit_id: uid, type_id: tid, activity_name: type.name, play_link: pv, result_link: rv, sort_order: type.sort_order || 0 }); Acts.push(r[0]); }
+    btn.textContent = '✓'; btn.classList.add('sv2'); setTimeout(function() { btn.textContent = 'Luu'; btn.classList.remove('sv2'); }, 1500);
+  } catch (ex2) { btn.textContent = 'Loi!'; toast('Loi: ' + ex2.message, 'er'); }
 }
 
-async function saveAllUnit(unitId) {
-  for (var i = 0; i < allTypes.length; i++) {
-    var type = allTypes[i];
-    var pi = document.getElementById('p-'+unitId+'-'+type.id);
-    var ri = document.getElementById('r-'+unitId+'-'+type.id);
+async function saveAll(uid) {
+  for (var i = 0; i < DBs.length; i++) {
+    var type = DBs[i];
+    var pi = document.getElementById('p-' + uid + '-' + type.id);
+    var ri = document.getElementById('r-' + uid + '-' + type.id);
     if (!pi) continue;
     var pv = pi.value.trim(), rv = ri.value.trim();
-    var existing = allActs.find(function(a){ return a.unit_id === unitId && a.type_id === type.id; });
-    if (existing) {
-      await dbPatch('wm_activities', 'id=eq.' + existing.id, {play_link: pv, result_link: rv});
-      existing.play_link = pv; existing.result_link = rv;
-    } else if (pv || rv) {
-      var r = await dbPost('wm_activities', {unit_id: unitId, type_id: type.id, activity_name: type.name, play_link: pv, result_link: rv, sort_order: type.sort_order||0});
-      allActs.push(r[0]);
-    }
+    var ex = Acts.find(function(a) { return a.unit_id === uid && a.type_id === type.id; });
+    if (ex) { await dbPatch('wm_activities', 'id=eq.' + ex.id, { play_link: pv, result_link: rv }); ex.play_link = pv; ex.result_link = rv; }
+    else if (pv || rv) { var r = await db('POST', 'wm_activities', '', { unit_id: uid, type_id: type.id, activity_name: type.name, play_link: pv, result_link: rv, sort_order: type.sort_order || 0 }); Acts.push(r[0]); }
   }
-  showToast('Da luu tat ca!', 'success');
-  renderUnitList();
+  toast('Da luu tat ca!', 'ok'); renderUnitList();
 }
 
-// BOOK MODAL
-function openBookModal(id) {
+function openMB(id) {
   document.getElementById('mb-id').value = id || '';
-  document.getElementById('mb-name').value = id ? (allBooks.find(function(b){ return b.id === id; })||{}).name||'' : '';
-  document.getElementById('mb-title').textContent = id ? 'Sua dau sach' : 'Them dau sach';
-  openModal('modal-book');
+  document.getElementById('mb-ten').value = id ? ((SKs.find(function(b) { return b.id === id; }) || {}).name || '') : '';
+  document.getElementById('mb-ttl').textContent = id ? 'Sua dau sach' : 'Them dau sach';
+  openM('m-sk');
 }
-async function saveBook() {
+async function saveSK() {
   var id = document.getElementById('mb-id').value;
-  var name = document.getElementById('mb-name').value.trim();
-  if (!name) { showToast('Nhap ten sach!', 'error'); return; }
+  var name = document.getElementById('mb-ten').value.trim();
+  if (!name) { toast('Nhap ten sach!', 'er'); return; }
   try {
-    if (id) {
-      await dbPatch('wm_books', 'id=eq.' + id, {name: name});
-      var i = allBooks.findIndex(function(b){ return b.id == id; }); if (i >= 0) allBooks[i].name = name;
-    } else {
-      var maxO = allBooks.filter(function(b){ return b.teacher_id === cGVid; }).reduce(function(m,b){ return Math.max(m,b.sort_order||0); },0);
-      var r = await dbPost('wm_books', {teacher_id: cGVid, name: name, sort_order: maxO+1});
-      allBooks.push(r[0]);
-    }
-    closeModal('modal-book'); renderSachGrid(); showToast('Da luu!');
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+    if (id) { await dbPatch('wm_books', 'id=eq.' + id, { name: name }); var i = SKs.findIndex(function(b) { return b.id == id; }); if (i >= 0) SKs[i].name = name; }
+    else { var mo = SKs.filter(function(b) { return b.teacher_id === cGV; }).reduce(function(m, b) { return Math.max(m, b.sort_order || 0); }, 0); var r = await db('POST', 'wm_books', '', { teacher_id: cGV, name: name, sort_order: mo + 1 }); SKs.push(r[0]); }
+    closeM('m-sk'); renderNDSK(); toast('Da luu!');
+  } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-// UNIT MODAL
-function openUnitModal(id) {
+function openMU(id) {
   document.getElementById('mu-id').value = id || '';
-  if (id) {
-    var u = allUnits.find(function(x){ return x.id === id; });
-    document.getElementById('mu-num').value = u ? (u.unit_number||'') : '';
-    document.getElementById('mu-name').value = u ? u.unit_name : '';
-  } else {
-    document.getElementById('mu-num').value = '';
-    document.getElementById('mu-name').value = '';
-  }
-  document.getElementById('mu-title').textContent = id ? 'Sua Unit' : 'Them Unit';
-  openModal('modal-unit');
+  if (id) { var u = Units.find(function(x) { return x.id === id; }); document.getElementById('mu-so').value = u ? (u.unit_number || '') : ''; document.getElementById('mu-ten').value = u ? u.unit_name : ''; }
+  else { document.getElementById('mu-so').value = ''; document.getElementById('mu-ten').value = ''; }
+  document.getElementById('mu-ttl').textContent = id ? 'Sua Unit' : 'Them Unit';
+  openM('m-unit');
 }
 async function saveUnit() {
   var id = document.getElementById('mu-id').value;
-  var num = parseInt(document.getElementById('mu-num').value) || null;
-  var name = document.getElementById('mu-name').value.trim();
-  if (!name) { showToast('Nhap ten unit!', 'error'); return; }
+  var num = parseInt(document.getElementById('mu-so').value) || null;
+  var name = document.getElementById('mu-ten').value.trim();
+  if (!name) { toast('Nhap ten unit!', 'er'); return; }
   try {
-    if (id) {
-      await dbPatch('wm_units', 'id=eq.' + id, {unit_number: num, unit_name: name});
-      var i = allUnits.findIndex(function(u){ return u.id == id; });
-      if (i >= 0) { allUnits[i].unit_number = num; allUnits[i].unit_name = name; }
-    } else {
-      var maxO = allUnits.filter(function(u){ return u.book_id === cSachId; }).reduce(function(m,u){ return Math.max(m,u.sort_order||0); },0);
-      var r = await dbPost('wm_units', {book_id: cSachId, unit_number: num, unit_name: name, sort_order: maxO+1});
-      allUnits.push(r[0]);
-    }
-    closeModal('modal-unit'); renderUnitList(); showToast('Da luu!');
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+    if (id) { await dbPatch('wm_units', 'id=eq.' + id, { unit_number: num, unit_name: name }); var i = Units.findIndex(function(u) { return u.id == id; }); if (i >= 0) { Units[i].unit_number = num; Units[i].unit_name = name; } }
+    else { var mo = Units.filter(function(u) { return u.book_id === cSK; }).reduce(function(m, u) { return Math.max(m, u.sort_order || 0); }, 0); var r = await db('POST', 'wm_units', '', { book_id: cSK, unit_number: num, unit_name: name, sort_order: mo + 1 }); Units.push(r[0]); }
+    closeM('m-unit'); renderUnitList(); toast('Da luu!');
+  } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-// RESULTS
-function rSetup() {
-  var sel = document.getElementById('r-gv');
+function kqSetup() {
+  var sel = document.getElementById('kq-gv');
   sel.innerHTML = '<option value="">-- Chon GV --</option>';
-  allTeachers.forEach(function(t){ sel.innerHTML += '<option value="' + t.id + '">' + t.name + (t.school ? ' - '+t.school : '') + '</option>'; });
-  document.getElementById('r-sach').innerHTML = '<option value="">-- Chon sach --</option>';
-  document.getElementById('r-view').innerHTML = '';
+  GVs.forEach(function(t) { sel.innerHTML += '<option value="' + t.id + '">' + t.name + (t.school ? ' - ' + t.school : '') + '</option>'; });
+  document.getElementById('kq-sk').innerHTML = '<option value="">-- Chon sach --</option>';
+  document.getElementById('kq-view').innerHTML = '';
 }
-function rLoadSach() {
-  var tid = parseInt(document.getElementById('r-gv').value);
-  var sel = document.getElementById('r-sach');
-  document.getElementById('r-view').innerHTML = '';
+function kqLoadSk() {
+  var tid = parseInt(document.getElementById('kq-gv').value);
+  var sel = document.getElementById('kq-sk');
+  document.getElementById('kq-view').innerHTML = '';
   if (!tid) { sel.innerHTML = '<option value="">-- Chon sach --</option>'; return; }
-  var books = allBooks.filter(function(b){ return b.teacher_id === tid; });
+  var bks = SKs.filter(function(b) { return b.teacher_id === tid; });
   sel.innerHTML = '<option value="">-- Chon sach --</option>';
-  books.forEach(function(b){ sel.innerHTML += '<option value="' + b.id + '">' + b.name + '</option>'; });
+  bks.forEach(function(b) { sel.innerHTML += '<option value="' + b.id + '">' + b.name + '</option>'; });
 }
-function rRender() {
-  var bid = parseInt(document.getElementById('r-sach').value);
-  var el = document.getElementById('r-view');
+function kqRender() {
+  var bid = parseInt(document.getElementById('kq-sk').value);
+  var el = document.getElementById('kq-view');
   if (!bid) { el.innerHTML = ''; return; }
-  var book = allBooks.find(function(b){ return b.id === bid; });
-  var units = allUnits.filter(function(u){ return u.book_id === bid; });
-  units.sort(function(a,b){ return (a.sort_order||0)-(b.sort_order||0); });
-  var html = '<div class="result-book"><div class="result-book-hd">📖 ' + book.name + '</div>';
+  var bk = SKs.find(function(b) { return b.id === bid; });
+  var units = Units.filter(function(u) { return u.book_id === bid; });
+  units.sort(function(a, b) { return (a.sort_order || 0) - (b.sort_order || 0); });
+  var h = '<div class="rbk"><div class="rbkh">📖 ' + bk.name + '</div>';
   units.forEach(function(u) {
-    html += '<div class="result-unit-hd">' + (u.unit_number ? 'Unit '+u.unit_number+' - ' : '') + u.unit_name + '</div>';
-    allTypes.forEach(function(type) {
-      var act = allActs.find(function(a){ return a.unit_id === u.id && a.type_id === type.id; });
-      html += '<div class="result-act-row"><div>' + type.name + '</div>';
-      html += (act && act.play_link) ? '<a href="' + act.play_link + '" target="_blank" class="link-chip play">&#9654; Choi</a>' : '<span style="font-size:11px;color:var(--text-light);">—</span>';
-      html += (act && act.result_link) ? '<a href="' + act.result_link + '" target="_blank" class="link-chip result">&#128202; Ket qua</a>' : '<span style="font-size:11px;color:var(--text-light);">—</span>';
-      html += '</div>';
+    h += '<div class="ruh">' + (u.unit_number ? 'Unit ' + u.unit_number + ' - ' : '') + u.unit_name + '</div>';
+    DBs.forEach(function(type) {
+      var act = Acts.find(function(a) { return a.unit_id === u.id && a.type_id === type.id; });
+      h += '<div class="rar"><div>' + type.name + '</div>';
+      h += (act && act.play_link) ? '<a href="' + act.play_link + '" target="_blank" class="lc lcp">&#9654; Choi</a>' : '<span style="font-size:11px;color:var(--light);">-</span>';
+      h += (act && act.result_link) ? '<a href="' + act.result_link + '" target="_blank" class="lc lcr">&#128202; KQ</a>' : '<span style="font-size:11px;color:var(--light);">-</span>';
+      h += '</div>';
     });
   });
-  html += '</div>';
-  el.innerHTML = html;
+  el.innerHTML = h + '</div>';
 }
 
-// TYPES
-function renderTypes() {
-  var el = document.getElementById('types-list');
-  if (!allTypes.length) { el.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">Chua co dang bai nao.</p>'; return; }
-  var html = '';
-  allTypes.forEach(function(t, i) {
-    html += '<div class="type-row">';
-    html += '<span class="type-name">' + t.name + '</span>';
-    html += '<button class="move-btn" onclick="mvType(' + t.id + ',0)"' + (i===0?' disabled':'') + '>&#9650;</button>';
-    html += '<button class="move-btn" onclick="mvType(' + t.id + ',1)"' + (i===allTypes.length-1?' disabled':'') + '>&#9660;</button>';
-    html += '<button class="btn-icon" onclick="editType(' + t.id + ')">&#9999;&#65039;</button>';
-    html += '<button class="btn-icon danger" onclick="confirmDel(\'type\',' + t.id + ',\'' + safeStr(t.name) + '\')">&#128465;&#65039;</button>';
-    html += '</div>';
+function renderDB() {
+  var el = document.getElementById('db-list');
+  if (!DBs.length) { el.innerHTML = '<p style="color:var(--muted);font-size:13px;">Chua co dang bai nao.</p>'; return; }
+  var h = '';
+  DBs.forEach(function(t, i) {
+    h += '<div class="tyr"><span class="tyn">' + t.name + '</span>';
+    h += '<button class="mv" onclick="mvDB(' + t.id + ',0)"' + (i === 0 ? ' disabled' : '') + '>&#9650;</button>';
+    h += '<button class="mv" onclick="mvDB(' + t.id + ',1)"' + (i === DBs.length - 1 ? ' disabled' : '') + '>&#9660;</button>';
+    h += '<button class="bi" onclick="editDB(' + t.id + ')">&#9999;&#65039;</button>';
+    h += '<button class="bi d" onclick="askDel(\'db\',' + t.id + ',\'' + ss(t.name) + '\')">&#128465;&#65039;</button></div>';
   });
-  el.innerHTML = html;
+  el.innerHTML = h;
 }
-async function addType() {
-  var name = document.getElementById('new-type-name').value.trim();
-  if (!name) return;
-  var maxO = allTypes.reduce(function(m,t){ return Math.max(m,t.sort_order||0); }, 0);
-  try {
-    var r = await dbPost('wm_activity_types', {name: name, sort_order: maxO+1});
-    allTypes.push(r[0]);
-    document.getElementById('new-type-name').value = '';
-    renderTypes();
-    showToast('Da them!');
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+async function addDB() {
+  var name = document.getElementById('db-new').value.trim(); if (!name) return;
+  var mo = DBs.reduce(function(m, t) { return Math.max(m, t.sort_order || 0); }, 0);
+  try { var r = await db('POST', 'wm_activity_types', '', { name: name, sort_order: mo + 1 }); DBs.push(r[0]); document.getElementById('db-new').value = ''; renderDB(); toast('Da them!'); }
+  catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
-async function editType(id) {
-  var t = allTypes.find(function(x){ return x.id === id; });
-  var name = prompt('Sua ten dang bai:', t.name);
-  if (!name || name === t.name) return;
-  try { await dbPatch('wm_activity_types', 'id=eq.' + id, {name: name}); t.name = name; renderTypes(); showToast('Da sua!'); }
-  catch(e) { showToast('Loi: ' + e.message, 'error'); }
+async function editDB(id) {
+  var t = DBs.find(function(x) { return x.id === id; });
+  var name = prompt('Sua ten dang bai:', t.name); if (!name || name === t.name) return;
+  try { await dbPatch('wm_activity_types', 'id=eq.' + id, { name: name }); t.name = name; renderDB(); toast('Da sua!'); }
+  catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
-async function mvType(id, dir) {
-  var idx = allTypes.findIndex(function(t){ return t.id === id; });
-  var si = dir === 0 ? idx-1 : idx+1;
-  if (si < 0 || si >= allTypes.length) return;
-  var a = allTypes[idx], b = allTypes[si];
-  var ao = a.sort_order||idx+1, bo = b.sort_order||si+1;
-  await dbPatch('wm_activity_types', 'id=eq.' + a.id, {sort_order: bo});
-  await dbPatch('wm_activity_types', 'id=eq.' + b.id, {sort_order: ao});
-  a.sort_order = bo; b.sort_order = ao;
-  allTypes.sort(function(x,y){ return (x.sort_order||0)-(y.sort_order||0); });
-  renderTypes();
+async function mvDB(id, dir) {
+  var idx = DBs.findIndex(function(t) { return t.id === id; });
+  var si = dir === 0 ? idx - 1 : idx + 1; if (si < 0 || si >= DBs.length) return;
+  var a = DBs[idx], b = DBs[si], ao = a.sort_order || idx + 1, bo = b.sort_order || si + 1;
+  await dbPatch('wm_activity_types', 'id=eq.' + a.id, { sort_order: bo });
+  await dbPatch('wm_activity_types', 'id=eq.' + b.id, { sort_order: ao });
+  a.sort_order = bo; b.sort_order = ao; DBs.sort(function(x, y) { return (x.sort_order || 0) - (y.sort_order || 0); }); renderDB();
 }
 
-// DELETE
-function confirmDel(type, id, name) {
-  var labels = {teacher:'giao vien', book:'dau sach', unit:'unit', type:'dang bai'};
-  document.getElementById('confirm-msg').innerHTML = 'Xoa <strong>' + labels[type] + '</strong>: "<em>' + name + '</em>"?<br><span style="color:var(--danger);font-size:12px;">Khong the hoan tac.</span>';
-  document.getElementById('confirm-ok').onclick = function(){ doDel(type, id); };
-  openModal('modal-confirm');
+async function changeAP() {
+  var old = document.getElementById('cd-old').value, nw = document.getElementById('cd-new').value, cf = document.getElementById('cd-cf').value;
+  if (old !== AP) { toast('Sai MK hien tai!', 'er'); return; }
+  if (!nw || nw.length < 4) { toast('MK moi it nhat 4 ky tu!', 'er'); return; }
+  if (nw !== cf) { toast('Xac nhan khong khop!', 'er'); return; }
+  try {
+    var r = await db('GET', 'app_settings', 'key=eq.wm_admin_password');
+    if (r.length) await dbPatch('app_settings', 'key=eq.wm_admin_password', { value: nw });
+    else await db('POST', 'app_settings', '', { key: 'wm_admin_password', value: nw });
+    AP = nw; ['cd-old', 'cd-new', 'cd-cf'].forEach(function(i) { document.getElementById(i).value = ''; }); toast('Da doi MK!', 'ok');
+  } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
+}
+
+function askDel(type, id, name) {
+  var lb = { gv: 'giao vien', sk: 'dau sach', unit: 'unit', db: 'dang bai' };
+  document.getElementById('del-msg').innerHTML = 'Xoa <strong>' + lb[type] + '</strong>: "<em>' + name + '</em>"?<br><span style="color:var(--err);font-size:12px;">Khong the hoan tac.</span>';
+  document.getElementById('del-ok').onclick = function() { doDel(type, id); };
+  openM('m-del');
 }
 async function doDel(type, id) {
-  var tables = {teacher:'wm_teachers', book:'wm_books', unit:'wm_units', type:'wm_activity_types'};
+  var tbl = { gv: 'wm_teachers', sk: 'wm_books', unit: 'wm_units', db: 'wm_activity_types' };
   try {
-    await dbDel(tables[type], 'id=eq.' + id);
-    if (type==='teacher') allTeachers = allTeachers.filter(function(x){ return x.id !== id; });
-    if (type==='book') allBooks = allBooks.filter(function(x){ return x.id !== id; });
-    if (type==='unit') allUnits = allUnits.filter(function(x){ return x.id !== id; });
-    if (type==='type') allTypes = allTypes.filter(function(x){ return x.id !== id; });
-    closeModal('modal-confirm');
-    renderGVList(); renderTypes();
-    if (cSachId) renderUnitList();
-    if (cGVid && !cSachId) renderSachGrid();
-    showToast('Da xoa!');
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+    await dbDel(tbl[type], 'id=eq.' + id);
+    if (type === 'gv') GVs = GVs.filter(function(x) { return x.id !== id; });
+    if (type === 'sk') SKs = SKs.filter(function(x) { return x.id !== id; });
+    if (type === 'unit') Units = Units.filter(function(x) { return x.id !== id; });
+    if (type === 'db') DBs = DBs.filter(function(x) { return x.id !== id; });
+    closeM('m-del'); renderGV(); renderDB();
+    if (cSK) renderUnitList(); else if (cGV) renderNDSK();
+    toast('Da xoa!');
+  } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-// SETTINGS
-async function changeAdminPass() {
-  var old = document.getElementById('s-old').value;
-  var nw = document.getElementById('s-new').value;
-  var cf = document.getElementById('s-cf').value;
-  if (old !== adminPass) { showToast('Sai mat khau hien tai!', 'error'); return; }
-  if (!nw || nw.length < 4) { showToast('Mat khau moi it nhat 4 ky tu!', 'error'); return; }
-  if (nw !== cf) { showToast('Xac nhan khong khop!', 'error'); return; }
+async function loadTBooks() {
   try {
-    var r = await dbGet('app_settings', 'key=eq.wm_admin_password');
-    if (r.length) await dbPatch('app_settings', 'key=eq.wm_admin_password', {value: nw});
-    else await dbPost('app_settings', {key: 'wm_admin_password', value: nw});
-    adminPass = nw;
-    ['s-old','s-new','s-cf'].forEach(function(i){ document.getElementById(i).value = ''; });
-    showToast('Da doi mat khau!', 'success');
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+    var bks = await db('GET', 'wm_books', 'teacher_id=eq.' + CurT.id + '&order=sort_order.asc,id.asc');
+    var el = document.getElementById('t-book-grid');
+    if (!bks.length) { el.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="ei">📭</div><p>Chua co noi dung. Lien he admin.</p></div>'; return; }
+    var h = '';
+    bks.forEach(function(b) { h += '<div class="gc" onclick="openTBook(' + b.id + ',\'' + ss(b.name) + '\')"><div class="gci">📖</div><div class="gcn">' + b.name + '</div></div>'; });
+    document.getElementById('t-book-grid').innerHTML = h;
+    document.getElementById('t-books').style.display = 'block';
+    document.getElementById('t-units').style.display = 'none';
+  } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-// TEACHER VIEW
-async function loadTeacherBooks() {
+async function openTBook(bid, bname) {
+  document.getElementById('t-books').style.display = 'none';
+  document.getElementById('t-units').style.display = 'block';
+  document.getElementById('t-bc').innerHTML = '<span class="bcl" onclick="loadTBooks()">📚 Sach cua toi</span><span class="bcs"> › </span><span class="bcc">📖 ' + bname + '</span>';
   try {
-    var books = await dbGet('wm_books', 'teacher_id=eq.' + curTeacher.id + '&order=sort_order.asc,id.asc');
-    var grid = document.getElementById('t-book-grid');
-    if (!books.length) { grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="ei">📭</div><p>Chua co noi dung. Lien he admin.</p></div>'; return; }
-    var html = '';
-    books.forEach(function(b) {
-      html += '<div class="book-card" onclick="openTeacherBook(' + b.id + ',\'' + safeStr(b.name) + '\')">';
-      html += '<div class="bc-icon">📖</div><div class="bc-name">' + b.name + '</div></div>';
-    });
-    grid.innerHTML = html;
-    document.getElementById('t-step-books').style.display = 'block';
-    document.getElementById('t-step-units').style.display = 'none';
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
-}
-
-async function openTeacherBook(bookId, bookName) {
-  document.getElementById('t-step-books').style.display = 'none';
-  document.getElementById('t-step-units').style.display = 'block';
-  document.getElementById('t-bc').innerHTML = '<span class="bc-link" onclick="loadTeacherBooks()">📚 Sach cua toi</span><span class="sep"> › </span><span class="cur">📖 ' + bookName + '</span>';
-  try {
-    var units = await dbGet('wm_units', 'book_id=eq.' + bookId + '&order=sort_order.asc,unit_number.asc');
-    var types = await dbGet('wm_activity_types', 'order=sort_order.asc');
+    var units = await db('GET', 'wm_units', 'book_id=eq.' + bid + '&order=sort_order.asc,unit_number.asc');
+    var types = await db('GET', 'wm_activity_types', 'order=sort_order.asc');
     var acts = [];
-    if (units.length) {
-      var ids = units.map(function(u){ return u.id; }).join(',');
-      acts = await dbGet('wm_activities', 'unit_id=in.(' + ids + ')');
-    }
+    if (units.length) { var ids = units.map(function(u) { return u.id; }).join(','); acts = await db('GET', 'wm_activities', 'unit_id=in.(' + ids + ')'); }
+    window._td = { units: units, types: types, acts: acts };
     var el = document.getElementById('t-unit-list');
     if (!units.length) { el.innerHTML = '<div class="empty"><div class="ei">📭</div><p>Chua co unit nao</p></div>'; return; }
-    var html = '';
+    var h = '';
     units.forEach(function(u) {
-      var uActs = acts.filter(function(a){ return a.unit_id === u.id && a.play_link; });
-      var uLabel = (u.unit_number ? 'Unit ' + u.unit_number + ' - ' : '') + u.unit_name;
-      html += '<div class="unit-item" id="tu-' + u.id + '">';
-      html += '<div class="unit-item-header" onclick="document.getElementById(\'tu-' + u.id + '\').classList.toggle(\'open\')">';
-      html += '<span>' + uLabel + '</span><span style="font-size:12px;color:var(--text-muted);">' + uActs.length + ' bai &#9662;</span></div>';
-      html += '<div class="unit-acts">';
-      if (uActs.length) {
-        html += '<div class="copy-all-wrap"><p>&#128203; Copy tin giao bai ca Unit</p>';
-        html += '<button class="copy-all-btn" id="cab-' + u.id + '" onclick="copyAll(' + u.id + ',\'' + safeStr(bookName) + '\',\'' + safeStr(uLabel) + '\')">&#128241; Copy tin giao bai</button></div>';
+      var ua = acts.filter(function(a) { return a.unit_id === u.id && a.play_link; });
+      var ul = (u.unit_number ? 'Unit ' + u.unit_number + ' - ' : '') + u.unit_name;
+      h += '<div class="ui" id="tu-' + u.id + '">';
+      h += '<div class="uih" onclick="document.getElementById(\'tu-' + u.id + '\').classList.toggle(\'open\')">';
+      h += '<span>' + ul + '</span><span style="font-size:12px;color:var(--muted);">' + ua.length + ' bai &#9662;</span></div>';
+      h += '<div class="ua">';
+      if (ua.length) {
+        h += '<div class="caw"><p>&#128203; Copy tin giao bai</p>';
+        h += '<button class="cab" id="ca-' + u.id + '" onclick="copyAll(' + u.id + ',\'' + ss(bname) + '\',\'' + ss(ul) + '\')">&#128241; Copy tin giao bai</button></div>';
       }
       var num = 1;
       types.forEach(function(type) {
-        var act = acts.find(function(a){ return a.unit_id === u.id && a.type_id === type.id; });
+        var act = acts.find(function(a) { return a.unit_id === u.id && a.type_id === type.id; });
         if (!act || !act.play_link) return;
-        html += '<div class="t-act-row">';
-        html += '<div class="t-act-num">' + num + '</div>';
-        html += '<span class="t-act-name">' + type.name + '</span>';
-        html += '<button class="copy-btn" id="cb-' + u.id + '-' + type.id + '" onclick="copyLink(\'' + act.play_link + '\',\'cb-' + u.id + '-' + type.id + '\')">&#128203; Copy link</button>';
-        html += '</div>';
+        h += '<div class="tar"><div class="tan">' + num + '</div><span class="tam">' + type.name + '</span>';
+        h += '<button class="cb2" id="cb-' + u.id + '-' + type.id + '" onclick="cpLink(\'' + act.play_link + '\',\'cb-' + u.id + '-' + type.id + '\')">&#128203; Copy link</button></div>';
         num++;
       });
-      if (!uActs.length) html += '<div style="padding:10px 16px;font-size:12px;color:var(--text-muted);">Chua co bai hoc nao</div>';
-      html += '</div></div>';
+      if (!ua.length) h += '<div style="padding:10px 16px;font-size:12px;color:var(--muted);">Chua co bai hoc nao</div>';
+      h += '</div></div>';
     });
-    el.innerHTML = html;
-    window._tData = {units: units, types: types, acts: acts};
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+    el.innerHTML = h;
+  } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-function copyAll(unitId, bookName, unitLabel) {
-  var d = window._tData; if (!d) return;
+function copyAll(uid, bname, ulabel) {
+  var d = window._td; if (!d) return;
   var today = new Date().toLocaleDateString('vi-VN');
-  var lines = '📚 Noi dung bai hoc: ' + bookName + ' - ' + unitLabel + ' · ' + today + '\n\n';
+  var txt = '📚 Noi dung bai hoc: ' + bname + ' - ' + ulabel + ' · ' + today + '\n\n';
   var num = 1;
   d.types.forEach(function(type) {
-    var act = d.acts.find(function(a){ return a.unit_id === unitId && a.type_id === type.id; });
-    if (act && act.play_link) { lines += num + '. ' + type.name + '.\n' + act.play_link + '\n\n'; num++; }
+    var act = d.acts.find(function(a) { return a.unit_id === uid && a.type_id === type.id; });
+    if (act && act.play_link) { txt += num + '. ' + type.name + '.\n' + act.play_link + '\n\n'; num++; }
   });
-  lines = lines.trim();
-  var btnId = 'cab-' + unitId;
-  navigator.clipboard.writeText(lines).then(function(){
-    var btn = document.getElementById(btnId);
-    if (btn) { btn.textContent = '✅ Da copy!'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent = '📱 Copy tin giao bai'; btn.classList.remove('copied'); }, 2500); }
-  }).catch(function(){
-    var ta = document.createElement('textarea'); ta.value = lines; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-    showToast('Da copy tin giao bai!', 'success');
-  });
-}
-
-function copyLink(url, btnId) {
-  if (!url) { showToast('Chua co link!', 'error'); return; }
-  navigator.clipboard.writeText(url).then(function(){
-    var btn = document.getElementById(btnId);
-    if (btn) { btn.textContent = '✅ Da copy!'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent = '📋 Copy link'; btn.classList.remove('copied'); }, 2000); }
-  }).catch(function(){
-    var ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-    showToast('Da copy!', 'success');
+  txt = txt.trim();
+  var bid2 = 'ca-' + uid;
+  navigator.clipboard.writeText(txt).then(function() {
+    var btn = document.getElementById(bid2);
+    if (btn) { btn.textContent = '✅ Da copy!'; btn.classList.add('cp'); setTimeout(function() { btn.textContent = '📱 Copy tin giao bai'; btn.classList.remove('cp'); }, 2500); }
+  }).catch(function() {
+    var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Da copy!', 'ok');
   });
 }
 
-async function saveTeacherPass() {
-  var old = document.getElementById('tp-old').value;
-  var nw = document.getElementById('tp-new').value;
-  var cf = document.getElementById('tp-cf').value;
-  if (old !== curTeacher.password) { showToast('Sai mat khau!', 'error'); return; }
-  if (!nw || nw.length < 4) { showToast('Mat khau moi it nhat 4 ky tu!', 'error'); return; }
-  if (nw !== cf) { showToast('Xac nhan khong khop!', 'error'); return; }
-  try {
-    await dbPatch('wm_teachers', 'id=eq.' + curTeacher.id, {password: nw});
-    curTeacher.password = nw;
-    closeModal('modal-t-pass');
-    showToast('Da doi mat khau!', 'success');
-  } catch(e) { showToast('Loi: ' + e.message, 'error'); }
+function cpLink(url, bid2) {
+  if (!url) { toast('Chua co link!', 'er'); return; }
+  navigator.clipboard.writeText(url).then(function() {
+    var btn = document.getElementById(bid2);
+    if (btn) { btn.textContent = '✅ Da copy!'; btn.classList.add('cp'); setTimeout(function() { btn.textContent = '📋 Copy link'; btn.classList.remove('cp'); }, 2000); }
+  }).catch(function() {
+    var ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('Da copy!', 'ok');
+  });
 }
 
-// HELPERS
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(function(o){
-  o.addEventListener('click', function(e){ if (e.target === o) o.classList.remove('open'); });
-});
-function switchTab(modalId, paneId, btn) {
-  var m = document.getElementById(modalId);
-  m.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  m.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
-  document.getElementById(paneId).classList.add('active');
+async function saveTPass() {
+  var old = document.getElementById('tp-old').value, nw = document.getElementById('tp-new').value, cf = document.getElementById('tp-cf').value;
+  if (old !== CurT.password) { toast('Sai MK!', 'er'); return; }
+  if (!nw || nw.length < 4) { toast('MK moi it nhat 4 ky tu!', 'er'); return; }
+  if (nw !== cf) { toast('Xac nhan khong khop!', 'er'); return; }
+  try { await dbPatch('wm_teachers', 'id=eq.' + CurT.id, { password: nw }); CurT.password = nw; closeM('m-tp'); toast('Da doi MK!', 'ok'); }
+  catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
-function togglePass(id, btn) {
+
+function openM(id) { document.getElementById(id).classList.add('open'); }
+function closeM(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.mo').forEach(function(o) { o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('open'); }); });
+function stab(mid, pid, btn) {
+  var m = document.getElementById(mid);
+  m.querySelectorAll('.tbb').forEach(function(b) { b.classList.remove('active'); }); btn.classList.add('active');
+  m.querySelectorAll('.tp').forEach(function(p) { p.classList.remove('active'); }); document.getElementById(pid).classList.add('active');
+}
+function tp(id, btn) {
   var inp = document.getElementById(id); if (!inp) return;
   inp.type = inp.type === 'password' ? 'text' : 'password';
   btn.textContent = inp.type === 'password' ? '👁️' : '🙈';
 }
-function safeStr(s) { return (s||'').replace(/\\/g,'').replace(/'/g,'').replace(/"/g,''); }
-var toastT;
-function showToast(msg, type) {
-  var el = document.getElementById('toast');
-  el.textContent = msg; el.className = 'toast show ' + (type||'success');
-  clearTimeout(toastT); toastT = setTimeout(function(){ el.classList.remove('show'); }, 2800);
+function ss(s) { return (s || '').replace(/\\/g, '').replace(/'/g, '').replace(/"/g, ''); }
+var _tt;
+function toast(msg, type) {
+  var el = document.getElementById('toast'); el.textContent = msg; el.className = 'toast show ' + (type || 'ok');
+  clearTimeout(_tt); _tt = setTimeout(function() { el.classList.remove('show'); }, 2800);
 }
-
-// START
-initApp();
+init();
 </script>
 </body>
 </html>
