@@ -134,7 +134,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div class="ni active" onclick="go('dash')" id="n-dash"><span class="ico">🏠</span> Dashboard</div>
         <div class="ni" onclick="go('gv')" id="n-gv"><span class="ico">👩‍🏫</span> Giao vien</div>
         <div class="ni" onclick="go('nd')" id="n-nd"><span class="ico">📖</span> Noi dung bai</div>
-        <div class="ni" onclick="go('kq')" id="n-kq"><span class="ico">📊</span> Xem ket qua</div>
         <div class="ni" onclick="go('db')" id="n-db"><span class="ico">🗂️</span> Dang bai</div>
         <div class="ni" onclick="go('cd')" id="n-cd"><span class="ico">⚙️</span> Cai dat</div>
       </nav>
@@ -182,16 +181,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
             <div style="margin-bottom:12px;text-align:right;"><button class="btn bp bs" onclick="openMU(0)">+ Them Unit</button></div>
             <div id="unit-list"></div>
           </div>
-        </div>
-      </div>
-      <div id="s-kq" class="sec" style="display:none">
-        <div class="mh"><h2>Xem ket qua</h2><p>Link ket qua Wordwall</p></div>
-        <div class="mb">
-          <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
-            <div class="f" style="min-width:220px;margin:0"><label>Giao vien</label><select id="kq-gv" onchange="kqLoadSk()"><option value="">-- Chon GV --</option></select></div>
-            <div class="f" style="min-width:220px;margin:0"><label>Dau sach</label><select id="kq-sk" onchange="kqRender()"><option value="">-- Chon sach --</option></select></div>
-          </div>
-          <div id="kq-view"></div>
         </div>
       </div>
       <div id="s-db" class="sec" style="display:none">
@@ -615,16 +604,18 @@ async function renderUnitList() {
 function buildInputs(uid) {
   var curCat = window._curCat;
   var filteredDBs = curCat ? DBs.filter(function(t) { return (t.category || 'Tieu hoc') === curCat; }) : DBs;
-  var h = '<div class="ah"><div class="ac">Dang bai</div><div class="ac">&#9654; Link choi</div><div class="ac">&#128202; Link KQ</div><div></div></div>';
+  var h = '<div class="ah" style="grid-template-columns:180px 1fr 1fr 55px 30px 30px;"><div class="ac">Dang bai</div><div class="ac">&#9654; Link choi</div><div class="ac">&#128202; Link KQ</div><div></div><div></div><div></div></div>';
   filteredDBs.forEach(function(type) {
     var act = Acts.find(function(a) { return a.unit_id === uid && a.type_id === type.id; });
     var pv = (act && act.play_link) ? act.play_link : '';
     var rv = (act && act.result_link) ? act.result_link : '';
-    h += '<div class="ar">';
+    h += '<div class="ar" style="grid-template-columns:180px 1fr 1fr 55px 30px 30px;">';
     h += '<div class="al">' + type.name + '</div>';
     h += '<input class="ai" type="url" id="p-' + uid + '-' + type.id + '" value="' + pv + '" placeholder="https://wordwall.net/play/..." onblur="saveAct(' + uid + ',' + type.id + ')" onkeydown="if(event.key===\'Enter\'){event.target.blur();}">';
     h += '<input class="ai air" type="url" id="r-' + uid + '-' + type.id + '" value="' + rv + '" placeholder="https://wordwall.net/results/..." onblur="saveAct(' + uid + ',' + type.id + ')" onkeydown="if(event.key===\'Enter\'){event.target.blur();}">';
     h += '<button class="sb2" id="s-' + uid + '-' + type.id + '" onclick="saveAct(' + uid + ',' + type.id + ')">Luu</button>';
+    h += (pv ? '<a href="' + pv + '" target="_blank" style="padding:5px 8px;background:#d1fae5;color:#065f46;border-radius:20px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;">&#9654;</a>' : '<span style="width:28px;display:inline-block;"></span>');
+    h += (rv ? '<a href="' + rv + '" target="_blank" style="padding:5px 8px;background:#fee2e2;color:#991b1b;border-radius:20px;font-size:11px;font-weight:600;text-decoration:none;white-space:nowrap;">&#128202;</a>' : '<span style="width:28px;display:inline-block;"></span>');
     h += '</div>';
   });
   h += '<div style="margin-top:10px;text-align:right;"><button class="btn bp bs" onclick="saveAll(' + uid + ')">&#128190; Luu tat ca</button></div>';
@@ -709,42 +700,9 @@ async function saveUnit() {
   } catch (ex) { toast('Loi: ' + ex.message, 'er'); }
 }
 
-function kqSetup() {
-  var sel = document.getElementById('kq-gv');
-  sel.innerHTML = '<option value="">-- Chon GV --</option>';
-  GVs.forEach(function(t) { sel.innerHTML += '<option value="' + t.id + '">' + t.name + (t.school ? ' - ' + t.school : '') + '</option>'; });
-  document.getElementById('kq-sk').innerHTML = '<option value="">-- Chon sach --</option>';
-  document.getElementById('kq-view').innerHTML = '';
-}
-function kqLoadSk() {
-  var tid = parseInt(document.getElementById('kq-gv').value);
-  var sel = document.getElementById('kq-sk');
-  document.getElementById('kq-view').innerHTML = '';
-  if (!tid) { sel.innerHTML = '<option value="">-- Chon sach --</option>'; return; }
-  var bks = SKs.filter(function(b) { return b.teacher_id === tid; });
-  sel.innerHTML = '<option value="">-- Chon sach --</option>';
-  bks.forEach(function(b) { sel.innerHTML += '<option value="' + b.id + '">' + b.name + '</option>'; });
-}
-function kqRender() {
-  var bid = parseInt(document.getElementById('kq-sk').value);
-  var el = document.getElementById('kq-view');
-  if (!bid) { el.innerHTML = ''; return; }
-  var bk = SKs.find(function(b) { return b.id === bid; });
-  var units = Units.filter(function(u) { return u.book_id === bid; });
-  units.sort(function(a, b) { return (a.sort_order || 0) - (b.sort_order || 0); });
-  var h = '<div class="rbk"><div class="rbkh">📖 ' + bk.name + '</div>';
-  units.forEach(function(u) {
-    h += '<div class="ruh">' + (u.unit_number ? 'Unit ' + u.unit_number + ' - ' : '') + u.unit_name + '</div>';
-    DBs.forEach(function(type) {
-      var act = Acts.find(function(a) { return a.unit_id === u.id && a.type_id === type.id; });
-      h += '<div class="rar"><div>' + type.name + '</div>';
-      h += (act && act.play_link) ? '<a href="' + act.play_link + '" target="_blank" class="lc lcp">&#9654; Choi</a>' : '<span style="font-size:11px;color:var(--light);">-</span>';
-      h += (act && act.result_link) ? '<a href="' + act.result_link + '" target="_blank" class="lc lcr">&#128202; KQ</a>' : '<span style="font-size:11px;color:var(--light);">-</span>';
-      h += '</div>';
-    });
-  });
-  el.innerHTML = h + '</div>';
-}
+
+
+
 
 function renderDB() {
   var el = document.getElementById('db-list');
